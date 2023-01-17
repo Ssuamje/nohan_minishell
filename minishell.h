@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:35:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/16 16:23:26 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/17 15:56:04 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <sys/wait.h>
 
 # define BUF_SIZE 1024
