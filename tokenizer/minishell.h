@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:35:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/17 15:56:04 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/17 19:43:02 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,40 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include "../garbage_collector/garbage_collector.h"
 
-# define BUF_SIZE 1024
-# define EXIT_FAILURE 1
-# define EXIT_SUCCESS 0
+typedef struct s_list{
+	char			character;
+	struct s_list	*next;
+}   t_list;
 
-typedef struct s_pipe
-{
-	int		infile;
-	int		outfile;
-	char	**path_list;
-}	t_pipe;
+typedef struct s_lexer{
+	int status;
+	t_list *env_buffer;
+	t_list *str_buffer;
+}   t_lexer;
 
-char	*ft_strdup(const char *s1);
-int		ft_strncmp(const char *s1, const char *s2, unsigned int n);
-char	**ft_split(char const *s, char c);
+typedef struct s_token{
+	int				status; // 최종 상태는 STRING, REDIRECT, PIPE 셋 중에 하나다.
+	char 			*string;
+	struct s_token	*next;
+}   t_token;
+
+enum e_lexer_status{
+	NORMAL, // 입력을 받기 위해 대기중인 상태
+	STRING, // sadfjksadfjkl
+	REDIRECT, // <, >, <<, >>
+	QUOTATION, // ""
+	APOSTROPHE, // ''
+	PIPE, // |
+	ENV, // $
+};
+
+enum e_error{
+	ERR_ARGC,
+	ERR_MALLOC,
+};
+
+void	exit_error(int error_code);
+
 #endif
