@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:35:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/17 19:43:02 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/18 10:05:24 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/wait.h>
 # include "../garbage_collector/garbage_collector.h"
 
+static t_gc *g_collector;
 typedef struct s_list{
 	char			character;
 	struct s_list	*next;
