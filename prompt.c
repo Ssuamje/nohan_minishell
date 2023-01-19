@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/17 19:52:12 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/19 21:42:34 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,6 @@ void    sighandler(int signo)
 {
 	if (signo == SIGINT)
 		printf("AengMu : You can quit by only Ctrl + D\n");
-}
-
-void	exit_error(int error_code)
-{
-	char *msg;
-
-	msg = NULL;
-	if (error_code == ERR_ARGC)
-		msg = "Error : Argument counts is not correct.\n";
-	if (error_code == ERR_MALLOC)
-		msg = "Error : Memory allocation has failed.\n";
-	printf("%s", msg);
-	exit(EXIT_FAILURE);
 }
 
 // int main(int ac, char **av, char **envp)
