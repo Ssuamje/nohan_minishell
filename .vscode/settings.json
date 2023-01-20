@@ -3,6 +3,7 @@
         "libft.h": "c",
         "minishell.h": "c",
         "garbage_collector.h": "c",
-        "error.h": "c"
+        "error.h": "c",
+        "lexer.h": "c"
     }
 }

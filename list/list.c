@@ -6,12 +6,12 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:06:20 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/19 22:13:41 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/20 19:33:48 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
-#include "../error/error.h"
+#include "../include/list.h"
+#include "../include/error.h"
 
 t_list  *get_list(void)
 {

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:17:09 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/20 13:42:08 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/20 22:28:11 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 #include "list.h"
 #include "error.h"
+#include "tokenizer.h"
+// #include "../libft/libft.h"
 
 enum e_lexer_status{
 	LEX_NORMAL, // 입력을 받기 위해 대기중인 상태
