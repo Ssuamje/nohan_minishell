@@ -6,18 +6,18 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:59 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/20 14:00:40 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:44:09 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env_path(char **path)
+void	env_path(t_env *env)
 {
 	int	i;
 
-	path = ft_split(getenv("PATH"), ':');
+	env->path = ft_split(getenv("PATH"), ':');
 	i = -1;
-	while (path[++i])
-		path[i] = ft_strjoin(path[i], "/");
+	while (env->path[++i])
+		env->path[i] = ft_strjoin(env->path[i], "/");
 }

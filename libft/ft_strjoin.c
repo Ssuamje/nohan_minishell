@@ -6,13 +6,13 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 22:49:15 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/01/20 14:00:54 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/20 14:19:57 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	len1;
 	size_t	len2;

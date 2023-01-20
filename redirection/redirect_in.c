@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/20 14:00:16 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:57:00 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ static void	in_trunc(t_redir *redir, t_fd *fd)
 {
 	fd->infile = open(redir->directory, O_RDONLY);
 	dup2(fd->infile, STDIN_FILENO);
+	close(fd->infile);
 }
 
 static void	in_append(t_redir *redir, t_fd *fd)
 {
 	fd->infile = open(redir->directory, O_RDONLY);
 	dup2(fd->infile, STDIN_FILENO);
+	close(fd->infile);
 }
 
 void	redirect_in(t_proc *proc, t_fd *fd)
