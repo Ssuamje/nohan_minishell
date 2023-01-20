@@ -6,11 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:41:24 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/19 21:44:28 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/20 13:41:54 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
+#include "../include/error.h"
 
 void	exit_error(int error_code)
 {

@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 12:35:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/19 22:20:26 by sanan            ###   ########.fr       */
+/*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
+/*   Updated: 2023/01/20 13:43:14 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef PARSER_H
+# define PARSER_H
 
-# include "error/error.h"
-# include "parser/parser.h"
-
-void    check_leask(void) // need to delete
-{
-    system("leaks a.out");
-}
-
-enum e_lexer_status{
-	LEX_NORMAL, // 입력을 받기 위해 대기중인 상태
-	LEX_STRING, // sadfjksadfjkl
-	LEX_REDIRECT, // <, >, <<, >>
-	LEX_QUOTATION, // ""
-	LEX_APOSTROPHE, // ''
-	LEX_PIPE, // |
-	LEX_ENV, // $
-};
+#include "lexer.h"
+#include "tokenizer.h"
 
 #endif

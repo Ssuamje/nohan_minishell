@@ -1,7 +1,8 @@
 {
 	"files.associations": {
-		"libft.h": "c",
-		"minishell.h": "c",
-		"garbage_collector.h": "c"
-	}
+        "libft.h": "c",
+        "minishell.h": "c",
+        "garbage_collector.h": "c",
+        "error.h": "c"
+    }
 }
