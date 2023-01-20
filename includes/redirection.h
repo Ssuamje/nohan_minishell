@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   redirection.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/15 21:46:55 by hyungnoh          #+#    #+#             */
-/*   Updated: 2022/11/21 14:46:40 by hyungnoh         ###   ########seoul.kr  */
+/*   Created: 2023/01/20 11:53:34 by hyungnoh          #+#    #+#             */
+/*   Updated: 2023/01/20 13:49:31 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef REDIRECTION_H
+# define REDIRECTION_H
 
-int	ft_lstsize(t_list *lst)
-{
-	int	i;
+# include "minishell.h"
 
-	if (!lst)
-		return (0);
-	i = 0;
-	while (lst != 0)
-	{
-		lst = lst->next;
-		i++;
-	}
-	return (i);
-}
+void	redirect_in(t_proc *proc, t_fd *fd);
+void	redirect_out(t_proc *proc, t_fd *fd);
+
+#endif
