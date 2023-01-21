@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:05:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/19 22:15:08 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/21 18:51:07 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ typedef struct s_list{
 }   t_list;
 
 t_list  *get_list(void);
+void    set_list(t_list *list);
 t_node  *new_node(void *content);
 void    add_node(t_list *list, t_node *node);
 void    delete_node(t_node **node);
+void    clean_list(t_list *list);
 
 #endif

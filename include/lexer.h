@@ -6,17 +6,18 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:17:09 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/20 22:28:11 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/21 19:32:16 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-#include "list.h"
+// #include "list.h"
+#include "libft.h"
 #include "error.h"
 #include "tokenizer.h"
-// #include "../libft/libft.h"
+#include <stdlib.h>
 
 enum e_lexer_status{
 	LEX_NORMAL, // 입력을 받기 위해 대기중인 상태
@@ -32,5 +33,6 @@ typedef struct s_lexer{
 	t_list  *env_buffer;
 	t_list  *str_buffer;
 }   t_lexer;
+
 
 #endif

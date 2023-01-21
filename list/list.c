@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:06:20 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/20 19:33:48 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/21 18:51:02 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ t_list  *get_list(void)
     to_return->tail = NULL;
     to_return->size = 0;
     return (to_return);
+}
+
+void    set_list(t_list *list)
+{
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
 }
 
 t_node  *new_node(void *content)
@@ -57,4 +64,27 @@ void    delete_node(t_node **node) // content는 타입에 맞게 따로 free
 {
     free(*node);
     *node = NULL;
+}
+
+void    clean_list(t_list *list)
+{
+    t_node *tmp;
+    t_node *next;
+
+    tmp = list->head;
+    if (tmp == NULL)
+        return ;
+    while (tmp->next != NULL)
+    {
+        next = tmp->next;
+        if (tmp->content)
+            free(tmp->content);
+        delete_node(&tmp);
+        tmp = next;
+    }
+    if (tmp)
+    {
+        free(tmp->content);
+        delete_node(&tmp);
+    }
 }
