@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:15:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/21 20:06:35 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/21 20:33:49 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ char    *get_processed_string(t_lexer *lexer)
     if (env_string)
         free(env_string);
     free(string);
+    ft_lstclear(&(lexer->env_buffer), free);
+    ft_lstclear(&(lexer->str_buffer), free);
     return (to_return);
 }
 
@@ -119,6 +121,17 @@ void    put_token_to_list(int prev_status, t_lexer *lexer, t_list *token_list)
     token->status = prev_status;
     token->string = get_processed_string(lexer);
     ft_lstadd_back(&token_list, ft_lstnew(token));
+}
+
+char    *char_ptr(char *ptr)
+{
+    char *to_return;
+
+    to_return = malloc(sizeof(char));
+    if (to_return == NULL)
+        exit_error(ERR_MALLOC);
+    *to_return = *ptr;
+    return (to_return);
 }
 
 t_list	*tokenize(char *input, t_lexer *lexer)
@@ -133,7 +146,7 @@ t_list	*tokenize(char *input, t_lexer *lexer)
 	{
         prev_status = lexer->status;
 		get_status(input[idx], lexer);
-        add_char_to_buffer(&input[idx], lexer);
+        add_char_to_buffer(char_ptr(&input[idx]), lexer);
         if (need_to_tokenize(prev_status, lexer->status))
             put_token_to_list(prev_status, lexer, token_list);
 		idx++;
