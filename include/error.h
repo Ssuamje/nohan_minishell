@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:43:43 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/19 21:59:18 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/23 19:14:19 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ enum e_exit_code{
 enum e_func_err{
     ERR_ARGC,
     ERR_MALLOC,
+    ERR_STATUS,
 };
 
 void	exit_error(int error_code);

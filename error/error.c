@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:41:24 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/20 13:41:54 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/23 19:14:40 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	exit_error(int error_code)
 		msg = "Error : Argument counts is not correct.\n";
 	if (error_code == ERR_MALLOC)
 		msg = "Error : Memory allocation has failed.\n";
+	if (error_code == ERR_STATUS)
+		msg = "Error : Failed parsing due to lexer status.\n";
 	printf("%s", msg);
 	exit(EXIT_FAILURE);
 }

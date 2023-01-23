@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:17:09 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/21 19:32:16 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/23 19:52:44 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "libft.h"
 #include "error.h"
 #include "tokenizer.h"
+#include "bool.h"
 #include <stdlib.h>
 
 enum e_lexer_status{
@@ -33,6 +34,5 @@ typedef struct s_lexer{
 	t_list  *env_buffer;
 	t_list  *str_buffer;
 }   t_lexer;
-
 
 #endif
