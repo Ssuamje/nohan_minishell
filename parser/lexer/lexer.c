@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:15:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/23 20:52:33 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/23 20:58:12 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,9 +284,7 @@ t_list	*tokenize(char *input, t_lexer *lexer)
         set_status(token_list, &input[idx], lexer);
 		idx++;
 	}
-    if (lexer->status == LEX_STRING 
-        || lexer->status == LEX_ENV
-        || lexer->status == LEX_REDIRECT)
+    if (lexer->status != LEX_NORMAL)
         put_token_to_list(lexer, token_list);
     return (token_list);
 }
