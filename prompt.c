@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 18:54:04 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/24 18:58:52 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ void    sighandler(int signo)
 		printf("AengMu : You can quit by only Ctrl + D\n");
 }
 
+//need to delete
+#include <unistd.h>
+void check_leaks(void)
+{
+	char *str = "**********************PROGRAM END************************\n";
+	write(1, str, ft_strlen(str));
+	system("leaks a.out");
+}
+
 int main(int ac, char **av, char **envp)
 {
 	char *input;
@@ -40,6 +49,7 @@ int main(int ac, char **av, char **envp)
 
 	(void)av;
 	(void)envp;
+	atexit(check_leaks);
 	lexer = NULL;
 	if (ac != 1)
 		exit_error(ERR_ARGC);

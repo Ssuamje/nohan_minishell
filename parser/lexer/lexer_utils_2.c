@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:46:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 16:30:24 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/24 19:58:46 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,14 @@ int	string_status(t_list *token_list, char *c, t_lexer *lexer)
 	int	cur_status;
 
 	cur_status = get_status(*c);
-	if (cur_status != LEX_STRING)
+	
+	if (cur_status == LEX_STRING
+		|| cur_status == LEX_ENV)
 	{
-		put_token_to_list(lexer, token_list);
-		lexer->status = cur_status;
 		add_char_to_buffer(get_char(c), lexer);
 		return (TRUE);
 	}
+	put_token_to_list(lexer, token_list);
 	add_char_to_buffer(get_char(c), lexer);
 	lexer->status = cur_status;
 	return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:36:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 18:53:16 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/24 18:57:18 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,4 @@ void	free_token_list(t_list **token_list)
 		ft_lstdelone(tmp, free);
 		tmp = *token_list;
 	}
-}
-
-void	check_leaks(void)
-{
-	system("leaks a.out");
 }
