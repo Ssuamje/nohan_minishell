@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:36:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 15:36:37 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/24 16:22:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,18 @@ t_token	*get_token(void)
 void	put_token_to_list(t_lexer *lexer, t_list *token_list)
 {
 	t_token	*token;
-	char	*tmp;
+	// char	*tmp;
 
 	token = get_token();
 	token->status = lexer->status;
 	token->string = get_processed_string(lexer);
-	tmp = token->string;
-	token->string = ft_strtrim(tmp, " \t");
-	free(tmp);
+	// tmp = token->string;
+	// token->string = ft_strtrim(tmp, " \t");
+	// free(tmp);
 	ft_lstadd_back(&token_list, ft_lstnew(token));
 }
 
+//print_token need to be deleted
 void	print_token(t_list *token_list)
 {
 	t_list	*tmp;
@@ -82,11 +83,6 @@ void	print_token(t_list *token_list)
 		tmp = tmp->next;
 	}
 }
-//delete
-void	check_leaks(void)
-{
-	system("leaks a.out");
-}
 
 void	free_token_list(t_list **token_list)
 {
@@ -101,6 +97,11 @@ void	free_token_list(t_list **token_list)
 		ft_lstdelone(tmp, free);
 		tmp = *token_list;
 	}
+}
+
+void	check_leaks(void)
+{
+	system("leaks a.out");
 }
 
 int	main(int ac, char **av)
@@ -122,6 +123,3 @@ int	main(int ac, char **av)
 	//return (processes);
 	return (0);
 }
-
-// apostrophe는 그 안의 모든 것을 문자열로 받아버린다.
-// quotation은 그 안의 모든 것을 문자열로 받지만, 변수는 해석한다.

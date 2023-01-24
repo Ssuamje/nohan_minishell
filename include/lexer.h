@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:17:09 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/23 22:34:16 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/24 16:50:48 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_lexer{
 	int     status;
 	t_list  *env_buffer;
 	t_list  *str_buffer;
+	int		apost_flag;
+	int		quote_flag;
 }   t_lexer;
 
 enum e_lexer_status{
@@ -50,5 +52,6 @@ int     apostrophe_status(t_list *token_list, char *c, t_lexer *lexer);
 int     pipe_status(t_list *token_list, char *c, t_lexer *lexer);
 int     env_status(t_list *token_list, char *c, t_lexer *lexer);
 int     lexical_analyze(t_list *token_list, char *c, t_lexer *lexer);
+void	check_apost_quote_flag(char *c, t_lexer *lexer);
 
 #endif

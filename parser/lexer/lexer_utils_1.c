@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:31:58 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 15:34:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/24 16:50:15 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_lexer	*get_lexer(void)
 	to_return->env_buffer = NULL;
 	to_return->str_buffer = NULL;
 	to_return->status = LEX_NORMAL;
+	to_return->apost_flag = FALSE;
+	to_return->quote_flag = FALSE;
 	return (to_return);
 }
 

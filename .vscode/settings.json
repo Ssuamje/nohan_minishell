@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "lexer.h": "c",
-        "tokenizer.h": "c",
-        "libft.h": "c"
-    }
-}

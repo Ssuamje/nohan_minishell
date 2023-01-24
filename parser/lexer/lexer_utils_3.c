@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   lexer_utils_3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 15:56:04 by sanan            ###   ########.fr       */
+/*   Created: 2023/01/24 16:31:26 by sanan             #+#    #+#             */
+/*   Updated: 2023/01/24 18:10:41 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
-# include "lexer.h"
-# include "tokenizer.h"
+#include "../../include/lexer.h"
 
-enum e_parser_status{
-	PAR_STRING = 1,
-	PAR_REDIRECT,
-	PAR_QUOTATION,
-	PAR_APOSTROPHE,
-	PAR_PIPE,
-	PAR_ENV,
-};
-typedef struct s_parser{
-	int		status;
-	char	*string;
-}	t_parser;
-
-#endif
+void check_apost_quote_flag(char *c, t_lexer *lexer)
+{
+	if (*c == '\'')
+	{
+		if (lexer->apost_flag == TRUE)
+			lexer->apost_flag = FALSE;
+		else if (lexer->quote_flag == FALSE)
+			lexer->apost_flag = TRUE;
+	}
+	if (*c == '\"')
+	{
+		if (lexer->quote_flag == TRUE)
+			lexer->quote_flag = FALSE;
+		else if (lexer->apost_flag == FALSE)
+			lexer->quote_flag = TRUE;
+	}
+}
