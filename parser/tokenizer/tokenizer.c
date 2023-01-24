@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:36:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 16:22:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/24 18:51:04 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,24 +102,4 @@ void	free_token_list(t_list **token_list)
 void	check_leaks(void)
 {
 	system("leaks a.out");
-}
-
-int	main(int ac, char **av)
-{
-	t_lexer	*lexer;
-	t_list	*token_list;
-
-	atexit(check_leaks);
-	if (ac != 2)
-		return (1);
-	lexer = get_lexer();
-	token_list = tokenize(av[1], lexer);
-	print_token(token_list);
-	//parser = get_parser();
-	//processes = get_process_list();
-	//parse_token_list(token_list, parser, processes);
-	free_token_list(&token_list);
-	free(lexer);
-	//return (processes);
-	return (0);
 }

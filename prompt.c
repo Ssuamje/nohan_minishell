@@ -6,12 +6,13 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/20 13:46:50 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/24 18:49:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/error.h"
 #include "readline/readline.h"
+#include "./include/parser.h"
 #define WAIT_FOR_SIG 1
 
 
@@ -34,9 +35,12 @@ void    sighandler(int signo)
 int main(int ac, char **av, char **envp)
 {
 	char *input;
+	t_lexer *lexer;
+	t_list *token_list;
 
 	(void)av;
 	(void)envp;
+	lexer = NULL;
 	if (ac != 1)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
@@ -51,6 +55,11 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		}
 		add_history(input);
-		printf("Aengmu : %s\n", input);
+		lexer = get_lexer();
+		token_list = tokenize(input, lexer);
+		print_token(token_list);
+		free_token_list(&token_list);
+		free(lexer);
+		// printf("Aengmu : %s\n", input);
 	}
 }
