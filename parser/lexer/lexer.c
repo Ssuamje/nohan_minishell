@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:15:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/23 22:27:32 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/24 15:24:56 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int quotation_status(t_list *token_list, char *c, t_lexer *lexer)
     else
     {
         put_token_to_list(lexer, token_list);
-        lexer->status = cur_status;
         add_char_to_buffer(get_char(c), lexer);
+        lexer->status = cur_status;
         return (TRUE);
     }
     return (FALSE);
@@ -37,13 +37,14 @@ int apostrophe_status(t_list *token_list, char *c, t_lexer *lexer)
 
     cur_status = get_status(*c);
     if (cur_status == LEX_STRING 
-        || cur_status == LEX_APOSTROPHE)
+        || cur_status == LEX_APOSTROPHE
+        || cur_status == LEX_NORMAL)
         add_char_to_buffer(get_char(c), lexer);
     else
     {
         put_token_to_list(lexer, token_list);
-        lexer->status = cur_status;
         add_char_to_buffer(get_char(c), lexer);
+        lexer->status = cur_status;
         return (TRUE);
     }
     return (FALSE);
@@ -54,10 +55,18 @@ int pipe_status(t_list *token_list, char *c, t_lexer *lexer)
     int cur_status;
 
     cur_status = get_status(*c);
-    put_token_to_list(lexer, token_list);
-    lexer->status = cur_status;
-    add_char_to_buffer(get_char(c), lexer);
-    return (TRUE);
+    if (cur_status == LEX_PIPE)
+    {
+        add_char_to_buffer(get_char(c), lexer);
+        return (FALSE);
+    }
+    else
+    {
+        put_token_to_list(lexer, token_list);
+        add_char_to_buffer(get_char(c), lexer);
+        lexer->status = cur_status;
+        return (TRUE);
+    }
 }
 
 int env_status(t_list *token_list, char *c, t_lexer *lexer)
@@ -65,13 +74,14 @@ int env_status(t_list *token_list, char *c, t_lexer *lexer)
     int cur_status;
 
     cur_status = get_status(*c);
-    if (cur_status == LEX_STRING)
+    if (cur_status == LEX_STRING
+        || cur_status == LEX_ENV)
         add_char_to_buffer(get_char(c), lexer);
     else
     {
         put_token_to_list(lexer, token_list);
-        lexer->status = cur_status;
         add_char_to_buffer(get_char(c), lexer);
+        lexer->status = cur_status;
         return (TRUE);
     }
     return (FALSE);

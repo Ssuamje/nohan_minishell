@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:56:58 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/23 23:51:13 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/24 15:08:09 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,14 @@ int main(int ac, char **av)
 	lexer = get_lexer();
 	token_list = tokenize(av[1], lexer);
     print_token(token_list);
+    //parser = get_parser();
+    //processes = get_process_list();
+    //parse_token_list(token_list, parser, processes);
     free_token_list(&token_list);
     free(lexer);
+    //return (processes);
 	return (0);
 }
+
+// apostrophe는 그 안의 모든 것을 문자열로 받아버린다.
+// quotation은 그 안의 모든 것을 문자열로 받지만, 변수는 해석한다.
