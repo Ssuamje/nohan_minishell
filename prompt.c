@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 18:49:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/24 18:54:04 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int main(int ac, char **av, char **envp)
 		print_token(token_list);
 		free_token_list(&token_list);
 		free(lexer);
+		free(input);
+		system("leaks a.out");
 		// printf("Aengmu : %s\n", input);
 	}
 }
