@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/25 16:22:29 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/25 17:30:25 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,10 @@ void check_leaks(void)
 int main(int ac, char **av, char **envp)
 {
 	char *input;
-	char *env_from_input;
 	t_lexer *lexer;
 	t_list *token_list;
 
 	(void)av;
-	(void)envp;
-	(void)lexer;
-	(void)token_list;
-	(void)env_from_input;
-	(void)input;
 	atexit(check_leaks);
 	lexer = NULL;
 	if (ac != 1)
@@ -77,9 +71,6 @@ int main(int ac, char **av, char **envp)
 		print_token(token_list);
 		free_token_list(&token_list);
 		free(lexer);
-		// env_from_input = process_env(envp, input);
-		// printf("\n{ _%s_=>_%s_ }\n", input, env_from_input);
-		// free(env_from_input);
 		free(input);
 		system("leaks a.out");
 		// printf("Aengmu : %s\n", input);

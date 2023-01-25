@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/25 16:13:41 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/25 17:06:50 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,16 @@ void	process_token_list_env(char **envp, t_list *token_list)
 {
 	t_list	*tmp_node;
 	t_token	*tmp_token;
-	char	*tmp_string;
 
 	tmp_node = token_list->next;
-	while (tmp_node != NULL)
+	tmp_token = NULL;
+	while (tmp_node != NULL && tmp_node->content != NULL)
 	{
 		tmp_token = tmp_node->content;
-		if (tmp_token == NULL)
-			break ;
-		tmp_string = tmp_token->string;
-		tmp_token->string = process_env(envp, tmp_token->string);
-		free(tmp_string);
+		process_env(envp, tmp_token);
 		tmp_node = tmp_node->next;
 	}
 }
-
 
 void	print_envp(char **envp)
 {

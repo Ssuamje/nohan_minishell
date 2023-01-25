@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/25 16:20:03 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/25 17:03:23 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,22 @@ char	*join_env(char *input, int idx_env, char *env_string)
 	return (to_return);
 }
 
-char	*process_env(char **envp, char *input)
+void	process_env(char **envp, t_token *token)
 {
 	int	idx_env;
 	char *env_string;
 	char *processed_string;
 
-	idx_env = get_env_idx(input); // '$' 다음 인덱스, 없으면 -1
+	idx_env = get_env_idx(token->string); // '$' 다음 인덱스, 없으면 -1
 	if (idx_env == -1)
-		return (ft_strdup(input));
-	if (is_num(input[idx_env]) \
-		|| input[idx_env] == '\0')
-		return (NULL); // syntax error
-	env_string = get_env_string(input, idx_env);
+		return ;
+	if (is_num(token->string[idx_env]) \
+		|| token->string[idx_env] == '\0')
+		return ; // syntax error
+	env_string = get_env_string(token->string, idx_env);
 	interpret_env(envp, &env_string);
-	processed_string = join_env(input, idx_env, env_string);
+	processed_string = join_env(token->string, idx_env, env_string);
 	free(env_string);
-	return (processed_string);
+	free(token->string);
+	token->string = processed_string;
 }
