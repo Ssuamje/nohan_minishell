@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 20:45:29 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/25 15:55:11 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	check_leaks(void)
 {
 	system("leaks a.out");
 }
-
-
 
 int	main(int ac, char **av, char **envp)
 {

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:58:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/21 20:13:48 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/25 15:58:06 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlcat(char *dest, char *src, size_t size);
 size_t	ft_strlcpy(char *dest, char *src, size_t size);
+char	*ft_strldup(char *src, int len);
 char	*ft_strdup(const char *s1);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 size_t	ft_strlen(const char *s);

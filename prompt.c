@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/25 15:17:35 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/25 16:22:29 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int main(int ac, char **av, char **envp)
 	(void)envp;
 	(void)lexer;
 	(void)token_list;
+	(void)env_from_input;
+	(void)input;
 	atexit(check_leaks);
 	lexer = NULL;
 	if (ac != 1)
@@ -69,14 +71,15 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		}
 		add_history(input);
-		// lexer = get_lexer();
-		// token_list = tokenize(input, lexer);
-		// print_token(token_list);
-		// free_token_list(&token_list);
-		// free(lexer);
-		env_from_input = process_env(envp, input);
-		printf("converted $ENV => _%s_\n", env_from_input);
-		free(env_from_input);
+		lexer = get_lexer();
+		token_list = tokenize(input, lexer);
+		process_token_list_env(envp, token_list);
+		print_token(token_list);
+		free_token_list(&token_list);
+		free(lexer);
+		// env_from_input = process_env(envp, input);
+		// printf("\n{ _%s_=>_%s_ }\n", input, env_from_input);
+		// free(env_from_input);
 		free(input);
 		system("leaks a.out");
 		// printf("Aengmu : %s\n", input);
