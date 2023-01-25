@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:53:34 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/20 15:18:54 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/23 10:26:09 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define REDIRECTION_H
 
 # include <fcntl.h>
+# include <stdlib.h>
+# include <stdio.h>
 # include <unistd.h>
+# include "libft.h"
 
 enum e_flag_redir{
 	IN_TRUNC,

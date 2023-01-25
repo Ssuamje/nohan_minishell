@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:55:10 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/20 16:09:41 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/25 18:26:45 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	env_command(t_proc *proc, t_fd *fd, char **path, char **envp)
 	{
 		full_path = ft_strjoin(path[i], proc->command[0]);
 		execve(full_path, proc->command, envp);
+		free(full_path);
 	}
 	printf("minishell: %s: command not found\n", proc->command[0]);
 }
