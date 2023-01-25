@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 18:58:52 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/25 15:17:35 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void    sighandler(int signo)
 #include <unistd.h>
 void check_leaks(void)
 {
-	char *str = "**********************PROGRAM END************************\n";
+	char *str = "\n**********************PROGRAM END************************\n";
 	write(1, str, ft_strlen(str));
 	system("leaks a.out");
 }
@@ -44,16 +44,20 @@ void check_leaks(void)
 int main(int ac, char **av, char **envp)
 {
 	char *input;
+	char *env_from_input;
 	t_lexer *lexer;
 	t_list *token_list;
 
 	(void)av;
 	(void)envp;
+	(void)lexer;
+	(void)token_list;
 	atexit(check_leaks);
 	lexer = NULL;
 	if (ac != 1)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
+	print_envp(envp);
 	while (WAIT_FOR_SIG)
 	{
 		input = readline("$ AengMuShell> ");
@@ -65,11 +69,14 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		}
 		add_history(input);
-		lexer = get_lexer();
-		token_list = tokenize(input, lexer);
-		print_token(token_list);
-		free_token_list(&token_list);
-		free(lexer);
+		// lexer = get_lexer();
+		// token_list = tokenize(input, lexer);
+		// print_token(token_list);
+		// free_token_list(&token_list);
+		// free(lexer);
+		env_from_input = process_env(envp, input);
+		printf("converted $ENV => _%s_\n", env_from_input);
+		free(env_from_input);
 		free(input);
 		system("leaks a.out");
 		// printf("Aengmu : %s\n", input);
