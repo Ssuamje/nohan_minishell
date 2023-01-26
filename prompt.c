@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 20:00:08 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/26 21:49:34 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int main(int ac, char **av, char **envp)
 		token_list = tokenize(input, lexer);
 		process_token_list_env(envp, token_list);
 		print_token(token_list);
+		system("leaks a.out");
 		free_token_list(&token_list);
 		free(lexer);
 		free(input);

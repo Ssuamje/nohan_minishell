@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:15:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 20:50:54 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/26 22:12:27 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,16 @@ void 	quotation_status(t_list *token_list, char *c, t_lexer *lexer)
 		add_char_to_buffer(get_char(c), lexer);
 		return ;
 	}
-	else
+	else if (cur_status == LEX_QUOTATION)
 	{
-		if (get_status(*(c + 1)) == LEX_STRING)
-		{
-			add_char_to_buffer(get_char(c), lexer);
-			return ;
-		}
-		else
-		{
 			add_char_to_buffer(get_char(c), lexer);
 			put_token_to_list(lexer, token_list);
 			lexer->status = LEX_NORMAL;
 			return ;
-		}
-		put_token_to_list(lexer, token_list);
-		add_char_to_buffer(get_char(c), lexer);
-		lexer->status = cur_status;
 	}
+	put_token_to_list(lexer, token_list);
+	add_char_to_buffer(get_char(c), lexer);
+	lexer->status = cur_status;
 }
 
 void 	apostrophe_status(t_list *token_list, char *c, t_lexer *lexer)
@@ -52,24 +44,16 @@ void 	apostrophe_status(t_list *token_list, char *c, t_lexer *lexer)
 		add_char_to_buffer(get_char(c), lexer);
 		return ;
 	}
-	else
+	else if (cur_status == LEX_APOSTROPHE)
 	{
-		if (get_status(*(c + 1)) == LEX_STRING)
-		{
-			add_char_to_buffer(get_char(c), lexer);
-			return ;
-		}
-		else
-		{
 			add_char_to_buffer(get_char(c), lexer);
 			put_token_to_list(lexer, token_list);
 			lexer->status = LEX_NORMAL;
 			return ;
-		}
-		put_token_to_list(lexer, token_list);
-		add_char_to_buffer(get_char(c), lexer);
-		lexer->status = cur_status;
 	}
+	put_token_to_list(lexer, token_list);
+	add_char_to_buffer(get_char(c), lexer);
+	lexer->status = cur_status;
 }
 
 void 	pipe_status(t_list *token_list, char *c, t_lexer *lexer)
@@ -126,5 +110,4 @@ void	lexical_analyze(t_list *token_list, char *c, t_lexer *lexer)
 		return (pipe_status(token_list, c, lexer));
 	if (lexer->status == LEX_ENV)
 		return (env_status(token_list, c, lexer));
-	exit_error(ERR_STATUS);
 }

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 20:35:58 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/26 21:48:48 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,11 @@ int count_env_string(char **split)
 
 	idx = 0;
 	while (split[idx] != NULL)
+	{
+		if (split[idx][1] == '\0')
+			return (0);
 		idx++;
+	}
 	return (idx);
 }
 
@@ -143,27 +147,36 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	print_split(char **split)
+char *skip_white_spaces(char **origin, int *idx_dollar)
 {
-	int idx;
+	char	*skipped;
 
-	idx = 0;
-	while(split[idx] != NULL)
-		printf("_%s_ ", split[idx++]);
-	printf("\n");
+	skipped = *origin;
+	*idx_dollar = 0;
+	while (*skipped != '$')
+	{
+		skipped++;
+		(*idx_dollar)++;
+	}
+	return (skipped + 1);
 }
 
-char **split_env_string(char *string)
+char **split_env_string(char *origin, char **processed_string)
 {
-	int count_env;
-	char **env_splitted;
+	int		count_env_split;
+	int		idx_dollar;
+	char	*string_to_split;
+	char	**env_splitted;
 
-	count_env = count_dollar_sign(string);
-	env_splitted = ft_split(string, '$');
-	print_split(env_splitted);
+	string_to_split = skip_white_spaces(&origin, &idx_dollar);
+	*processed_string = ft_strldup(origin, idx_dollar);
+	if (string_to_split[0] == '\0')
+		return (NULL);
+	count_env_split = count_dollar_sign(origin);
+	env_splitted = ft_split(string_to_split, '$');
 	if (env_splitted == NULL)
 		exit_error(ERR_MALLOC);
-	if (count_env != count_env_string(env_splitted)) // 겹치는 $$
+	if (count_env_split != count_env_string(env_splitted)) // 겹치는 $$ 혹은 $ 하나만 있을 때 0
 		return (NULL);
 	return (env_splitted);
 }
@@ -179,14 +192,12 @@ int process_env(char **envp, t_token *token)
 		return (ENV_NONE);
 	idx = 0;
 	processed_string = NULL;
-	env_splitted = split_env_string(token->string);
+	env_splitted = split_env_string(token->string, &processed_string);
 	if (env_splitted == NULL)
 		return (ENV_SYNTAX_ERROR);
 	while (env_splitted[idx] != NULL)
 	{
-		printf("original = %s", env_splitted[idx]);
 		interpret_env(envp, &env_splitted[idx]);
-		printf(", processed = %s\n", env_splitted[idx]);
 		tmp = processed_string;
 		processed_string = ft_strjoin(processed_string, env_splitted[idx]);
 		idx++;

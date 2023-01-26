@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:46:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 14:40:33 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/26 22:26:05 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,14 @@ void	normal_status(t_list *token_list, char *c, t_lexer *lexer)
 	int	cur_status;
 
 	(void)token_list;
+	cur_status = get_status(*c);
+	if (cur_status == LEX_NORMAL
+		&& (get_status(*(c + 1)) == LEX_STRING
+		|| get_status(*(c + 1)) == LEX_APOSTROPHE
+		|| get_status(*(c + 1)) == LEX_QUOTATION))
+		return (add_char_to_buffer(get_char(c), lexer));
 	if (*c == ' ' || *c == '\t')
 		return ;
-	cur_status = get_status(*c);
 	lexer->status = cur_status;
 	add_char_to_buffer(get_char(c), lexer);
 }
