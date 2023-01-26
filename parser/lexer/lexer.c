@@ -6,13 +6,13 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:15:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 18:42:34 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/26 14:43:16 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
 
-int	quotation_status(t_list *token_list, char *c, t_lexer *lexer)
+void 	quotation_status(t_list *token_list, char *c, t_lexer *lexer)
 {
 	int	cur_status;
 
@@ -20,22 +20,21 @@ int	quotation_status(t_list *token_list, char *c, t_lexer *lexer)
 	if (lexer->quote_flag == TRUE)
 	{
 		add_char_to_buffer(get_char(c), lexer);
-		return (TRUE);
+		return ;
 	}
 	if (lexer->quote_flag == FALSE && cur_status == LEX_QUOTATION)
 	{
 		add_char_to_buffer(get_char(c), lexer);
 		put_token_to_list(lexer, token_list);
 		lexer->status = LEX_NORMAL;
-		return (TRUE);
+		return ;
 	}
 	put_token_to_list(lexer, token_list);
 	add_char_to_buffer(get_char(c), lexer);
 	lexer->status = cur_status;
-	return (TRUE);
 }
 
-int	apostrophe_status(t_list *token_list, char *c, t_lexer *lexer)
+void 	apostrophe_status(t_list *token_list, char *c, t_lexer *lexer)
 {
 	int	cur_status;
 
@@ -43,22 +42,21 @@ int	apostrophe_status(t_list *token_list, char *c, t_lexer *lexer)
 	if (lexer->apost_flag == TRUE)
 	{
 		add_char_to_buffer(get_char(c), lexer);
-		return (TRUE);
+		return ;
 	}
 	if (lexer->apost_flag == FALSE && cur_status == LEX_APOSTROPHE)
 	{
 		add_char_to_buffer(get_char(c), lexer);
 		put_token_to_list(lexer, token_list);
 		lexer->status = LEX_NORMAL;
-		return (TRUE);
+		return ;
 	}
 	put_token_to_list(lexer, token_list);
 	add_char_to_buffer(get_char(c), lexer);
 	lexer->status = cur_status;
-	return (TRUE);
 }
 
-int	pipe_status(t_list *token_list, char *c, t_lexer *lexer)
+void 	pipe_status(t_list *token_list, char *c, t_lexer *lexer)
 {
 	int	cur_status;
 
@@ -66,18 +64,15 @@ int	pipe_status(t_list *token_list, char *c, t_lexer *lexer)
 	if (cur_status == LEX_PIPE)
 	{
 		add_char_to_buffer(get_char(c), lexer);
-		return (FALSE);
+		return ;
 	}
-	else
-	{
-		put_token_to_list(lexer, token_list);
-		add_char_to_buffer(get_char(c), lexer);
-		lexer->status = cur_status;
-		return (TRUE);
-	}
+	put_token_to_list(lexer, token_list);
+	add_char_to_buffer(get_char(c), lexer);
+	lexer->status = cur_status;
+	return ;
 }
 
-int	env_status(t_list *token_list, char *c, t_lexer *lexer)
+void 	env_status(t_list *token_list, char *c, t_lexer *lexer)
 {
 	int	cur_status;
 
@@ -95,12 +90,10 @@ int	env_status(t_list *token_list, char *c, t_lexer *lexer)
 			lexer->status = LEX_QUOTATION;
 		else
 			lexer->status = cur_status;
-		return (TRUE);
 	}
-	return (FALSE);
 }
 
-int	lexical_analyze(t_list *token_list, char *c, t_lexer *lexer)
+void	lexical_analyze(t_list *token_list, char *c, t_lexer *lexer)
 {
 	check_apost_quote_flag(c, lexer);
 	if (lexer->status == LEX_NORMAL)
@@ -118,5 +111,4 @@ int	lexical_analyze(t_list *token_list, char *c, t_lexer *lexer)
 	if (lexer->status == LEX_ENV)
 		return (env_status(token_list, c, lexer));
 	exit_error(ERR_STATUS);
-	return (FALSE);
 }
