@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:31:58 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 18:37:42 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/26 14:34:13 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*buffer_to_string(t_list *buffer)
 
 	len = ft_lstsize(buffer);
 	string = malloc(sizeof(char) * (len + 1));
+	if (string == NULL)
+		exit_error(ERR_MALLOC);
 	string[len] = '\0';
 	tmp = buffer;
 	len = 0;

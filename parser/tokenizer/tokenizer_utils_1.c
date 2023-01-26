@@ -6,11 +6,15 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/25 17:03:23 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/26 14:38:25 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/tokenizer.h"
+# define PRCS_NONE -1
+# define PRCS_SYNTAX_ERROR 0
+# define PRCS_SUCCESS 1
+
 
 int	get_env_idx(char *string)
 {
@@ -70,31 +74,36 @@ char	*join_env(char *input, int idx_env, char *env_string)
 {
 	int env_len;
 	char *to_return;
+	int	idx_dollar;
 
 	env_len = ft_strlen(env_string);
-	to_return = malloc(sizeof(char) * (idx_env + env_len));
-	to_return[idx_env + env_len] = '\0';
-	ft_memcpy(to_return, input, idx_env - 1);
-	ft_memcpy(&to_return[idx_env - 1], env_string, env_len);
+	idx_dollar = idx_env - 1;
+	to_return = malloc(sizeof(char) * (idx_dollar + env_len + 1));
+	if (to_return == NULL)
+		exit_error(ERR_MALLOC);
+	to_return[idx_dollar + env_len] = '\0';
+	ft_memcpy(to_return, input, idx_dollar + 1);
+	ft_memcpy(&to_return[idx_dollar], env_string, env_len + 1);
 	return (to_return);
 }
 
-void	process_env(char **envp, t_token *token)
+int	process_env(char **envp, t_token *token)
 {
 	int	idx_env;
 	char *env_string;
 	char *processed_string;
 
 	idx_env = get_env_idx(token->string); // '$' 다음 인덱스, 없으면 -1
-	if (idx_env == -1)
-		return ;
+	if (idx_env == PRCS_NONE)
+		return (PRCS_NONE);
 	if (is_num(token->string[idx_env]) \
 		|| token->string[idx_env] == '\0')
-		return ; // syntax error
+		return (PRCS_SYNTAX_ERROR); // syntax error
 	env_string = get_env_string(token->string, idx_env);
 	interpret_env(envp, &env_string);
 	processed_string = join_env(token->string, idx_env, env_string);
 	free(env_string);
 	free(token->string);
 	token->string = processed_string;
+	return (PRCS_SUCCESS);
 }
