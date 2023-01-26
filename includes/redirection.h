@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:53:34 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/23 10:26:09 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/01/26 14:11:27 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ typedef struct s_fd
 {
 	int		infile;
 	int		outfile;
+	int		heredoc_exist;
+	int		pipe[2];
+	pid_t	pid;
 }	t_fd;
 
 typedef struct s_env
