@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/26 13:17:10 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:38:22 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ static void	heredoc(t_proc *proc, t_fd *fd)
 {
 	int		buffer_fd;
 	char	*buffer;
+	int		old_fd;
 
-	fd->heredoc_exist = 1;
-	buffer_fd = open("/tmp/heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	old_fd = dup(STDOUT_FILENO);
+	buffer_fd = open("heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	dup2(buffer_fd, STDOUT_FILENO);
 	close(buffer_fd);
 	while (1)
@@ -41,9 +42,11 @@ static void	heredoc(t_proc *proc, t_fd *fd)
 		ft_putstr(buffer);
 		free(buffer);
 	}
-	buffer_fd = open("/tmp/heredoc", O_RDONLY);
+	dup2(old_fd, STDOUT_FILENO);
+	buffer_fd = open("heredoc", O_RDONLY);
 	dup2(buffer_fd, STDIN_FILENO);
 	close(buffer_fd);
+	unlink("heredoc");
 }
 
 void	redirect_in(t_proc *proc, t_fd *fd)

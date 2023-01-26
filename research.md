@@ -1,0 +1,1 @@
+dup2: https://velog.io/@meong9090/minishelldup%EC%A0%95%EB%A6%AC

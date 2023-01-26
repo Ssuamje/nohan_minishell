@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:55:10 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/26 15:42:24 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:38:30 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,4 @@ void	command(t_proc *proc, t_fd *fd, char **path, char **envp)
 {
 	if (proc->command[0] != NULL)
 		env_command(proc, fd, path, envp);
-	if (fd->heredoc_exist == 1)
-	{
-		unlink("/tmp/heredoc");
-		fd->heredoc_exist--;
-	}
 }
