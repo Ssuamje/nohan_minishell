@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:36:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 13:01:59 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/26 15:48:31 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ t_token	*get_token(void)
 void	put_token_to_list(t_lexer *lexer, t_list *token_list)
 {
 	t_token	*token;
-	char	*tmp;
+	// char	*tmp;
 
 	token = get_token();
 	token->status = lexer->status;
 	token->string = get_processed_string(lexer);
-	tmp = token->string;
-	token->string = ft_strtrim(tmp, " \t");
-	free(tmp);
+	// tmp = token->string;
+	// token->string = ft_strtrim(tmp, " \t");
+	// free(tmp);
 	ft_lstadd_back(&token_list, ft_lstnew(token));
 }
 

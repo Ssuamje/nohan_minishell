@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/25 15:55:11 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/26 19:48:25 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,7 @@ int	main(int ac, char **av, char **envp)
 	//return (processes);
 	return (0);
 }
+
+//  trim 한번만 하고 quotation, apostrophe 에러처리
+//  여러개 이어진 환경변수 해석
+//  컨디션에 따라 환경변수 해석
