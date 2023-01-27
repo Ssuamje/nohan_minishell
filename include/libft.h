@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:58:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 22:33:14 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 23:22:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_join_and_free(char *s1, char *s2);
+void	*ft_free_and_return(void *to_free, void *to_return);
 char	*ft_strtrim(char const *s1, char const *set);
 int		ft_tolower(int c);
 int		ft_toupper(int c);

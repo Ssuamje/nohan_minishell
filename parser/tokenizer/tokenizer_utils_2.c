@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 23:01:16 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 23:04:10 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,3 +142,5 @@ t_list *get_processed_token_list(char** envp, char *input)
 	free(lexer);
 	return (token_list);
 }
+
+//$ 한개에 대한 처리
