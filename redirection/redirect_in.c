@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/26 22:38:22 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/01/27 12:24:13 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 static void	in_trunc(t_redir *redir, t_fd *fd)
 {
+	int	old_fd;
+
+	old_fd = dup(STDIN_FILENO);
 	fd->infile = open(redir->directory, O_RDONLY);
 	dup2(fd->infile, STDIN_FILENO);
 	close(fd->infile);
+	dup2(old_fd, STDIN_FILENO);
 }
 
 static void	heredoc(t_proc *proc, t_fd *fd)
