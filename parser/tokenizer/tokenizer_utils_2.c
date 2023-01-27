@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 16:43:19 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 17:34:07 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,14 @@ t_list *get_processed_token_list(char** envp, char *input)
 	
 	lexer = get_lexer();
 	token_list = tokenize(input, lexer);
+	print_token(token_list);
 	if (process_token_list_env(envp, token_list) == FALSE)
+	{
+		if (token_list)
+			free_token_list(&token_list);
+		free(lexer);
 		return (NULL);
+	}
 	print_token(token_list);
 	free(lexer);
 	return (token_list);

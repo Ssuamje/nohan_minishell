@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 15:09:03 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 17:26:30 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ char **split_env_string(char *origin, char **processed_string)
 		free(*processed_string);
 		return (NULL);
 	}
-	if (count_env_split != count_env_string(env_splitted)) // 겹치는 $$ 혹은 $ 하나만 있을 때 0
+	if (count_env_split != count_env_string(env_splitted))
 	{
 		free_split(env_splitted);
 		free(*processed_string);
@@ -225,7 +225,6 @@ int process_env(char **envp, t_token *token)
 	idx = 0;
 	processed_string = NULL;
 	env_splitted = split_env_string(token->string, &processed_string);
-	print_split(env_splitted);
 	if (env_splitted == NULL)
 		return (ENV_SYNTAX_ERROR);
 	while (env_splitted[idx] != NULL)
