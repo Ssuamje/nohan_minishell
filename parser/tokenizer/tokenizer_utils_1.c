@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 22:47:08 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 23:03:12 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ int	check_special_env(char *string)
 
 // }
 
-int get_env_start_set_after_space(char *string, char **after)
+int get_env_start_set_after(char *string, char **after)
 {
 	int idx;
 
 	idx = 0;
-	while (string[idx] != ' ' && string[idx] != '\0')
+	while (string[idx] != ' ' \
+		&& string[idx] != '\0' \
+		&& is_special(string[idx]) == FALSE)
 		idx++;
 	if (string[idx] != '\0')
 		*after = ft_strdup(&string[idx]);
@@ -89,7 +91,7 @@ int	interpret_env(char **envp, char **to_find)
 		// if (check_special_env(*to_find) == TRUE)
 		// 	return (process_special_env(*to_find));
 		after = NULL;
-		to_find_len = get_env_start_set_after_space(*to_find, &after);
+		to_find_len = get_env_start_set_after(*to_find, &after);
 		if (ft_strncmp(envp[idx], *to_find, to_find_len) == 0 \
 			&& envp[idx][to_find_len] == '=')
 		{

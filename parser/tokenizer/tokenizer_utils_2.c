@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 22:09:45 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 23:01:16 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*remove_quote_apost(char *string, char c, int *flag)
 	return (result);
 }
 
-void	check_is_token_seperated(t_token *token)
+void	check_set_token_properties(t_token *token)
 {
 	if (token->string[0] == ' ' || token->string[0] == ' ')
 		token->is_seperated = TRUE;
@@ -83,7 +83,7 @@ void	check_string_condition(t_token *token)
 
 	tmp = token->string;
 	flag_trim = FALSE;
-	check_is_token_seperated(token);
+	check_set_token_properties(token);
 	if (token->status == LEX_APOSTROPHE)
 		token->string = remove_quote_apost(token->string, '\'', &flag_trim);
 	if (token->status == LEX_QUOTATION)
