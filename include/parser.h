@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 15:56:04 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 21:58:21 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ typedef struct s_parser{
 	int		status;
 	char	*string;
 }	t_parser;
+
+int parse(char **envp, char *input);
 
 #endif

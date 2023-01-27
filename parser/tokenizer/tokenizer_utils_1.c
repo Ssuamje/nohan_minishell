@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 17:26:30 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 22:05:59 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,8 @@ char **split_env_string(char *origin, char **processed_string)
 	char	**env_splitted;
 
 	string_to_split = skip_white_spaces(&origin, &idx_dollar);
-	if (string_to_split[0] == '\0')
+	if (string_to_split[0] == '\0'
+		|| is_special(string_to_split[0]) == TRUE)
 		return (NULL);
 	*processed_string = ft_strldup(origin, idx_dollar);
 	count_env_split = count_dollar_sign(origin);

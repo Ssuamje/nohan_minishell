@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 12:42:02 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 21:58:34 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +44,24 @@ void check_leaks(void)
 int main(int ac, char **av, char **envp)
 {
 	char *input;
-	t_list *token_list;
 
 	(void)av;
 	atexit(check_leaks);
 	if (ac != 1)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
-	// print_envp(envp);
 	while (WAIT_FOR_SIG)
 	{
 		input = readline("$ AengMuShell> ");
-		if (input == NULL) // EOF === Ctrl + D is not signal, catch and exit.
+		if (input == NULL)
 			return (1);
-		if (get_len(input) == 0) // input nothing -> prompt
+		if (get_len(input) == 0)
 		{
 			free(input);
 			continue ;
 		}
 		add_history(input);
-		token_list = get_processed_token_list(envp, input);
-		if (token_list == NULL)
-			printf("syntax error occured!\n");
-		free_token_list(&token_list);
+		parse(envp, input);
 		// system("leaks a.out");
 		free(input);
 	}
