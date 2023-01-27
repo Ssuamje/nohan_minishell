@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 22:26:43 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 22:47:08 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,15 @@ int	check_special_env(char *string)
 
 // }
 
-int get_env_start_len_set_after_space(char *string, char **after)
+int get_env_start_set_after_space(char *string, char **after)
 {
 	int idx;
 
 	idx = 0;
 	while (string[idx] != ' ' && string[idx] != '\0')
 		idx++;
-	*after = ft_strdup(&string[idx]);
+	if (string[idx] != '\0')
+		*after = ft_strdup(&string[idx]);
 	return (idx);
 }
 
@@ -81,29 +82,29 @@ int	interpret_env(char **envp, char **to_find)
 	int		idx;
 	int		to_find_len;
 	char	*after;
-	char	*tmp;
 
 	idx = 0;
 	while (envp[idx] != NULL)
 	{
 		// if (check_special_env(*to_find) == TRUE)
 		// 	return (process_special_env(*to_find));
-		to_find_len = get_env_start_len_set_after_space(*to_find, &after);
+		after = NULL;
+		to_find_len = get_env_start_set_after_space(*to_find, &after);
 		if (ft_strncmp(envp[idx], *to_find, to_find_len) == 0 \
 			&& envp[idx][to_find_len] == '=')
 		{
 			set_env_to_string(envp, to_find, to_find_len, idx);
-			tmp = *to_find;
-			*to_find = ft_strjoin(*to_find, after);
-			free(after);
-			free(tmp);
+			*to_find = ft_join_and_free(*to_find, after);
 			return (TRUE);
 		}
-		free(after);
+		if (after && envp[idx + 1] != NULL)
+			free(after);
 		idx++;
 	}
 	free(*to_find);
 	*to_find = ft_strdup("");
+	if (after)
+		*to_find = ft_join_and_free(*to_find, after);
 	return(TRUE);
 }
 

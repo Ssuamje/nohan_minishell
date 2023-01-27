@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:31:58 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 14:34:13 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 22:36:46 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ char	*get_processed_string(t_lexer *lexer)
 	if (lexer->status != LEX_APOSTROPHE)
 		env_string = buffer_to_string(lexer->env_buffer);
 	string = buffer_to_string(lexer->str_buffer);
-	to_return = ft_strjoin(string, env_string);
-	if (env_string)
-		free(env_string);
-	free(string);
+	to_return = ft_join_and_free(string, env_string);
 	flush_buffer(lexer);
 	return (to_return);
 }
