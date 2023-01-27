@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/27 16:33:58 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/27 21:28:32 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	set_proc_next(t_proc *proc)
 	// proc->redir_out->directory = "outfile.txt";
 	// proc->redir_out->next = NULL;
 	proc->command = malloc(sizeof(char *) * 4);
-	proc->command[0] = "wc";
-	proc->command[1] = "-l";
+	proc->command[0] = "grep";
+	proc->command[1] = "w";
 	proc->command[2] = NULL;
 	proc->command[3] = NULL;
 	proc->next = NULL;
@@ -61,11 +61,10 @@ int	main(int accd, char **av, char **envp)
 	proc = malloc(sizeof(t_proc));
 	set_proc(proc);
 	env_path(&env);
+	pipe(pfd);
+
 	while (proc != NULL)
 	{
-		redirect_in(proc, &fd);
-		redirect_out(proc, &fd);
-		pipe(pfd);
 		pid = fork();
 		if (pid == 0)
 		{	
@@ -76,6 +75,8 @@ int	main(int accd, char **av, char **envp)
 		{
 			close(pfd[0]);
 			dup2(pfd[1], STDOUT_FILENO);
+			redirect_in(proc, &fd);
+			redirect_out(proc, &fd);
 			command(proc, &fd, env.path, envp);
 		}
 		proc = proc->next;
