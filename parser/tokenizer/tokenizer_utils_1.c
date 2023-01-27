@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 22:05:59 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 22:26:43 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,28 +54,52 @@ int	check_special_env(char *string)
 
 // }
 
+int get_env_start_len_set_after_space(char *string, char **after)
+{
+	int idx;
+
+	idx = 0;
+	while (string[idx] != ' ' && string[idx] != '\0')
+		idx++;
+	*after = ft_strdup(&string[idx]);
+	return (idx);
+}
+
+void	set_env_to_string(char **envp, char **to_find, int to_find_len, int idx)
+{
+	char *env_start_ptr;
+	int env_len;
+
+	free(*to_find);
+	env_start_ptr = &(envp[idx][to_find_len + 1]);
+	env_len = ft_strlen(env_start_ptr);
+	*to_find = ft_strldup(env_start_ptr, env_len);
+}
+
 int	interpret_env(char **envp, char **to_find)
 {
 	int		idx;
 	int		to_find_len;
-	char	*env_start;
-	int		env_len;
+	char	*after;
+	char	*tmp;
 
 	idx = 0;
 	while (envp[idx] != NULL)
 	{
 		// if (check_special_env(*to_find) == TRUE)
 		// 	return (process_special_env(*to_find));
-		to_find_len = ft_strlen(*to_find);
+		to_find_len = get_env_start_len_set_after_space(*to_find, &after);
 		if (ft_strncmp(envp[idx], *to_find, to_find_len) == 0 \
 			&& envp[idx][to_find_len] == '=')
 		{
-			free(*to_find);
-			env_start = &(envp[idx][to_find_len + 1]);
-			env_len = ft_strlen(env_start);
-			*to_find = ft_strldup(env_start, env_len);
+			set_env_to_string(envp, to_find, to_find_len, idx);
+			tmp = *to_find;
+			*to_find = ft_strjoin(*to_find, after);
+			free(after);
+			free(tmp);
 			return (TRUE);
 		}
+		free(after);
 		idx++;
 	}
 	free(*to_find);
@@ -228,6 +252,7 @@ int process_env(char **envp, t_token *token)
 	env_splitted = split_env_string(token->string, &processed_string);
 	if (env_splitted == NULL)
 		return (ENV_SYNTAX_ERROR);
+	print_split(env_splitted);
 	while (env_splitted[idx] != NULL)
 	{
 		if (interpret_env(envp, &env_splitted[idx]) == FALSE)
