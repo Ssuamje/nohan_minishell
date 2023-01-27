@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 21:48:48 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 15:09:03 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,17 @@ char *get_env_string(char *input, int idx_env)
 	return (to_return);
 }
 
-void	interpret_env(char **envp, char **to_find)
+int	check_special_env(char *string)
+{
+	return (is_in_charset(string[0], "?"));
+}
+
+// int process_special_env(char *string)
+// {
+
+// }
+
+int	interpret_env(char **envp, char **to_find)
 {
 	int		idx;
 	int		to_find_len;
@@ -54,6 +64,8 @@ void	interpret_env(char **envp, char **to_find)
 	idx = 0;
 	while (envp[idx] != NULL)
 	{
+		// if (check_special_env(*to_find) == TRUE)
+		// 	return (process_special_env(*to_find));
 		to_find_len = ft_strlen(*to_find);
 		if (ft_strncmp(envp[idx], *to_find, to_find_len) == 0 \
 			&& envp[idx][to_find_len] == '=')
@@ -62,12 +74,13 @@ void	interpret_env(char **envp, char **to_find)
 			env_start = &(envp[idx][to_find_len + 1]);
 			env_len = ft_strlen(env_start);
 			*to_find = ft_strldup(env_start, env_len);
-			return ;
+			return (TRUE);
 		}
 		idx++;
 	}
 	free(*to_find);
 	*to_find = ft_strdup("");
+	return(TRUE);
 }
 
 char	*join_env(char *input, int idx_env, char *env_string)
@@ -109,6 +122,21 @@ char	*join_env(char *input, int idx_env, char *env_string)
 // 	return (ENV_SUCCESS);
 // }
 
+void	print_split(char **split)
+{
+	int idx;
+
+	idx = 0;
+	if (split == NULL)
+		return ;
+	while (split[idx] != NULL)
+	{
+		printf("_%s_ ", split[idx]);
+		idx++;
+	}
+	printf("\n");
+}
+
 int	count_dollar_sign(char *string)
 {
 	int idx;
@@ -127,15 +155,10 @@ int count_env_string(char **split)
 	int idx;
 
 	idx = 0;
-	while (split[idx] != NULL)
-	{
-		if (split[idx][1] == '\0')
-			return (0);
+	while (split[idx] != NULL && split[idx][0] != '\0')
 		idx++;
-	}
 	return (idx);
 }
-
 
 void	free_split(char **split)
 {
@@ -169,17 +192,25 @@ char **split_env_string(char *origin, char **processed_string)
 	char	**env_splitted;
 
 	string_to_split = skip_white_spaces(&origin, &idx_dollar);
-	*processed_string = ft_strldup(origin, idx_dollar);
 	if (string_to_split[0] == '\0')
 		return (NULL);
+	*processed_string = ft_strldup(origin, idx_dollar);
 	count_env_split = count_dollar_sign(origin);
 	env_splitted = ft_split(string_to_split, '$');
 	if (env_splitted == NULL)
-		exit_error(ERR_MALLOC);
-	if (count_env_split != count_env_string(env_splitted)) // 겹치는 $$ 혹은 $ 하나만 있을 때 0
+	{
+		free(*processed_string);
 		return (NULL);
+	}
+	if (count_env_split != count_env_string(env_splitted)) // 겹치는 $$ 혹은 $ 하나만 있을 때 0
+	{
+		free_split(env_splitted);
+		free(*processed_string);
+		return (NULL);
+	}
 	return (env_splitted);
 }
+
 
 int process_env(char **envp, t_token *token)
 {
@@ -188,16 +219,19 @@ int process_env(char **envp, t_token *token)
 	char	*processed_string;
 	char	*tmp;
 
-	if (count_dollar_sign(token->string) == 0)
+	if (count_dollar_sign(token->string) == 0
+		|| token->status == LEX_APOSTROPHE)
 		return (ENV_NONE);
 	idx = 0;
 	processed_string = NULL;
 	env_splitted = split_env_string(token->string, &processed_string);
+	print_split(env_splitted);
 	if (env_splitted == NULL)
 		return (ENV_SYNTAX_ERROR);
 	while (env_splitted[idx] != NULL)
 	{
-		interpret_env(envp, &env_splitted[idx]);
+		if (interpret_env(envp, &env_splitted[idx]) == FALSE)
+			return (ENV_SYNTAX_ERROR);
 		tmp = processed_string;
 		processed_string = ft_strjoin(processed_string, env_splitted[idx]);
 		idx++;

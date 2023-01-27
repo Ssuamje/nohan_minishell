@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:55:16 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 14:42:43 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 15:25:18 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 typedef struct s_token{
 	int		status;
+	int		is_seperated;
 	char	*string;
 }	t_token;
 
@@ -32,6 +33,6 @@ int 	is_num(char c);
 int		is_alnum(char c);
 int 	is_in_charset(char c, char *charset);
 int 	is_special(char c);
-void	process_token_list_env(char **envp, t_list *token_list);
+int		process_token_list_env(char **envp, t_list *token_list);
 
 #endif

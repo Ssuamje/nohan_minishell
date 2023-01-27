@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 21:49:34 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 12:42:02 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,14 @@ void check_leaks(void)
 int main(int ac, char **av, char **envp)
 {
 	char *input;
-	t_lexer *lexer;
 	t_list *token_list;
 
 	(void)av;
 	atexit(check_leaks);
-	lexer = NULL;
 	if (ac != 1)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
-	print_envp(envp);
+	// print_envp(envp);
 	while (WAIT_FOR_SIG)
 	{
 		input = readline("$ AengMuShell> ");
@@ -65,13 +63,11 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		}
 		add_history(input);
-		lexer = get_lexer();
-		token_list = tokenize(input, lexer);
-		process_token_list_env(envp, token_list);
-		print_token(token_list);
-		system("leaks a.out");
+		token_list = get_processed_token_list(envp, input);
+		if (token_list == NULL)
+			printf("syntax error occured!\n");
 		free_token_list(&token_list);
-		free(lexer);
+		// system("leaks a.out");
 		free(input);
 	}
 }

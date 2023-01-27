@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 17:15:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 22:12:27 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 15:10:21 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void 	env_status(t_list *token_list, char *c, t_lexer *lexer)
 	int	cur_status;
 
 	cur_status = get_status(*c);
-	if (cur_status == LEX_STRING
-		|| cur_status == LEX_ENV)
+	if ((*c != ':') && (cur_status == LEX_STRING
+		|| cur_status == LEX_ENV))
 		add_char_to_buffer(get_char(c), lexer);
 	else
 	{

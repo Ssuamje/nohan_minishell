@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:17:09 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 14:42:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 11:31:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void	pipe_status(t_list *token_list, char *c, t_lexer *lexer);
 void	env_status(t_list *token_list, char *c, t_lexer *lexer);
 void	lexical_analyze(t_list *token_list, char *c, t_lexer *lexer);
 void	check_apost_quote_flag(char *c, t_lexer *lexer);
+t_list *get_processed_token_list(char** envp, char *input);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 22:36:21 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 15:25:10 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		count_char(char *string, char c)
 	return (count);
 }
 
-char	*trim_once(char *string, char c)
+char	*trim_once(char *string, char c, int *flag)
 {
 	int		start;
 	int		end;
@@ -37,6 +37,7 @@ char	*trim_once(char *string, char c)
 	char 	*white;
 
 	start = 0;
+	*flag = TRUE;
 	if (count_char(string, c) < 2)
 		return (ft_strdup(string));
 	end = ft_strlen(string) - 2;
@@ -57,33 +58,44 @@ char	*trim_once(char *string, char c)
 	return (result);
 }
 
-void	process_token_list_env(char **envp, t_list *token_list)
+void	check_is_token_seperated(t_token *token)
+{
+	if (token->string[0] == ' ' || token->string[0] == ' ')
+		token->is_seperated = TRUE;
+}
+
+void	check_string_condition(t_token *token)
+{
+	char	*tmp;
+	int		flag_trim;
+
+	tmp = token->string;
+	flag_trim = FALSE;
+	check_is_token_seperated(token);
+	if (token->status == LEX_APOSTROPHE)
+		token->string = trim_once(token->string, '\'', &flag_trim);
+	if (token->status == LEX_QUOTATION)
+		token->string = trim_once(token->string, '\"', &flag_trim);
+	if (flag_trim == TRUE)
+		free(tmp);
+}
+
+int	process_token_list_env(char **envp, t_list *token_list)
 {
 	t_list	*tmp_node;
 	t_token	*tmp_token;
-	char	*tmp;
 
 	tmp_node = token_list->next;
 	tmp_token = NULL;
 	while (tmp_node != NULL && tmp_node->content != NULL)
 	{
 		tmp_token = tmp_node->content;
-		if (tmp_token->status == LEX_APOSTROPHE)
-		{
-			tmp = tmp_token->string;
-			tmp_token->string = trim_once(tmp_token->string, '\'');
-			free(tmp);
-		}
-		if (tmp_token->status == LEX_QUOTATION)
-		{
-			tmp = tmp_token->string;
-			tmp_token->string = trim_once(tmp_token->string, '\"');
-			free(tmp);
-		}
-		printf("trimmed = %s\n", tmp_token->string);
-		process_env(envp, tmp_token);
+		check_string_condition(tmp_token);
+		if (process_env(envp, tmp_token) == FALSE)
+			return(FALSE);
 		tmp_node = tmp_node->next;
 	}
+	return (TRUE);
 }
 
 void	print_envp(char **envp)
@@ -97,4 +109,18 @@ void	print_envp(char **envp)
 		envp++;
 		tmp = *envp;
 	}
+}
+
+t_list *get_processed_token_list(char** envp, char *input)
+{
+	t_lexer	*lexer;
+	t_list	*token_list;
+	
+	lexer = get_lexer();
+	token_list = tokenize(input, lexer);
+	if (process_token_list_env(envp, token_list) == FALSE)
+		return (NULL);
+	print_token(token_list);
+	free(lexer);
+	return (token_list);
 }
