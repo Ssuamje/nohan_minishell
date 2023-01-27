@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 15:25:10 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/27 16:43:19 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		count_char(char *string, char c)
 	return (count);
 }
 
-char	*trim_once(char *string, char c, int *flag)
+char	*remove_quote_apost(char *string, char c, int *flag)
 {
 	int		start;
 	int		end;
@@ -64,6 +64,18 @@ void	check_is_token_seperated(t_token *token)
 		token->is_seperated = TRUE;
 }
 
+char	*lstrip_once(char *string)
+{
+	char *stripped;
+
+	if ((string[0] != ' ') && (string[0] != '\t'))
+		stripped = ft_strdup(string);
+	else
+		stripped = ft_strdup(&string[1]);
+	free(string);
+	return (stripped);
+}
+
 void	check_string_condition(t_token *token)
 {
 	char	*tmp;
@@ -73,9 +85,11 @@ void	check_string_condition(t_token *token)
 	flag_trim = FALSE;
 	check_is_token_seperated(token);
 	if (token->status == LEX_APOSTROPHE)
-		token->string = trim_once(token->string, '\'', &flag_trim);
+		token->string = remove_quote_apost(token->string, '\'', &flag_trim);
 	if (token->status == LEX_QUOTATION)
-		token->string = trim_once(token->string, '\"', &flag_trim);
+		token->string = remove_quote_apost(token->string, '\"', &flag_trim);
+	if (token->is_seperated == TRUE)
+		token->string = lstrip_once(token->string);
 	if (flag_trim == TRUE)
 		free(tmp);
 }
