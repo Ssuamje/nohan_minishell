@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:17:09 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 11:31:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/29 21:38:32 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ void    flush_buffer(t_lexer *lexer);
 char    *get_processed_string(t_lexer *lexer);
 char    *get_char(char *ptr);
 int     get_status(char c);
-void	normal_status(t_list *token_list, char *c, t_lexer *lexer);
-void	string_status(t_list *token_list, char *c, t_lexer *lexer);
-void	redirect_status(t_list *token_list, char *c, t_lexer *lexer);
-void	quotation_status(t_list *token_list, char *c, t_lexer *lexer);
-void	apostrophe_status(t_list *token_list, char *c, t_lexer *lexer);
-void	pipe_status(t_list *token_list, char *c, t_lexer *lexer);
-void	env_status(t_list *token_list, char *c, t_lexer *lexer);
-void	lexical_analyze(t_list *token_list, char *c, t_lexer *lexer);
+void	normal_status(t_list *tokens, char *c, t_lexer *lexer);
+void	string_status(t_list *tokens, char *c, t_lexer *lexer);
+void	redirect_status(t_list *tokens, char *c, t_lexer *lexer);
+void	quotation_status(t_list *tokens, char *c, t_lexer *lexer);
+void	apostrophe_status(t_list *tokens, char *c, t_lexer *lexer);
+void	pipe_status(t_list *tokens, char *c, t_lexer *lexer);
+void	env_status(t_list *tokens, char *c, t_lexer *lexer);
+void	lexical_analyze(t_list *tokens, char *c, t_lexer *lexer);
 void	check_apost_quote_flag(char *c, t_lexer *lexer);
-t_list *get_processed_token_list(char** envp, char *input);
+t_list *get_processed_tokens(char** envp, char *input);
 
 #endif

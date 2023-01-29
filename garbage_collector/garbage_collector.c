@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:34:05 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/18 10:17:48 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/29 21:38:32 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void free_lexer(void *garbage_ptr)
 }
 
 
-void free_token_list(void **garbage_ptr)
+void free_tokens(void **garbage_ptr)
 {
 	(void)garbage_ptr;
 	write(1, "i got token list!\n", 18);
@@ -117,8 +117,8 @@ void	sweep_garbage(t_gbg *garbage) // 알맹이만 제거
 		free_lexer(garbage->garbage_ptr);
 	if (garbage->type == GBG_NODE_LIST && garbage->garbage_ptr != NULL)
 		free_node_list(garbage->garbage_ptr);
-	if (garbage->type == GBG_TOKEN_LIST && garbage->garbage_ptr != NULL)
-		free_token_list(garbage->garbage_ptr);
+	if (garbage->type == GBG_tokens && garbage->garbage_ptr != NULL)
+		free_tokens(garbage->garbage_ptr);
 }
 
 void	clear_collector(t_gc *collector) // garbage 껍데기만 남았을 때

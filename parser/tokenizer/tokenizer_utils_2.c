@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 23:04:10 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/29 21:38:32 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ void	check_string_condition(t_token *token)
 		free(tmp);
 }
 
-int	process_token_list_env(char **envp, t_list *token_list)
+int	process_tokens_env(char **envp, t_list *tokens)
 {
 	t_list	*tmp_node;
 	t_token	*tmp_token;
 
-	tmp_node = token_list->next;
+	tmp_node = tokens->next;
 	tmp_token = NULL;
 	while (tmp_node != NULL && tmp_node->content != NULL)
 	{
@@ -125,22 +125,22 @@ void	print_envp(char **envp)
 	}
 }
 
-t_list *get_processed_token_list(char** envp, char *input)
+t_list *get_processed_tokens(char** envp, char *input)
 {
 	t_lexer	*lexer;
-	t_list	*token_list;
+	t_list	*tokens;
 	
 	lexer = get_lexer();
-	token_list = tokenize(input, lexer);
-	if (process_token_list_env(envp, token_list) == FALSE)
+	tokens = tokenize(input, lexer);
+	if (process_tokens_env(envp, tokens) == FALSE)
 	{
-		if (token_list)
-			free_token_list(&token_list);
+		if (tokens)
+			free_tokens(&tokens);
 		free(lexer);
 		return (NULL);
 	}
 	free(lexer);
-	return (token_list);
+	return (tokens);
 }
 
 //$ 한개에 대한 처리

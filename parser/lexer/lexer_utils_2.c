@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:46:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/26 22:26:05 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/29 21:38:32 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int	get_status(char c)
 		return (LEX_STRING);
 }
 
-void	normal_status(t_list *token_list, char *c, t_lexer *lexer)
+void	normal_status(t_list *tokens, char *c, t_lexer *lexer)
 {
 	int	cur_status;
 
-	(void)token_list;
+	(void)tokens;
 	cur_status = get_status(*c);
 	if (cur_status == LEX_NORMAL
 		&& (get_status(*(c + 1)) == LEX_STRING
@@ -58,7 +58,7 @@ void	normal_status(t_list *token_list, char *c, t_lexer *lexer)
 	add_char_to_buffer(get_char(c), lexer);
 }
 
-void	string_status(t_list *token_list, char *c, t_lexer *lexer)
+void	string_status(t_list *tokens, char *c, t_lexer *lexer)
 {
 	int	cur_status;
 
@@ -70,19 +70,19 @@ void	string_status(t_list *token_list, char *c, t_lexer *lexer)
 		add_char_to_buffer(get_char(c), lexer);
 		return ;
 	}
-	put_token_to_list(lexer, token_list);
+	put_token_to_list(lexer, tokens);
 	add_char_to_buffer(get_char(c), lexer);
 	lexer->status = cur_status;
 }
 
-void	redirect_status(t_list *token_list, char *c, t_lexer *lexer)
+void	redirect_status(t_list *tokens, char *c, t_lexer *lexer)
 {
 	int	cur_status;
 
 	cur_status = get_status(*c);
 	if (cur_status != LEX_REDIRECT)
 	{
-		put_token_to_list(lexer, token_list);
+		put_token_to_list(lexer, tokens);
 		lexer->status = cur_status;
 		add_char_to_buffer(get_char(c), lexer);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 19:41:05 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/18 10:18:24 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/29 21:38:32 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ enum e_garbage_type{
 	GBG_STRING,
 	GBG_LEXER,
 	GBG_NODE_LIST,
-	GBG_TOKEN_LIST,
+	GBG_tokens,
 };
 
 t_gc    *get_garbage_collector(void);

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 21:58:21 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/29 21:33:07 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ enum e_parser_status{
 	PAR_PIPE,
 	PAR_ENV,
 };
-typedef struct s_parser{
-	int		status;
-	char	*string;
-}	t_parser;
 
-int parse(char **envp, char *input);
+typedef struct s_process{
+	t_list	*redir_in;
+	t_list	*redir_out;
+	char	**cmd;
+}	t_process;
+
+t_list *parse(char **envp, char *input);
 
 #endif
