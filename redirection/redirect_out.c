@@ -3,45 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_out.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:57:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/27 12:25:10 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/30 18:59:41 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "redirection.h"
 
-static void	out_trunc(t_redir *redir, t_fd *fd)
+static void	out_trunc(t_proc *proc)
 {
-	int	old_fd;
-
-	old_fd = dup(STDOUT_FILENO);
-	fd->outfile = open(redir->directory, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	dup2(fd->outfile, STDOUT_FILENO);
-	close(fd->outfile);
-	dup2(old_fd, STDOUT_FILENO);
+	proc->outfile = open(proc->redir_out->directory, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	dup2(proc->outfile, STDOUT_FILENO);
+	close(proc->outfile);
 }
 
-static void	out_append(t_redir *redir, t_fd *fd)
+static void	out_append(t_proc *proc)
 {
-	int	old_fd;
-
-	old_fd = dup(STDOUT_FILENO);
-	fd->outfile = open(redir->directory, O_RDWR | O_CREAT | O_APPEND, 0644);
-	dup2(fd->outfile, STDOUT_FILENO);
-	close(fd->outfile);
-	dup2(old_fd, STDOUT_FILENO);
+	proc->outfile = open(proc->redir_out->directory, O_RDWR | O_CREAT | O_APPEND, 0644);
+	dup2(proc->outfile, STDOUT_FILENO);
+	close(proc->outfile);
 }
 
-void	redirect_out(t_proc *proc, t_fd *fd)
+void	redirect_out(t_proc *proc)
 {
 	while (proc->redir_out)
 	{
 		if (proc->redir_out->flag == OUT_TRUNC)
-			out_trunc(proc->redir_out, fd);
+			out_trunc(proc);
 		if (proc->redir_out->flag == OUT_APPEND)
-			out_append(proc->redir_out, fd);
+			out_append(proc);
+		proc->outfile_exist = 1;
 		proc->redir_out = proc->redir_out->next;
 	}
 }

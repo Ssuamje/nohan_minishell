@@ -3,27 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/27 12:24:13 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:50:51 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "redirection.h"
 
-static void	in_trunc(t_redir *redir, t_fd *fd)
+static void	in_trunc(t_proc *proc)
 {
-	int	old_fd;
-
-	old_fd = dup(STDIN_FILENO);
-	fd->infile = open(redir->directory, O_RDONLY);
-	dup2(fd->infile, STDIN_FILENO);
-	close(fd->infile);
-	dup2(old_fd, STDIN_FILENO);
+	proc->infile = open(proc->redir_in->directory, O_RDONLY);
+	dup2(proc->infile, STDIN_FILENO);
+	close(proc->infile);
 }
 
-static void	heredoc(t_proc *proc, t_fd *fd)
+static void	heredoc(t_proc *proc)
 {
 	int		buffer_fd;
 	char	*buffer;
@@ -53,14 +49,14 @@ static void	heredoc(t_proc *proc, t_fd *fd)
 	unlink("heredoc");
 }
 
-void	redirect_in(t_proc *proc, t_fd *fd)
+void	redirect_in(t_proc *proc)
 {
 	while (proc->redir_in)
 	{
 		if (proc->redir_in->flag == IN_TRUNC)
-			in_trunc(proc->redir_in, fd);
+			in_trunc(proc);
 		if (proc->redir_in->flag == IN_APPEND)
-			heredoc(proc, fd);
+			heredoc(proc);
 		proc->redir_in = proc->redir_in->next;
 	}
 }

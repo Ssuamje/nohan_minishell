@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:53:34 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/27 15:44:21 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/30 18:59:30 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,20 @@ typedef struct s_proc{
 	t_redir			*redir_in;
 	t_redir			*redir_out;
 	char			**command;
-	int				size;
+	int				infile;
+	int				outfile;
+	int				pip[2];
+	int				outfile_exist;
+	struct s_proc	*prev;
 	struct s_proc	*next;
 }	t_proc;
-
-typedef struct s_fd
-{
-	int		infile;
-	int		outfile;
-}	t_fd;
 
 typedef struct s_env
 {
 	char	**path;
 }	t_env;
 
-void	redirect_in(t_proc *proc, t_fd *fd);
-void	redirect_out(t_proc *proc, t_fd *fd);
+void	redirect_in(t_proc *proc);
+void	redirect_out(t_proc *proc);
 
 #endif
