@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 13:36:27 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 16:17:51 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,22 @@ enum e_parser_status{
 	PAR_ENV,
 };
 
+enum	e_flag_redir{
+	REDIR_L = 1,
+	REDIR_LL,
+	REDIR_R,
+	REDIR_RR,
+};
+
 typedef	struct s_redir{
 	int		flag;
 	char	*file;
 }	t_redir;
 typedef	struct s_parser{
 	int		status;
-	char	*arg;
-	char	**cmd;
+	int		flag_redir;
+	char	*string;
+	t_list	*argv;
 }	t_parser;
 typedef struct s_process{
 	t_list	*redir_in;

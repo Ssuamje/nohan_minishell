@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:58:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 13:47:28 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 17:10:00 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void    ft_lstreplace(t_list **list);
 int		ft_strcmp(char *s1, char *s2);
+t_list	*ft_lstpop(t_list *lst, t_list *to_pop, int return_dir);
 
 #endif
