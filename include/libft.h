@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:58:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 17:10:00 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 19:28:25 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ typedef struct s_list{
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+enum	e_flag_pop{
+	LST_LEFT,
+	LST_RIGHT
+};
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);

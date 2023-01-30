@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 16:17:51 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 19:27:25 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ enum	e_flag_redir{
 	REDIR_RR,
 };
 
+enum	e_err_join{
+	ERR_TRUE,
+	ERR_FALSE
+};
+
 typedef	struct s_redir{
 	int		flag;
 	char	*file;
@@ -48,5 +53,10 @@ typedef struct s_process{
 }	t_process;
 
 t_list *parse(char **envp, char *input);
+void	free_parser(t_parser **parser);
+int	check_syntax(t_list *tokens);
+t_process	*get_process(void);
+t_parser	*get_parser(void);
+void	parse_init(t_token *token, t_parser *parser);
 
 #endif

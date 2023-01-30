@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 19:00:42 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 19:07:00 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,20 @@ int main(int ac, char **av, char **envp)
 	if (ac != 1)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
-	processes = parse(envp, "HELLO\"USER\"\"USER\"");
-	(void)processes;
-	(void)input;
-	// while (WAIT_FOR_SIG)
-	// {
-	// 	input = readline("🐤AengMuShell $ ");
-	// 	if (input == NULL)
-	// 		return (1);
-	// 	if (get_len(input) == 0)
-	// 	{
-	// 		free(input);
-	// 		continue ;
-	// 	}
-	// 	add_history(input);
-	// 	processes = parse(envp, input);
-	// 	ft_lstclear(&processes, free);
-	// 	// system("leaks a.out");
-	// 	free(input);
-	// }
+	while (WAIT_FOR_SIG)
+	{
+		input = readline("🐤AengMuShell $ ");
+		if (input == NULL)
+			return (1);
+		if (get_len(input) == 0)
+		{
+			free(input);
+			continue ;
+		}
+		add_history(input);
+		processes = parse(envp, input);
+		ft_lstclear(&processes, free);
+		// system("leaks a.out");
+		free(input);
+	}
 }
