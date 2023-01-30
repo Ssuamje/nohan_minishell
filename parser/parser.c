@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 19:32:09 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 23:21:44 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	get_redir_flag(char *redir)
 
 void	free_parser(t_parser **parser)
 {
-	free((*parser)->argv);
+	ft_lstclear(&((*parser)->argv), free);
 	if ((*parser)->string)
 		free((*parser)->string);
 	free(*parser);
@@ -110,8 +110,8 @@ t_process	*get_process(void)
 	if (to_return == NULL)
 		exit_error(ERR_MALLOC);
 	to_return->cmd = NULL;
-	to_return->redir_in = NULL;
-	to_return->redir_out = NULL;
+	to_return->redir_in = ft_lstnew(NULL);
+	to_return->redir_out = ft_lstnew(NULL);
 	return (to_return);
 }
 
@@ -128,39 +128,6 @@ t_parser	*get_parser(void)
 	to_return->argv = ft_lstnew(NULL);
 	return (to_return);
 }
-
-void	parse_init(t_token *token, t_parser *parser)
-{
-	if (token->status == PAR_REDIRECT)
-	{
-		parser->status = PAR_REDIRECT;
-		parser->flag_redir = get_redir_flag(token->string);
-		return ;
-	}
-	parser->status = token->status;
-	ft_lstadd_back(&parser->argv, ft_lstnew(ft_strdup(token->string)));
-}
-
-// void	process_redir_token(t_token *token, t_parser *parser, t_process *proc)
-// {
-// 	parse_token_to_redir(parser, proc);
-// 	parser->status = PAR_REDIRECT;
-// 	parser->flag_redir = get_redir_flag(token->string);
-// }
-
-
-// int	parse_tokens(t_list *tokens, t_list *processes, t_parser *parser)
-// {
-// 	t_list		*tmp;
-// 	t_token		*tmp_token;
-
-// 	tmp = tokens->next;
-// 	while (tmp != NULL)
-// 	{
-// 		tmp_token = tmp->content;
-// 		tmp = tmp->next;
-// 	}
-// }
 
 int		check_join_condition(t_token *next_token)
 {
@@ -191,7 +158,8 @@ void	join_tokens(t_list *tokens)
 		next_token = tmp->next->content;
 		if (check_join_condition(next_token) != FALSE)
 		{
-			tmp_token->string = ft_join_and_free(tmp_token->string, next_token->string);
+			tmp_token->string = ft_join_and_free(tmp_token->string, \
+												next_token->string);
 			tmp = ft_lstpop(tokens, tmp->next, LST_LEFT);
 			continue ;
 		}
@@ -199,12 +167,172 @@ void	join_tokens(t_list *tokens)
 	}
 }
 
+int	parse_init(t_token *token, t_parser *parser)
+{
+	parser->status = token->status;
+	if (token->status == PAR_PIPE)
+		return (ERR_TRUE);
+	if (token->status == PAR_REDIRECT)
+	{
+		parser->flag_redir = get_redir_flag(token->string);
+		return (ERR_FALSE);
+	}
+	ft_lstadd_back(&(parser->argv), ft_lstnew(ft_strdup(token->string)));
+	return (ERR_FALSE);
+}
+
+
+t_redir	*get_redir(t_parser *parser)
+{
+	t_redir *to_return;
+
+	to_return = malloc(sizeof(t_redir));
+	to_return->flag = parser->flag_redir;
+	to_return->file = ft_strdup(parser->string);
+	return (to_return);
+}
+
+void	put_redir_token(t_parser *parser, t_process *cur_proc)
+{
+	if (parser->flag_redir == REDIR_L
+	||	parser->flag_redir == REDIR_LL)
+		ft_lstadd_back(&(cur_proc->redir_in), ft_lstnew(get_redir(parser)));
+	if (parser->flag_redir == REDIR_R
+	||	parser->flag_redir == REDIR_RR)
+		ft_lstadd_back(&(cur_proc->redir_out), ft_lstnew(get_redir(parser)));
+}
+
+int	parse_string(t_token *token, t_parser *parser)
+{
+	parser->status = token->status;
+	if (token->status == PAR_REDIRECT)
+	{
+		parser->flag_redir = get_redir_flag(token->string);
+		parser->status = PAR_REDIRECT;
+		return (ERR_FALSE);
+	}
+	ft_lstadd_back(&(parser->argv), ft_lstnew(ft_strdup(token->string)));
+	return (ERR_FALSE);
+}
+
+int	parse_redirect(t_token *token, t_parser *parser, t_process *cur_proc)
+{
+	parser->status = token->status;
+	if (token->status == PAR_REDIRECT
+	||	token->status == PAR_PIPE)
+		return (ERR_TRUE);
+	parser->string = ft_strdup(token->string);
+	put_redir_token(parser, cur_proc);
+	return (ERR_FALSE);
+}
+
+void	argv_list_to_split(t_process *cur_proc, t_parser *parser)
+{
+	char	**split;
+	int		count_nodes;
+	t_list	*cmd_list;
+	int		idx;
+
+	cmd_list = parser->argv->next;
+	count_nodes = ft_lstsize(cmd_list);
+	split = malloc(sizeof(char *) * (count_nodes + 1));
+	split[count_nodes] = NULL;
+	idx = 0;
+	while (split[idx] != NULL && cmd_list != NULL)
+	{
+		split[idx] = ft_strdup(cmd_list->content);
+		idx++;
+		cmd_list = cmd_list->next;
+	}
+	cur_proc->cmd = split;
+}
+
+int	parse_tokens(t_list *tokens, t_list *processes, t_parser *parser)
+{
+	t_list		*tmp;
+	t_token		*tmp_token;
+	t_process	*cur_proc;
+	int		err;
+
+	tmp = tokens->next;
+	cur_proc = get_process();
+	err = ERR_FALSE;
+	while (tmp != NULL)
+	{
+		tmp_token = tmp->content;
+		if (tmp_token->status == PAR_PIPE)
+		{
+			argv_list_to_split(cur_proc, parser);
+			ft_lstadd_back(&processes, ft_lstnew(cur_proc));
+			cur_proc = get_process();
+		}
+		if (parser->status == FALSE)
+			err = parse_init(tmp_token, parser);
+		if (parser->status == PAR_STRING
+		||	parser->status == PAR_QUOTATION
+		||	parser->status == PAR_APOSTROPHE
+		||	parser->status == PAR_ENV)
+			err = parse_string(tmp_token, parser);
+		if (parser->status == PAR_REDIRECT)
+			err = parse_redirect(tmp_token, parser, cur_proc);
+		tmp = tmp->next;
+	}
+	argv_list_to_split(cur_proc, parser);
+	ft_lstadd_back(&processes, ft_lstnew(cur_proc));
+	return (err);
+}
+
+#define REDIR_IN 0
+#define REDIR_OUT 1
+
+void	print_redir(t_list *redir_list)
+{
+	t_list	*tmp;
+	t_redir	*cur;
+
+	tmp = redir_list->next;
+	while (tmp != NULL && tmp->content != NULL)
+	{
+		cur = tmp->content;
+		if (cur->flag == REDIR_L)
+			printf("	{ type : <\n");
+		if (cur->flag == REDIR_LL)
+			printf("	{ type : <<\n");
+		if (cur->flag == REDIR_R)
+			printf("	{ type : >\n");
+		if (cur->flag == REDIR_RR)
+			printf("	{ type : >>\n");
+		printf("  	file = _%s_}\n", cur->file);
+		printf("\n");
+		tmp = tmp->next;
+	}
+}
+
+void	print_processes(t_list *processes)
+{
+	t_list		*tmp;
+	int			idx;
+	t_process	*cur;
+
+	tmp = processes->next;
+	idx = 0;
+	while (tmp != NULL && tmp->content != NULL)
+	{
+		cur = tmp->content;
+		printf("**********process %d**********\n", idx);
+		print_redir(cur->redir_in);
+		print_redir(cur->redir_out);
+		print_split(cur->cmd);
+		idx++;
+		tmp = tmp->next;
+	}
+}
 
 t_list *parse(char **envp, char *input)
 {
 	t_list		*tokens;
-	t_list		*processes;
 	t_parser	*parser;
+	t_list		*processes;
 
 	tokens = get_processed_tokens(envp, input);
 	if (tokens == NULL)
@@ -213,21 +341,24 @@ t_list *parse(char **envp, char *input)
 		printf("invalid env!\n");
 		return (NULL);
 	}
-	// print_token(tokens);
 	if (check_syntax(tokens) == ERR_TRUE)
 	{
+		free_tokens(&tokens);
 		printf("syntax error occurred!\n");
 		return (NULL);
 	}
-	parser = get_parser();
-	processes = ft_lstnew(NULL);
 	join_tokens(tokens);
 	print_token(tokens);
-	// if (parse_tokens(tokens, processes, parser) == ERR_TRUE)
-	// {
-	// 	printf("parse error occurred!\n");
-	// 	return (NULL);
-	// }
+	parser = get_parser();
+	processes = ft_lstnew(NULL);
+	if (parse_tokens(tokens, processes, parser) == ERR_TRUE)
+	{
+		free_tokens(&tokens);
+		free_parser(&parser);
+		ft_lstclear(&processes, free); // need to be strict
+		printf("parse error occurred!\n");
+		return (NULL);
+	}
 	free_tokens(&tokens);
 	free_parser(&parser);
 	return (processes);

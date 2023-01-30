@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 19:07:00 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 23:21:06 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int main(int ac, char **av, char **envp)
 	t_list	*processes;
 
 	(void)av;
-	atexit(check_leaks);
+	(void)input;
+	// atexit(check_leaks);
 	if (ac != 1)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
@@ -63,6 +64,7 @@ int main(int ac, char **av, char **envp)
 		}
 		add_history(input);
 		processes = parse(envp, input);
+		print_processes(processes);
 		ft_lstclear(&processes, free);
 		// system("leaks a.out");
 		free(input);

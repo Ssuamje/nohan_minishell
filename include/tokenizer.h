@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:55:16 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 14:07:09 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 22:20:00 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ int 	is_in_charset(char c, char *charset);
 int 	is_special(char c);
 int		process_tokens_env(char **envp, t_list *tokens);
 int		count_char(char *string, char c);
+void	free_split(char **split);
+void	print_split(char **split);
 
 #endif
