@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 23:21:44 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 23:26:34 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,10 @@ int	parse_tokens(t_list *tokens, t_list *processes, t_parser *parser)
 		{
 			argv_list_to_split(cur_proc, parser);
 			ft_lstadd_back(&processes, ft_lstnew(cur_proc));
+			parser->status = FALSE;
 			cur_proc = get_process();
+			tmp = tmp->next;
+			continue ;
 		}
 		if (parser->status == FALSE)
 			err = parse_init(tmp_token, parser);
