@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 21:58:34 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 14:02:05 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int main(int ac, char **av, char **envp)
 	signal(SIGINT, sighandler);
 	while (WAIT_FOR_SIG)
 	{
-		input = readline("$ AengMuShell> ");
+		input = readline("🐤AengMuShell $ ");
 		if (input == NULL)
 			return (1);
 		if (get_len(input) == 0)
@@ -61,7 +61,8 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		}
 		add_history(input);
-		parse(envp, input);
+		if (parse(envp, input) == NULL)
+			printf("parse error occured!\n");
 		// system("leaks a.out");
 		free(input);
 	}

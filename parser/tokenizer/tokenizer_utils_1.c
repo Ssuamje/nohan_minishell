@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/27 23:21:33 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 13:26:21 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,6 @@ int process_env(char **envp, t_token *token)
 	env_splitted = split_env_string(token->string, &processed_string);
 	if (env_splitted == NULL)
 		return (ENV_SYNTAX_ERROR);
-	print_split(env_splitted);
 	while (env_splitted[idx] != NULL)
 	{
 		if (interpret_env(envp, &env_splitted[idx]) == FALSE)

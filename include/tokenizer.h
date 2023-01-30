@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:55:16 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/29 21:38:02 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 14:07:09 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int		is_alnum(char c);
 int 	is_in_charset(char c, char *charset);
 int 	is_special(char c);
 int		process_tokens_env(char **envp, t_list *tokens);
+int		count_char(char *string, char c);
 
 #endif
