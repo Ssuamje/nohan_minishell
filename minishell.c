@@ -6,113 +6,47 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 20:26:11 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 20:53:25 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/minishell.h"
-
-void	set_proc_next3(t_proc *proc)
-{
-	proc->redir_in = malloc(sizeof(t_redir));
-	proc->redir_in->flag = IN_APPEND;
-	proc->redir_in->directory = "eof4";
-	proc->redir_out = NULL;
-	// proc->redir_out->flag = OUT_TRUNC;
-	// proc->redir_out->directory = "infile.txt";
-	proc->command = malloc(sizeof(char *) * 4);
-	proc->command[0] = NULL;
-	proc->command[1] = NULL;
-	proc->command[2] = NULL;
-	proc->command[3] = NULL;
-	proc->heredoc = ft_strdup("3");
-	proc->next = NULL;
-}
-
-void	set_proc_next2(t_proc *proc)
-{
-	proc->redir_in = malloc(sizeof(t_redir));
-	proc->redir_in->flag = IN_APPEND;
-	proc->redir_in->directory = "eof3";
-	proc->redir_out = NULL;
-	// proc->redir_out->flag = OUT_TRUNC;
-	// proc->redir_out->directory = "infile.txt";
-	proc->command = malloc(sizeof(char *) * 4);
-	proc->command[0] = NULL;
-	proc->command[1] = NULL;
-	proc->command[2] = NULL;
-	proc->command[3] = NULL;
-	proc->heredoc = ft_strdup("2");
-	proc->next = malloc(sizeof(t_proc));
-	set_proc_next3(proc->next);
-}
-
-void	set_proc_next(t_proc *proc)
-{
-	proc->redir_in = malloc(sizeof(t_redir));
-	proc->redir_in->flag = IN_APPEND;
-	proc->redir_in->directory = "eof2";
-	proc->redir_out = NULL;
-	// proc->redir_out->flag = OUT_TRUNC;
-	// proc->redir_out->directory = "infile.txt";
-	proc->command = malloc(sizeof(char *) * 4);
-	proc->command[0] = NULL;
-	proc->command[1] = NULL;
-	proc->command[2] = NULL;
-	proc->command[3] = NULL;
-	proc->heredoc = ft_strdup("1");
-	proc->next = NULL;
-	// set_proc_next2(proc->next);
-}
-
-void	set_proc(t_proc *proc)
-{
-	proc->redir_in = NULL;
-	// proc->redir_in->flag = IN_APPEND;
-	// proc->redir_in->directory = ft_strdup("eof");
-	proc->redir_out = malloc(sizeof(t_redir));
-	proc->redir_out->flag = OUT_TRUNC;
-	proc->redir_out->directory = "infile.txt";
-	proc->command = malloc(sizeof(char *) * 4);
-	proc->command[0] = "ls";
-	proc->command[1] = "-lra";
-	proc->command[2] = NULL;
-	proc->command[3] = NULL;
-	proc->heredoc = ft_strdup("0");
-	proc->next = NULL;
-	// set_proc_next(proc->next);
-}
 
 void	check(void)
 {
 	system("leaks a.out");
 }
 
-int	main(int ac, char **av, char **envp)
+void	pipe_process(t_list *processes, int *pfd, char **env_path, char **envp)
+{
+	t_list		*tmp;
+	t_process	*cur_proc;
+
+	tmp = processes->next;
+	while (tmp != NULL && tmp->content != NULL)
+	{
+		cur_proc = tmp->content;
+		pipe(pfd);
+		execute(cur_proc, tmp->next->content, pfd, env_path, envp);
+		tmp = tmp->next;
+	}
+}
+
+void	exec_process(char **envp, t_list *processes)
 {
 	t_env	env;
-	t_proc	*proc;
 	int		stdfd[2];
 	int		pfd[2];
 	int		status;
 	int		child_size;
 
-	(void)ac;
-	(void)av;
 	// atexit(check);
-	proc = malloc(sizeof(t_proc)); //setting
-	set_proc(proc); //setting
 	env_path(&env, envp); // setting
 
-	child_size = get_child_size(proc);
+	child_size = ft_lstsize(processes - 1);
 	stdfd[0] = dup(STDIN_FILENO);
 	stdfd[1] = dup(STDOUT_FILENO);
-	while (proc != NULL)
-	{	
-		pipe(pfd);
-		execute(proc, pfd, env.path, envp);
-		proc = proc->next;
-	}
+	pipe_process(processes, pfd, env.path, envp);
 	while (--child_size)
 		wait(&status);
 	dup2(stdfd[0], STDIN_FILENO);

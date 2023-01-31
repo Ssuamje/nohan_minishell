@@ -6,13 +6,14 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 16:00:05 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 20:42:45 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 # include "lexer.h"
+# include "redirection.h"
 # include "tokenizer.h"
 
 enum e_parser_status{
@@ -24,28 +25,18 @@ enum e_parser_status{
 	PAR_ENV,
 };
 
-enum	e_flag_redir{
-	REDIR_L = 1,
-	REDIR_LL,
-	REDIR_R,
-	REDIR_RR,
-};
-
 enum	e_err_join{
 	ERR_TRUE,
 	ERR_FALSE
 };
 
-typedef	struct s_redir{
-	int		flag;
-	char	*file;
-}	t_redir;
 typedef	struct s_parser{
 	int		status;
 	int		flag_redir;
 	char	*string;
 	t_list	*argv;
 }	t_parser;
+
 typedef struct s_process{
 	t_list	*redir_in;
 	t_list	*redir_out;

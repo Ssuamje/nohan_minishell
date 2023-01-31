@@ -6,13 +6,13 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:55:10 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 20:25:28 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 20:54:02 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/execute.h"
 
-void	env_command(t_proc *proc, int pfd[], char **path, char **envp)
+void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **path, char **envp)
 {
 	int		i;
 	char	*full_path;
@@ -25,14 +25,15 @@ void	env_command(t_proc *proc, int pfd[], char **path, char **envp)
 	if (pid == 0)
 	{
 		close(pfd[0]);
-		if (proc->next != NULL)
+		if (next_proc != NULL) // need to modify
 			dup2(pfd[1], STDOUT_FILENO);
 		close(pfd[1]);
 		i = -1;
 		while (path[++i])
 		{
-			full_path = ft_strjoin(path[i], proc->command[0]);
-			execve(full_path, proc->command, envp);
+			full_path = ft_strjoin(path[i], cur_proc->cmd[0]);
+			free(path[i]);
+			execve(full_path, cur_proc->cmd, envp);
 		}
 	}
 	if (pid > 0)
@@ -41,13 +42,13 @@ void	env_command(t_proc *proc, int pfd[], char **path, char **envp)
 		dup2(pfd[0], STDIN_FILENO);
 		close(pfd[0]);
 	}
-	if (proc->next == NULL)
+	if (next_proc == NULL) // need to modify
 		waitpid(pid, NULL, 0);
 }
 
-void	execute(t_proc *proc, int pfd[], char **path, char **envp)
+void	execute(t_process *cur_proc, t_process *next_proc, int pfd[], char **path, char **envp)
 {
-	redirect_in(proc);
-	redirect_out(proc);
-	env_command(proc, pfd, path, envp);
+	redirect_in(cur_proc);
+	redirect_out(cur_proc);
+	env_command(cur_proc, next_proc, pfd, path, envp);
 }

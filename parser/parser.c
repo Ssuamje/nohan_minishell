@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 19:58:28 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 20:40:59 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ int	check_first_arg(t_token *token)
 int	get_redir_flag(char *redir)
 {
 	if (ft_strcmp(redir, "<") == TRUE)
-		return (REDIR_L);
+		return (IN_TRUNC);
 	if (ft_strcmp(redir, "<<") == TRUE)
-		return (REDIR_LL);
+		return (IN_APPEND);
 	if (ft_strcmp(redir, ">") == TRUE)
-		return (REDIR_R);
+		return (OUT_TRUNC);
 	if (ft_strcmp(redir, ">>") == TRUE)
-		return (REDIR_RR);
+		return (OUT_APPEND);
 	return (FALSE);
 }
 
@@ -194,11 +194,11 @@ t_redir	*get_redir(t_parser *parser)
 
 void	put_redir_token(t_parser *parser, t_process *cur_proc)
 {
-	if (parser->flag_redir == REDIR_L
-	||	parser->flag_redir == REDIR_LL)
+	if (parser->flag_redir == IN_TRUNC
+	||	parser->flag_redir == IN_APPEND)
 		ft_lstadd_back(&(cur_proc->redir_in), ft_lstnew(get_redir(parser)));
-	if (parser->flag_redir == REDIR_R
-	||	parser->flag_redir == REDIR_RR)
+	if (parser->flag_redir == OUT_TRUNC
+	||	parser->flag_redir == OUT_APPEND)
 		ft_lstadd_back(&(cur_proc->redir_out), ft_lstnew(get_redir(parser)));
 }
 
@@ -290,22 +290,22 @@ int	parse_tokens(t_list *tokens, t_list *processes, t_parser *parser)
 #define REDIR_IN 0
 #define REDIR_OUT 1
 
-void	print_redir(t_list *redir_list)
+void	print_redir(t_list *IN_TRUNCist)
 {
 	t_list	*tmp;
 	t_redir	*cur;
 
-	tmp = redir_list->next;
+	tmp = IN_TRUNCist->next;
 	while (tmp != NULL && tmp->content != NULL)
 	{
 		cur = tmp->content;
-		if (cur->flag == REDIR_L)
+		if (cur->flag == IN_TRUNC)
 			printf("	{ type : <\n");
-		if (cur->flag == REDIR_LL)
+		if (cur->flag == IN_APPEND)
 			printf("	{ type : <<\n");
-		if (cur->flag == REDIR_R)
+		if (cur->flag == OUT_TRUNC)
 			printf("	{ type : >\n");
-		if (cur->flag == REDIR_RR)
+		if (cur->flag == OUT_APPEND)
 			printf("	{ type : >>\n");
 		printf("  	file = _%s_}\n", cur->file);
 		printf("\n");

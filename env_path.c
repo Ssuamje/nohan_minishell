@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:59 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 16:44:35 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:27:45 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	env_path(t_env *env, char **envp)
 {
 	int		i;
 	char 	*tmp_path;
+	char	*tmp_free;
 
 	i = -1;
 	while (envp[++i])
@@ -27,5 +28,9 @@ void	env_path(t_env *env, char **envp)
 	free(tmp_path);
 	i = -1;
 	while (env->path[++i])
+	{
+		tmp_free = env->path[i];
 		env->path[i] = ft_strjoin(env->path[i], "/");
+		free(tmp_free);
+	}
 }
