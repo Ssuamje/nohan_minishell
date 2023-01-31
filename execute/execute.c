@@ -3,42 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:55:10 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/30 21:38:14 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/01/31 19:54:18 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-void	set_pipe(t_proc *proc)
-{
-	if (proc->prev != NULL) // 맨 앞일 때 제외
-	{
-		dup2(proc->pip[0], STDIN_FILENO);
-		close(proc->pip[0]);
-	}
-	if (proc->next != NULL) // 맨 뒤일 때 제외
-	{
-		close(proc->next->pip[0]);
-		dup2(proc->next->pip[1], STDOUT_FILENO);
-	}
-}
-
-void	env_command(t_proc *proc, char **path, char **envp)
+void	env_command(t_proc *proc, int pfd[], char **path, char **envp)
 {
 	int		i;
 	char	*full_path;
 	pid_t	pid;
 	int		status;
 
-	if (proc->next != NULL)
-		pipe(proc->next->pip);
+	status = -1;
 	pid = fork();
 	if (pid == 0)
 	{
-		set_pipe(proc);
+		close(pfd[0]);
+		if (proc->next != NULL)
+			dup2(pfd[1], STDOUT_FILENO);
+		close(pfd[1]);
 		i = -1;
 		while (path[++i])
 		{
@@ -46,11 +34,19 @@ void	env_command(t_proc *proc, char **path, char **envp)
 			execve(full_path, proc->command, envp);
 		}
 	}
+	if (pid > 0)
+	{
+		close(pfd[1]);
+		dup2(pfd[0], STDIN_FILENO);
+		close(pfd[0]);
+	}
+	if (proc->next == NULL)
+		waitpid(pid, NULL, 0);
 }
 
-void	execute(t_proc *proc, char **path, char **envp)
+void	execute(t_proc *proc, int pfd[], char **path, char **envp)
 {
 	redirect_in(proc);
 	redirect_out(proc);
-	env_command(proc, path, envp);
+	env_command(proc, pfd, path, envp);
 }

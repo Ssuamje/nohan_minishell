@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:41 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/28 15:15:10 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/01/31 13:39:01 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 # include "redirection.h"
 # include "libft.h"
 
-void	execute(t_proc *proc, char **path, char **envp);
+void	execute(t_proc *proc, int pfd[], char **path, char **envp);
 
 #endif

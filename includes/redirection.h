@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:53:34 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/30 18:59:30 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/01/31 17:41:13 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ enum e_flag_redir{
 typedef struct s_redir{
 	int				flag;
 	char			*directory;
-	struct s_redir	*next;
 }	t_redir;
 
 typedef struct s_proc{
@@ -38,9 +37,7 @@ typedef struct s_proc{
 	char			**command;
 	int				infile;
 	int				outfile;
-	int				pip[2];
-	int				outfile_exist;
-	struct s_proc	*prev;
+	char			*heredoc;
 	struct s_proc	*next;
 }	t_proc;
 

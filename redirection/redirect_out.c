@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_out.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:57:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/30 18:59:41 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/01/31 16:49:46 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,11 @@ static void	out_append(t_proc *proc)
 
 void	redirect_out(t_proc *proc)
 {
-	while (proc->redir_out)
+	if (proc->redir_out != NULL)
 	{
 		if (proc->redir_out->flag == OUT_TRUNC)
 			out_trunc(proc);
-		if (proc->redir_out->flag == OUT_APPEND)
+		else if (proc->redir_out->flag == OUT_APPEND)
 			out_append(proc);
-		proc->outfile_exist = 1;
-		proc->redir_out = proc->redir_out->next;
 	}
 }
