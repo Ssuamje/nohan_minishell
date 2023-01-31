@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 20:42:45 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 23:49:56 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ t_process	*get_process(void);
 t_parser	*get_parser(void);
 int	parse_init(t_token *token, t_parser *parser);
 void	print_processes(t_list *processes);
+void	free_process_list(t_list *processes);
 
 #endif

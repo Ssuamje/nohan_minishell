@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 22:25:43 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/31 23:50:10 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int main(int ac, char **av, char **envp)
 		add_history(input);
 		processes = parse(envp, input);
 		print_processes(processes);
-		exec_process(envp, processes);
-		ft_lstclear(&processes, free);
-		// system("leaks a.out");
+		// exec_process(envp, processes);
+		free_process_list(processes);
+		system("leaks a.out");
 		free(input);
 	}
 }
