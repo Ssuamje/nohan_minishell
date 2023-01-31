@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:58:56 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 15:58:58 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 20:21:42 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void    ft_lstreplace(t_list **list);
 int		ft_strcmp(char *s1, char *s2);
 t_list	*ft_lstpop(t_list *lst, t_list *to_pop, int return_dir);
+void	ft_putstr(char *s);
 
 #endif

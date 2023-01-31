@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:55:10 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 19:54:18 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:23:25 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	env_command(t_proc *proc, int pfd[], char **path, char **envp)
 	pid_t	pid;
 	int		status;
 
+	(void)status;
 	status = -1;
 	pid = fork();
 	if (pid == 0)

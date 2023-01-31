@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 19:51:53 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:23:07 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static void	in_trunc(t_proc *proc)
 
 static void	heredoc(t_proc *proc)
 {
-	int		buffer_fd;
-	char	*buffer;
-	int		old_fd;
-	int		buffer_len;
+	int			buffer_fd;
+	char		*buffer;
+	int			old_fd;
+	size_t		buffer_len;
 
 	old_fd = dup(STDOUT_FILENO);
 	buffer_fd = open(proc->heredoc, O_RDWR | O_CREAT | O_TRUNC, 0644);

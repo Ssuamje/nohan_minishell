@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 19:55:31 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/31 20:24:25 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ void	set_proc(t_proc *proc)
 	// set_proc_next(proc->next);
 }
 
+void	check(void)
+{
+	system("leaks a.out");
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	t_env	env;
@@ -92,6 +97,9 @@ int	main(int ac, char **av, char **envp)
 	int		status;
 	int		child_size;
 
+	(void)ac;
+	(void)av;
+	atexit(check);
 	proc = malloc(sizeof(t_proc)); //setting
 	set_proc(proc); //setting
 	env_path(&env, envp); // setting
