@@ -6,11 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 20:23:07 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 20:25:38 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "redirection.h"
+#include "../include/redirection.h"
 
 static void	in_trunc(t_proc *proc)
 {

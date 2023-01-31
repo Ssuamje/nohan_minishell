@@ -6,11 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 20:24:25 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 20:26:11 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "./include/minishell.h"
 
 void	set_proc_next3(t_proc *proc)
 {
@@ -99,7 +99,7 @@ int	main(int ac, char **av, char **envp)
 
 	(void)ac;
 	(void)av;
-	atexit(check);
+	// atexit(check);
 	proc = malloc(sizeof(t_proc)); //setting
 	set_proc(proc); //setting
 	env_path(&env, envp); // setting

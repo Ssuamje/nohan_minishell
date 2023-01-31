@@ -6,11 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:55:10 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 20:23:25 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 20:25:28 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute.h"
+#include "../include/execute.h"
 
 void	env_command(t_proc *proc, int pfd[], char **path, char **envp)
 {
