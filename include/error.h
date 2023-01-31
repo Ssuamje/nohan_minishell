@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:43:43 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/23 19:14:19 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 20:07:33 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define ERROR_H
 #include <stdio.h>
 #include <stdlib.h>
-
-// https://velog.io/@hidaehyunlee/minishell-4.-%EC%A2%85%EB%A3%8C%EC%83%81%ED%83%9C%EC%99%80-%EC%97%90%EB%9F%AC%EB%A9%94%EC%84%B8%EC%A7%80-%EC%B2%98%EB%A6%AC
 
 enum e_exit_code{
     EXIT_GENERAL_SUCCESS,
