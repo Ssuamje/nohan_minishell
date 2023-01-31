@@ -6,15 +6,15 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 20:57:16 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 21:05:10 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/redirection.h"
 
-static void	in_trunc(t_process *proc)
+static void	in_trunc(t_process *proc, t_redir *redir)
 {
-	proc->fd_infile = open(((t_redir *)proc->redir_in->content)->file, O_RDONLY);
+	proc->fd_infile = open(redir->file, O_RDONLY);
 	dup2(proc->fd_infile, STDIN_FILENO);
 	close(proc->fd_infile);
 }
@@ -54,11 +54,15 @@ static void	in_trunc(t_process *proc)
 
 void	redirect_in(t_process *proc)
 {
-	if (proc->redir_in != NULL)
+	t_list	*tmp;
+	t_redir *tmp_redir;
+
+	tmp = proc->redir_in->next;
+	while (tmp != NULL && tmp->content != NULL)
 	{
-		if (proc->redir_in->flag == IN_TRUNC)
-			in_trunc(proc);
-		// else if (proc->redir_in->flag == IN_APPEND)
-		// 	heredoc(proc);
+		tmp_redir = tmp->content;
+		if (tmp_redir->flag == IN_TRUNC)
+			in_trunc(proc, tmp_redir);
+		tmp = tmp->next;
 	}
 }

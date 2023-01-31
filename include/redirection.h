@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:53:34 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 20:55:05 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 21:11:50 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <unistd.h>
 # include "libft.h"
 # include "parser.h"
+
+typedef struct s_process t_process;
 
 enum e_flag_redir{
 	IN_TRUNC,
@@ -37,7 +39,7 @@ typedef struct s_env
 	char	**path;
 }	t_env;
 
-void	redirect_in(t_proc *proc);
-void	redirect_out(t_proc *proc);
+void	redirect_in(t_process *proc);
+void	redirect_out(t_process *proc);
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:59 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 20:27:45 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 21:13:01 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "./include/minishell.h"
 
 void	env_path(t_env *env, char **envp)
 {

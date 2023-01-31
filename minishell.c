@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 20:53:25 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 21:13:36 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exec_process(char **envp, t_list *processes)
 	// atexit(check);
 	env_path(&env, envp); // setting
 
-	child_size = ft_lstsize(processes - 1);
+	child_size = ft_lstsize(processes) - 1;
 	stdfd[0] = dup(STDIN_FILENO);
 	stdfd[1] = dup(STDOUT_FILENO);
 	pipe_process(processes, pfd, env.path, envp);
