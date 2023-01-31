@@ -20,6 +20,7 @@ void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **pa
 	int		status;
 
 	status = -1;
+	printf("hello hi\n");
 	pid = fork();
 	if (pid == 0)
 	{

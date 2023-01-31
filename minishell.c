@@ -21,8 +21,9 @@ void	pipe_process(t_list *processes, int *pfd, char **env_path, char **envp)
 {
 	t_list		*tmp;
 	t_process	*cur_proc;
+	int		child_size;
 
-
+	child_size = ft_lstsize(processes) - 1;
 	tmp = processes->next;
 	while (tmp != NULL && tmp->content != NULL)
 	{
@@ -44,7 +45,6 @@ void	exec_process(char **envp, t_list *processes)
 	int		status = -1;
 	int		child_size;
 
-	// atexit(check);
 	env_path(&env, envp); // setting
 
 	child_size = ft_lstsize(processes) - 1;
