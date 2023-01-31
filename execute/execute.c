@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:55:10 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 21:51:15 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/31 22:25:50 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **pa
 			free(path[i]);
 			execve(full_path, cur_proc->cmd, envp);
 		}
+		exit(0);
 	}
 	if (pid > 0)
 	{
@@ -42,8 +43,13 @@ void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **pa
 		dup2(pfd[0], STDIN_FILENO);
 		close(pfd[0]);
 	}
+	// ft_putstr("before\n");
 	if (next_proc == NULL) // need to modify
+	{
+		// ft_putstr("touched\n");
 		waitpid(pid, &status, 0);
+	}
+	// ft_putstr("after\n");
 }
 
 void	execute(t_process *cur_proc, t_process *next_proc, int pfd[], char **path, char **envp)
