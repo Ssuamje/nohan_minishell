@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 22:25:36 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/31 23:52:25 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,6 +331,29 @@ void	print_processes(t_list *processes)
 		idx++;
 		tmp = tmp->next;
 	}
+}
+
+void	free_process(t_process *process)
+{
+	free_split(process->cmd);
+	ft_lstclear(&(process->redir_in), free);
+	ft_lstclear(&(process->redir_out), free);
+}
+
+void	free_process_list(t_list *processes)
+{
+	t_list		*tmp;
+	t_process	*cur_proc;
+
+	tmp = processes->next;
+	while (tmp != NULL)
+	{
+		cur_proc = tmp->content;
+		free_process(cur_proc);
+		tmp = tmp->next;
+	}
+	ft_lstclear(&processes, free);
+	free(processes);
 }
 
 t_list *parse(char **envp, char *input)
