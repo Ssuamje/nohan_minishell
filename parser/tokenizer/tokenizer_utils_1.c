@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 13:26:21 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 22:09:40 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,8 @@ void	print_split(char **split)
 	int idx;
 
 	idx = 0;
+	// printf("split = %p\n", split);
+	// pritnf("split[0] = %p\n", split[0]);
 	if (split == NULL)
 		return ;
 	while (split[idx] != NULL)

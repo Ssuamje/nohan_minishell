@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 20:40:59 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 22:25:36 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ void	argv_list_to_split(t_process *cur_proc, t_parser *parser)
 	split = malloc(sizeof(char *) * (count_nodes + 1));
 	split[count_nodes] = NULL;
 	idx = 0;
-	while (split[idx] != NULL && cmd_list != NULL)
+	while (idx < count_nodes && cmd_list != NULL)
 	{
 		split[idx] = ft_strdup(cmd_list->content);
 		idx++;

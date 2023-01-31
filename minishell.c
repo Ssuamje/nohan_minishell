@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 21:36:52 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/31 22:06:12 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	exec_process(char **envp, t_list *processes)
 	int		status = -1;
 	int		child_size;
 
-	atexit(check);
+	// atexit(check);
 	env_path(&env, envp); // setting
 
 	child_size = ft_lstsize(processes) - 1;
