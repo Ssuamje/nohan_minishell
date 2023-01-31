@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 22:06:12 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/31 23:06:32 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ void	pipe_process(t_list *processes, int *pfd, char **env_path, char **envp)
 {
 	t_list		*tmp;
 	t_process	*cur_proc;
-	int		child_size;
 
-	child_size = ft_lstsize(processes) - 1;
 	tmp = processes->next;
 	while (tmp != NULL && tmp->content != NULL)
 	{
