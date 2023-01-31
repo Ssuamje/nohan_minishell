@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 21:13:36 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 21:36:52 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,16 @@ void	pipe_process(t_list *processes, int *pfd, char **env_path, char **envp)
 	t_list		*tmp;
 	t_process	*cur_proc;
 
+
 	tmp = processes->next;
 	while (tmp != NULL && tmp->content != NULL)
 	{
 		cur_proc = tmp->content;
 		pipe(pfd);
-		execute(cur_proc, tmp->next->content, pfd, env_path, envp);
+		if (tmp->next == NULL)
+			execute(cur_proc, NULL, pfd, env_path, envp);
+		else
+			execute(cur_proc, tmp->next->content, pfd, env_path, envp);
 		tmp = tmp->next;
 	}
 }
@@ -37,10 +41,10 @@ void	exec_process(char **envp, t_list *processes)
 	t_env	env;
 	int		stdfd[2];
 	int		pfd[2];
-	int		status;
+	int		status = -1;
 	int		child_size;
 
-	// atexit(check);
+	atexit(check);
 	env_path(&env, envp); // setting
 
 	child_size = ft_lstsize(processes) - 1;

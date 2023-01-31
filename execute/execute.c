@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:55:10 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 20:54:02 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 21:37:07 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **pa
 	pid_t	pid;
 	int		status;
 
-	(void)status;
 	status = -1;
 	pid = fork();
 	if (pid == 0)
@@ -43,7 +42,7 @@ void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **pa
 		close(pfd[0]);
 	}
 	if (next_proc == NULL) // need to modify
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
 }
 
 void	execute(t_process *cur_proc, t_process *next_proc, int pfd[], char **path, char **envp)
