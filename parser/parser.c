@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 23:26:34 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 19:50:05 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,8 @@ void	argv_list_to_split(t_process *cur_proc, t_parser *parser)
 		cmd_list = cmd_list->next;
 	}
 	cur_proc->cmd = split;
+	ft_lstclear(&(parser->argv), free);
+	ft_lstadd_back(&(parser->argv), ft_lstnew(NULL));
 }
 
 int	parse_tokens(t_list *tokens, t_list *processes, t_parser *parser)
@@ -271,7 +273,7 @@ int	parse_tokens(t_list *tokens, t_list *processes, t_parser *parser)
 		}
 		if (parser->status == FALSE)
 			err = parse_init(tmp_token, parser);
-		if (parser->status == PAR_STRING
+		else if (parser->status == PAR_STRING
 		||	parser->status == PAR_QUOTATION
 		||	parser->status == PAR_APOSTROPHE
 		||	parser->status == PAR_ENV)
@@ -351,7 +353,7 @@ t_list *parse(char **envp, char *input)
 		return (NULL);
 	}
 	join_tokens(tokens);
-	print_token(tokens);
+	// print_token(tokens);
 	parser = get_parser();
 	processes = ft_lstnew(NULL);
 	if (parse_tokens(tokens, processes, parser) == ERR_TRUE)

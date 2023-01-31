@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 22:21:15 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/31 16:00:05 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ typedef	struct s_parser{
 typedef struct s_process{
 	t_list	*redir_in;
 	t_list	*redir_out;
+	int		fd_infile;
+	int		fd_outfile;
 	char	**cmd;
 }	t_process;
+
 
 t_list *parse(char **envp, char *input);
 void	free_parser(t_parser **parser);
