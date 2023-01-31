@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:55:10 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 21:37:07 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/01/31 21:51:15 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **pa
 	int		status;
 
 	status = -1;
+	printf("hello hi\n");
 	pid = fork();
 	if (pid == 0)
 	{
