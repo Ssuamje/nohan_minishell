@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 23:52:25 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/01 13:52:55 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,13 +356,13 @@ void	free_process_list(t_list *processes)
 	free(processes);
 }
 
-t_list *parse(char **envp, char *input)
+t_list *parse(t_list *envl, char *input)
 {
 	t_list		*tokens;
 	t_parser	*parser;
 	t_list		*processes;
 
-	tokens = get_processed_tokens(envp, input);
+	tokens = get_processed_tokens(envl, input);
 	if (tokens == NULL)
 	{
 		free_tokens(&tokens);
