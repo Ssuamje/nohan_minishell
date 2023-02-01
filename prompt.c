@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 13:52:42 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/01 14:54:05 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,17 @@ void check_leaks(void)
 	system("leaks a.out");
 }
 
-int main(int ac, char **av, char **envp)
+int main(int ac, __attribute__((unused))char **av, char **envp)
 {
 	char	*input;
 	t_list	*processes;
-	t_list	*envl;
 
-	(void)av;
 	if (ac != 1)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
-	envl = map_envp_to_list(envp);
-	add_env_to_list(envl, "hello=world");
-	print_envl(envl);
+	g_envl = map_envp_to_list(envp);
+	// add_env_to_list(g_envl, "hello=world");
+	// print_envl(g_envl);
 	while (WAIT_FOR_SIG)
 	{
 		input = readline("🐤AengMuShell $ ");
@@ -68,7 +66,7 @@ int main(int ac, char **av, char **envp)
 			continue ;
 		}
 		add_history(input);
-		processes = parse(envl, input);
+		processes = parse(g_envl, input);
 		print_processes(processes);
 		exec_process(envp, processes);
 		free_process_list(processes);

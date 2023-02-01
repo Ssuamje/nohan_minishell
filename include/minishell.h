@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:35:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 21:09:30 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/01 14:07:42 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include "redirection.h"
 # include "execute.h"
 # include "parser.h"
+
+t_list *g_envl;
 
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0

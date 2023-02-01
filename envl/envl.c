@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:56:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 13:40:20 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/01 14:39:59 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	set_key_value(char **key_value, int idx_equal, char *env)
 	int env_len;
 
 	env_len = ft_strlen(env);
-	key_value[0] = malloc(sizeof(char) * (idx_equal));
+	key_value[0] = malloc(sizeof(char) * (idx_equal + 1));
 	if (key_value[0] == NULL)
 		exit_error(ERR_MALLOC);
 	ft_strlcpy(key_value[0], env, idx_equal + 1);
-	key_value[1] = malloc(sizeof(char) * (env_len - idx_equal));
+	key_value[1] = malloc(sizeof(char) * (env_len - idx_equal + 1));
 	if (key_value[1] == NULL)
 		exit_error(ERR_MALLOC);
-	ft_strlcpy(key_value[1], &env[idx_equal + 1], env_len - idx_equal);
+	ft_strlcpy(key_value[1], &env[idx_equal + 1], (env_len - idx_equal + 1));
 }
 
 void	add_env_to_list(t_list *envl, char *env)
