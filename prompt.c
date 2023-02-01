@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 12:25:02 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:07:18 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "readline/readline.h"
 #include "./include/parser.h"
 #include "./include/minishell.h"
+#include "./include/envl.h"
 
 #define WAIT_FOR_SIG 1
 
@@ -47,11 +48,14 @@ int main(int ac, char **av, char **envp)
 {
 	char	*input;
 	t_list	*processes;
+	// t_list	*envl;
 
 	(void)av;
 	if (ac != 1)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
+	// envl = map_envp_to_list(envp);
+	// print_envl(envl);
 	while (WAIT_FOR_SIG)
 	{
 		input = readline("🐤AengMuShell $ ");
