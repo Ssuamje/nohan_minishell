@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 23:49:56 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/01 14:03:15 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_process{
 }	t_process;
 
 
-t_list *parse(char **envp, char *input);
+t_list *parse(t_list *envl, char *input);
 void	free_parser(t_parser **parser);
 int	check_syntax(t_list *tokens);
 t_process	*get_process(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 22:09:40 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/01 14:04:15 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,40 +68,47 @@ void divide_interpret_part(char *string, char **after, int *to_find_len)
 	*to_find_len = idx;
 }
 
-void	set_env_to_string(char **envp, char **to_find, int to_find_len, int idx)
+void	set_env_to_string(t_environ *env, char **to_find)
 {
 	char *env_start_ptr;
 	int env_len;
 
 	free(*to_find);
-	env_start_ptr = &(envp[idx][to_find_len + 1]);
+	env_start_ptr = env->value;
 	env_len = ft_strlen(env_start_ptr);
 	*to_find = ft_strldup(env_start_ptr, env_len);
 }
 
-int	interpret_env(char **envp, char **to_find)
+int	is_key_correct(char *key, char *to_find)
 {
-	int		idx;
-	int		to_find_len;
-	char	*after;
+	return ((ft_strlen(key) == ft_strlen(to_find))
+		&&	ft_strncmp(key, to_find, ft_strlen(key)) == 0);
+}
 
-	idx = 0;
-	while (envp[idx] != NULL)
+int	interpret_env(t_list *envl, char **to_find)
+{
+	int			to_find_len;
+	char		*after;
+	t_list		*tmp;
+	t_environ	*tmp_env;
+
+	tmp = envl->next;
+	while (tmp != NULL)
 	{
 		// if (check_special_env(*to_find) == TRUE)
 		// 	return (process_special_env(*to_find));
+		tmp_env = tmp->content;
 		after = NULL;
 		divide_interpret_part(*to_find, &after, &to_find_len);
-		if (ft_strncmp(envp[idx], *to_find, to_find_len) == 0 \
-			&& envp[idx][to_find_len] == '=')
+		if (is_key_correct(tmp_env->key, *to_find))
 		{
-			set_env_to_string(envp, to_find, to_find_len, idx);
+			set_env_to_string(tmp->content, to_find);
 			*to_find = ft_join_and_free(*to_find, after);
 			return (TRUE);
 		}
-		if (after && envp[idx + 1] != NULL)
+		if (after && tmp->next->content != NULL)
 			free(after);
-		idx++;
+		tmp = tmp->next;
 	}
 	free(*to_find);
 	*to_find = ft_strdup("");
@@ -238,7 +245,7 @@ char **split_env_string(char *origin, char **processed_string)
 }
 
 
-int process_env(char **envp, t_token *token)
+int process_env(t_list *envl, t_token *token)
 {
 	char	**env_splitted;
 	int		idx;
@@ -255,7 +262,7 @@ int process_env(char **envp, t_token *token)
 		return (ENV_SYNTAX_ERROR);
 	while (env_splitted[idx] != NULL)
 	{
-		if (interpret_env(envp, &env_splitted[idx]) == FALSE)
+		if (interpret_env(envl, &env_splitted[idx]) == FALSE)
 			return (ENV_SYNTAX_ERROR);
 		tmp = processed_string;
 		processed_string = ft_strjoin(processed_string, env_splitted[idx]);

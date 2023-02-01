@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 14:28:38 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/01 14:04:37 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	check_string_condition(t_token *token)
 		free(tmp);
 }
 
-int	process_tokens_env(char **envp, t_list *tokens)
+int	process_tokens_env(t_list *envl, t_list *tokens)
 {
 	t_list	*tmp_node;
 	t_token	*tmp_token;
@@ -105,34 +105,21 @@ int	process_tokens_env(char **envp, t_list *tokens)
 	{
 		tmp_token = tmp_node->content;
 		check_string_condition(tmp_token);
-		if (process_env(envp, tmp_token) == FALSE)
+		if (process_env(envl, tmp_token) == FALSE)
 			return(FALSE);
 		tmp_node = tmp_node->next;
 	}
 	return (TRUE);
 }
 
-void	print_envp(char **envp)
-{
-	char *tmp;
-
-	tmp = *envp;
-	while (tmp != NULL)
-	{
-		printf("%s\n", tmp);
-		envp++;
-		tmp = *envp;
-	}
-}
-
-t_list *get_processed_tokens(char** envp, char *input)
+t_list *get_processed_tokens(t_list *envl, char *input)
 {
 	t_lexer	*lexer;
 	t_list	*tokens;
 	
 	lexer = get_lexer();
 	tokens = tokenize(input, lexer);
-	if (process_tokens_env(envp, tokens) == FALSE)
+	if (process_tokens_env(envl, tokens) == FALSE)
 	{
 		if (tokens)
 			free_tokens(&tokens);

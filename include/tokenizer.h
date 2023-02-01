@@ -6,13 +6,14 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:55:16 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 22:20:00 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/01 14:03:30 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 # include "lexer.h"
+# include "envl.h"
 
 typedef struct s_token{
 	int		status;
@@ -27,13 +28,13 @@ void	print_token(t_list *tokens);
 t_token	*get_token(void);
 void	put_token_to_list(t_lexer *lexer, t_list *tokens);
 void	free_tokens(t_list **tokens);
-int		process_env(char **envp, t_token *token);
-void	print_envp(char **envp); // need to delete
+int		process_env(t_list *envl, t_token *token);
+void	print_envp(t_list *envl); // need to delete
 int 	is_num(char c);
 int		is_alnum(char c);
 int 	is_in_charset(char c, char *charset);
 int 	is_special(char c);
-int		process_tokens_env(char **envp, t_list *tokens);
+int		process_tokens_env(t_list *envl, t_list *tokens);
 int		count_char(char *string, char c);
 void	free_split(char **split);
 void	print_split(char **split);

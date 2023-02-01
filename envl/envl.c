@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:56:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 13:20:47 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/01 13:40:20 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	set_key_value(char **key_value, int idx_equal, char *env)
 	key_value[0] = malloc(sizeof(char) * (idx_equal));
 	if (key_value[0] == NULL)
 		exit_error(ERR_MALLOC);
-	ft_strlcpy(key_value[0], env, idx_equal);
+	ft_strlcpy(key_value[0], env, idx_equal + 1);
 	key_value[1] = malloc(sizeof(char) * (env_len - idx_equal));
 	if (key_value[1] == NULL)
 		exit_error(ERR_MALLOC);
@@ -81,7 +81,8 @@ void	print_envl(t_list *envl)
 	while (tmp != NULL)
 	{
 		tmp_env = tmp->content;
-		printf("{ key : %s,\n  value : %s }\n", tmp_env->key, tmp_env->value);
+		printf("{ key   : '%s'\n  value : '%s' }\n", tmp_env->key, tmp_env->value);
+		printf("\n");
 		tmp = tmp->next;
 	}
 }
