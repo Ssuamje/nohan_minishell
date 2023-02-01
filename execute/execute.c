@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 12:55:10 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 22:30:01 by hyungnoh         ###   ########.fr       */
+/*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
+/*   Updated: 2023/02/01 15:08:09 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **pa
 	if (pid == 0)
 	{
 		close(pfd[0]);
-		if (next_proc != NULL) // need to modify
+		if (next_proc != NULL)
 			dup2(pfd[1], STDOUT_FILENO);
 		close(pfd[1]);
+		redirect_in(cur_proc);
+		redirect_out(cur_proc);
 		i = -1;
 		while (path[++i])
 		{
@@ -42,18 +44,11 @@ void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **pa
 		dup2(pfd[0], STDIN_FILENO);
 		close(pfd[0]);
 	}
-	// ft_putstr("before\n");
-	if (next_proc == NULL) // need to modify
-	{
-		// ft_putstr("touched\n");
+	if (next_proc == NULL)
 		waitpid(pid, &status, 0);
-	}
-	// ft_putstr("after\n");
 }
 
 void	execute(t_process *cur_proc, t_process *next_proc, int pfd[], char **path, char **envp)
 {
-	redirect_in(cur_proc);
-	redirect_out(cur_proc);
 	env_command(cur_proc, next_proc, pfd, path, envp);
 }
