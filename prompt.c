@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 23:50:10 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/01 13:27:32 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "readline/readline.h"
 #include "./include/parser.h"
 #include "./include/minishell.h"
+#include "./include/envl.h"
 
 #define WAIT_FOR_SIG 1
 
@@ -47,11 +48,14 @@ int main(int ac, char **av, char **envp)
 {
 	char	*input;
 	t_list	*processes;
+	// t_list	*envl;
 
 	(void)av;
 	if (ac != 1)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
+	// envl = map_envp_to_list(envp);
+	// print_envl(envl);
 	while (WAIT_FOR_SIG)
 	{
 		input = readline("🐤AengMuShell $ ");
@@ -65,9 +69,9 @@ int main(int ac, char **av, char **envp)
 		add_history(input);
 		processes = parse(envp, input);
 		print_processes(processes);
-		// exec_process(envp, processes);
+		exec_process(envp, processes);
 		free_process_list(processes);
-		system("leaks a.out");
+		// system("leaks a.out");
 		free(input);
 	}
 }
