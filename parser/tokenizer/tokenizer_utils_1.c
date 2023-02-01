@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 15:38:39 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/01 16:02:56 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,28 +121,6 @@ char	*join_env(char *input, int idx_env, char *env_string)
 	ft_memcpy(&to_return[idx_dollar], env_string, env_len + 1);
 	return (to_return);
 }
-
-// int	process_env(char **envp, t_token *token)
-// {
-// 	int	idx_env;
-// 	char *env_string;
-// 	char *processed_string;
-
-// 	idx_env = get_env_idx(token->string); // '$' 다음 인덱스, 없으면 -1
-// 	if (idx_env == ENV_NONE)
-// 		return (ENV_NONE);
-// 	if (is_num(token->string[idx_env]) \
-// 		|| token->string[idx_env] == '\0')
-// 		return (ENV_SYNTAX_ERROR); // syntax error
-// 	env_string = get_env_string(token->string, idx_env);
-// 	printf("%s\n", env_string);
-// 	interpret_env(envp, &env_string);
-// 	processed_string = join_env(token->string, idx_env, env_string);
-// 	free(env_string);
-// 	free(token->string);
-// 	token->string = processed_string;
-// 	return (ENV_SUCCESS);
-// }
 
 void	print_split(char **split)
 {
