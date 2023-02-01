@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:55:10 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 22:30:01 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/01 13:21:38 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **pa
 		if (next_proc != NULL) // need to modify
 			dup2(pfd[1], STDOUT_FILENO);
 		close(pfd[1]);
+		redirect_in(cur_proc);
+		redirect_out(cur_proc);
 		i = -1;
 		while (path[++i])
 		{
@@ -53,7 +55,5 @@ void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **pa
 
 void	execute(t_process *cur_proc, t_process *next_proc, int pfd[], char **path, char **envp)
 {
-	redirect_in(cur_proc);
-	redirect_out(cur_proc);
 	env_command(cur_proc, next_proc, pfd, path, envp);
 }
