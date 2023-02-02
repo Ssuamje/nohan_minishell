@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 14:26:23 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:30:18 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ int main(int ac, __attribute__((unused))char **av, char **envp)
 			continue ;
 		}
 		print_processes_list(processes);
-		system("leaks a.out");
-		// exec_process(envp, processes);
+		// system("leaks a.out");
+		exec_process(envp, processes);
 		free_process_list(processes);
 		// system("leaks a.out");
 		free(input);
