@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   env_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:59 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 21:13:01 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 14:07:43 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/minishell.h"
+
+void	free_env_path(t_env *env)
+{
+	int	i;
+
+	i = -1;
+	while (env->path[++i] != NULL)
+		free(env->path[i]);
+	free(env->path);
+}
 
 void	env_path(t_env *env, char **envp)
 {

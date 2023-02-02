@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 13:55:10 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:57:47 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int main(int ac, __attribute__((unused))char **av, char **envp)
 		if (processes == NULL)
 		{
 			free(input);
-			system("leaks a.out");
 			continue ;
 		}
 		print_processes(processes);
