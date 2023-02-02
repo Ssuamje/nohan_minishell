@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 11:08:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 11:17:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,16 @@ int	syntax_env(t_token *cur)
 	return (ERR_FALSE);
 }
 
+int	is_token_not_env_not_has_special(t_token *token)
+{
+	return (is_in_charset(token->string[0], "~!@#$%^&*()_+`-=[]{}\\|/?><,.")
+		&&	(token->status != PAR_ENV));
+}
+
 int	check_first_arg(t_token *token)
 {
 	return (token->status != LEX_PIPE
-		&&	(is_in_charset(token->string[0],
-			"~!@#$%^&*()_+`-=[]{}\\|/?><,.")) == FALSE);
+		&&	is_token_not_env_not_has_special(token) == FALSE);
 }
 
 int	get_redir_flag(char *redir)
@@ -81,8 +86,7 @@ int	check_syntax(t_list *tokens)
 	int		err;
 
 	tmp = tokens->next;
-	if (tmp == NULL \
-	||	check_first_arg(tokens->next->content) == ERR_TRUE)
+	if (check_first_arg(tokens->next->content) == ERR_TRUE)
 		return (ERR_TRUE);
 	while (tmp != NULL)
 	{

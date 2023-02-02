@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 11:02:45 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 11:20:04 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,26 @@ void check_leaks(void)
 	system("leaks a.out");
 }
 
+int	is_string_only_white_spaces(char *str)
+{
+	int idx;
+
+	idx = 0;
+	while (str[idx] != '\0')
+	{
+		if (is_in_charset(str[idx], " \t") == FALSE)
+			return (FALSE);
+		idx++;
+	}
+	return (TRUE);
+}
+
+int	is_input_empty(char *input)
+{
+	return (get_len(input) == 0 \
+		||	is_string_only_white_spaces(input));
+}
+
 int main(int ac, __attribute__((unused))char **av, char **envp)
 {
 	char	*input;
@@ -60,7 +80,7 @@ int main(int ac, __attribute__((unused))char **av, char **envp)
 		input = readline("🐤AengMuShell $ ");
 		if (input == NULL)
 			return (1);
-		if (get_len(input) == 0)
+		if (is_input_empty(input) == TRUE)
 		{
 			free(input);
 			continue ;
