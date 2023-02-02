@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:38:04 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 14:41:34 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 22:02:16 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "minishell.h"
 # include "envl.h"
 # include "utils.h"
+# include "builtin.h"
 
 int		get_len(char *str);
 void	sighandler(int signo);
