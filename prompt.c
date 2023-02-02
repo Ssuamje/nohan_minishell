@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 11:20:04 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 14:20:00 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 #include "./include/parser.h"
 #include "./include/minishell.h"
 #include "./include/envl.h"
+#include "./include/utils.h"
 
 #define WAIT_FOR_SIG 1
-
 
 int get_len(char *str)
 {
@@ -93,7 +93,7 @@ int main(int ac, __attribute__((unused))char **av, char **envp)
 			system("leaks a.out");
 			continue ;
 		}
-		print_processes(processes);
+		print_processes_list(processes);
 		system("leaks a.out");
 		// exec_process(envp, processes);
 		free_process_list(processes);

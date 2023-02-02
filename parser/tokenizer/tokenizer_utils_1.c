@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 11:11:53 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 14:11:05 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,23 +118,6 @@ char	*join_env(char *input, int idx_env, char *env_string)
 	ft_memcpy(to_return, input, idx_dollar + 1);
 	ft_memcpy(&to_return[idx_dollar], env_string, env_len + 1);
 	return (to_return);
-}
-
-void	print_split(char **split)
-{
-	int idx;
-
-	idx = 0;
-	// printf("split = %p\n", split);
-	// pritnf("split[0] = %p\n", split[0]);
-	if (split == NULL)
-		return ;
-	while (split[idx] != NULL)
-	{
-		printf("_%s_ ", split[idx]);
-		idx++;
-	}
-	printf("\n");
 }
 
 int	count_dollar_sign(char *string)

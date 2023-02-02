@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 14:03:15 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 14:15:46 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "lexer.h"
 # include "redirection.h"
 # include "tokenizer.h"
+# include "utils.h"
 
 enum e_parser_status{
 	PAR_STRING = 1,
@@ -52,7 +53,6 @@ int	check_syntax(t_list *tokens);
 t_process	*get_process(void);
 t_parser	*get_parser(void);
 int	parse_init(t_token *token, t_parser *parser);
-void	print_processes(t_list *processes);
 void	free_process_list(t_list *processes);
 
 #endif

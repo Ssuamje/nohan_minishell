@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:56:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 14:39:59 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 14:06:30 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,4 @@ t_list	*map_envp_to_list(char **envp)
 		idx++;
 	}
 	return (envl);
-}
-
-void	print_envl(t_list *envl)
-{
-	t_list		*tmp;
-	t_environ 	*tmp_env;
-
-	tmp = envl->next;
-	while (tmp != NULL)
-	{
-		tmp_env = tmp->content;
-		printf("{ key   : '%s'\n  value : '%s' }\n", tmp_env->key, tmp_env->value);
-		printf("\n");
-		tmp = tmp->next;
-	}
 }

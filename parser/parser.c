@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 11:17:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 14:07:59 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	is_token_not_env_not_has_special(t_token *token)
 
 int	check_first_arg(t_token *token)
 {
-	return (token->status != LEX_PIPE
+	return (token->status != PAR_PIPE
+		&&	token->status != PAR_REDIRECT
 		&&	is_token_not_env_not_has_special(token) == FALSE);
 }
 
@@ -292,52 +293,6 @@ int	parse_tokens(t_list *tokens, t_list *processes, t_parser *parser)
 	argv_list_to_split(cur_proc, parser);
 	ft_lstadd_back(&processes, ft_lstnew(cur_proc));
 	return (err);
-}
-
-#define REDIR_IN 0
-#define REDIR_OUT 1
-
-void	print_redir(t_list *IN_TRUNCist)
-{
-	t_list	*tmp;
-	t_redir	*cur;
-
-	tmp = IN_TRUNCist->next;
-	while (tmp != NULL && tmp->content != NULL)
-	{
-		cur = tmp->content;
-		if (cur->flag == IN_TRUNC)
-			printf("	{ type : <\n");
-		if (cur->flag == IN_APPEND)
-			printf("	{ type : <<\n");
-		if (cur->flag == OUT_TRUNC)
-			printf("	{ type : >\n");
-		if (cur->flag == OUT_APPEND)
-			printf("	{ type : >>\n");
-		printf("  	file = _%s_}\n", cur->file);
-		printf("\n");
-		tmp = tmp->next;
-	}
-}
-
-void	print_processes(t_list *processes)
-{
-	t_list		*tmp;
-	int			idx;
-	t_process	*cur;
-
-	tmp = processes->next;
-	idx = 0;
-	while (tmp != NULL && tmp->content != NULL)
-	{
-		cur = tmp->content;
-		printf("**********process %d**********\n", idx);
-		print_redir(cur->redir_in);
-		print_redir(cur->redir_out);
-		print_split(cur->cmd);
-		idx++;
-		tmp = tmp->next;
-	}
 }
 
 void	free_process(t_process *process)
