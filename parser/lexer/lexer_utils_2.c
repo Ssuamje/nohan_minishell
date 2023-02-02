@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 21:46:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 19:36:10 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 20:15:51 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	string_status(t_list *tokens, char *c, t_lexer *lexer)
 	int	cur_status;
 
 	cur_status = get_status(*c);
-
 	if (cur_status == LEX_STRING
 		|| cur_status == LEX_ENV)
 	{

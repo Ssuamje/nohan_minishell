@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 20:14:08 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 20:26:44 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ enum	e_err_join{
 	ERR_FALSE
 };
 
-typedef	struct s_parser{
+typedef struct s_parser{
 	int		status;
 	int		flag_redir;
 	char	*string;
@@ -45,7 +45,6 @@ typedef struct s_process{
 	int		fd_outfile;
 	char	**cmd;
 }	t_process;
-
 
 t_list		*parse(t_list *envl, char *input);
 void		*free_process_return_null(t_list **tokens, t_list *processes, \

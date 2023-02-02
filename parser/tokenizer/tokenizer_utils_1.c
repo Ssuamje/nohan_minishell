@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 19:29:59 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 20:16:14 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #define ENV_NONE -1
 #define ENV_SYNTAX_ERROR 0
 #define ENV_SUCCESS 1
-
 
 int	process_env(t_list *envl, t_token *token)
 {

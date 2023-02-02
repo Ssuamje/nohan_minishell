@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 19:30:15 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 20:20:23 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ char	*remove_quote_apost(char *string, char c, int *flag)
 		result = ft_strjoin(white, trimmed);
 	else
 		result = ft_strdup(trimmed);
-	free(white);
-	free(trimmed);
+	free_double(white, trimmed);
 	return (result);
 }
 

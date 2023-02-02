@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:55:16 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 19:34:00 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 20:20:11 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ int		is_key_correct(char *key, char *to_find);
 int		interpret_env(t_list *envl, char **to_find);
 char	*join_env(char *input, int idx_env, char *env_string);
 int		count_dollar_sign(char *string);
+void	free_double(void *p1, void *p2);
 
 #endif
