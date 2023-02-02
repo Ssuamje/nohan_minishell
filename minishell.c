@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/02 13:42:20 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:08:11 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	exec_process(char **envp, t_list *processes)
 		wait(&status);
 	dup2(stdfd[0], STDIN_FILENO);
 	dup2(stdfd[1], STDOUT_FILENO);
+	free_env_path(&env);
 }
 
 // gcc *.c ./libft/*.c ./redirection/*.c ./command/*.c -I./includes 

@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/02 13:49:04 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:18:49 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	in_append(t_process *proc, t_redir *redir)
 	proc->fd_infile = open(redir->file, O_RDONLY);
 	dup2(proc->fd_infile, STDIN_FILENO);
 	close(proc->fd_infile);
+	unlink(redir->file);
 }
 
 void	redirect_in(t_process *proc)

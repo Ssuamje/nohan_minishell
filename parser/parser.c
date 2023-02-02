@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 14:07:59 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 14:26:28 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,12 +331,12 @@ t_list *parse(t_list *envl, char *input)
 		printf("invalid env!\n");
 		return (NULL);
 	}
-	if (check_syntax(tokens) == ERR_TRUE)
-	{
-		free_tokens(&tokens);
-		printf("syntax error occurred!\n");
-		return (NULL);
-	}
+	// if (check_syntax(tokens) == ERR_TRUE)
+	// {
+	// 	free_tokens(&tokens);
+	// 	printf("syntax error occurred!\n");
+	// 	return (NULL);
+	// }
 	join_tokens(tokens);
 	parser = get_parser();
 	processes = ft_lstnew(NULL);
