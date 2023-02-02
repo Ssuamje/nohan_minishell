@@ -6,11 +6,29 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:56:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 20:23:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 21:10:13 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/envl.h"
+
+void	print_envl(t_list *envl)
+{
+	t_list		*tmp;
+	t_environ	*tmp_env;
+
+	tmp = envl->next;
+	while (tmp != NULL)
+	{
+		tmp_env = tmp->content;
+		if (ft_strcmp(tmp_env->key, "?") == FALSE)
+		{
+			printf("declare -x ");
+			printf("%s=%s\n", tmp_env->key, tmp_env->value);
+		}
+		tmp = tmp->next;
+	}
+}
 
 int	get_idx_equal(char *env)
 {
@@ -49,12 +67,21 @@ void	add_env_to_list(t_list *envl, char *env)
 
 	idx_equal = get_idx_equal(env);
 	set_key_value(key_value, idx_equal, env);
-	content = malloc(sizeof(t_environ));
-	content->key = ft_strdup(key_value[0]);
-	free(key_value[0]);
-	content->value = ft_strdup(key_value[1]);
-	free(key_value[1]);
-	ft_lstadd_back(&envl, ft_lstnew(content));
+	if (is_key_in_envl(envl, key_value[0]) == FALSE)
+	{
+		content = malloc(sizeof(t_environ));
+		content->key = ft_strdup(key_value[0]);
+		free(key_value[0]);
+		content->value = ft_strdup(key_value[1]);
+		free(key_value[1]);
+		ft_lstadd_back(&envl, ft_lstnew(content));
+	}
+	else
+	{
+		content = find_env_by_key(envl, key_value[0]);
+		free(content->value);
+		content->value = ft_strdup(key_value[1]);
+	}
 }
 
 t_list	*map_envp_to_list(char **envp)

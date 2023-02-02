@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:01:35 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 14:38:42 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 20:47:39 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	print_token_list(t_list *tokens);
 void	print_process(t_process *proc, int idx);
 void	print_processes_list(t_list *processes);
 void	print_split(char **split);
-void	print_envl(t_list *envl);
 void	print_redir(t_redir *redir);
 void	print_redir_list(t_list *redir_list);
 
