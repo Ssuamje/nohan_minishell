@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 10:52:35 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 11:08:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ int	syntax_env(t_token *cur)
 
 int	check_first_arg(t_token *token)
 {
-	return (token->status != LEX_PIPE);
+	return (token->status != LEX_PIPE
+		&&	(is_in_charset(token->string[0],
+			"~!@#$%^&*()_+`-=[]{}\\|/?><,.")) == FALSE);
 }
 
 int	get_redir_flag(char *redir)

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 16:02:56 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 11:11:53 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ int	interpret_env(t_list *envl, char **to_find)
 	free(after);
 	free(*to_find);
 	*to_find = ft_strdup("");
-	if (after)
-		*to_find = ft_join_and_free(*to_find, after);
 	return(TRUE);
 }
 
