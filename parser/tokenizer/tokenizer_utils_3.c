@@ -6,13 +6,13 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 21:11:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 14:38:36 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 19:25:59 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/tokenizer.h"
 
-int is_num(char c)
+int	is_num(char c)
 {
 	return ('0' <= c && c <= '9');
 }
@@ -24,9 +24,9 @@ int	is_alnum(char c)
 			|| ('A' <= c && c <= 'Z'));
 }
 
-int is_in_charset(char c, char *charset)
+int	is_in_charset(char c, char *charset)
 {
-	int idx;
+	int	idx;
 
 	idx = 0;
 	while (charset[idx])
@@ -38,7 +38,23 @@ int is_in_charset(char c, char *charset)
 	return (FALSE);
 }
 
-int is_special(char c)
+int	is_special(char c)
 {
-	return (is_in_charset(c, "!@#%^&*()-+={[}]\\|:;/.,<>~`")); // '_'와 '$', '?'는 제외
+	return (is_in_charset(c, "!@#%^&*()-+={[}]\\|:;/.,<>~`"));
+}
+
+int	count_char(char *string, char c)
+{
+	int	idx;
+	int	count;
+
+	idx = 0;
+	count = 0;
+	while (string[idx] != '\0')
+	{
+		if (string[idx] == c)
+			count++;
+		idx++;
+	}
+	return (count);
 }

@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envl.h                                             :+:      :+:    :+:   */
+/*   prompt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 12:54:28 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 20:24:27 by sanan            ###   ########.fr       */
+/*   Created: 2023/02/02 14:38:04 by sanan             #+#    #+#             */
+/*   Updated: 2023/02/02 14:41:34 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENVL_H
-# define ENVL_H
+#ifndef PROMPT_H
+# define PROMPT_H
 
-# include "libft.h"
 # include "error.h"
+# include "readline/readline.h"
+# include "parser.h"
+# include "minishell.h"
+# include "envl.h"
+# include "utils.h"
 
-typedef struct s_environ{
-	char	*key;
-	char	*value;
-}	t_environ;
-
-t_list	*map_envp_to_list(char **envp);
-void	add_env_to_list(t_list *envl, char *env);
+int		get_len(char *str);
+void	sighandler(int signo);
+int		is_string_only_white_spaces(char *str);
+int		is_input_empty(char *input);
 
 #endif

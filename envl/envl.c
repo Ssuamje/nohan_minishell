@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:56:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 14:06:30 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 20:23:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_idx_equal(char *env)
 {
-	int idx;
+	int	idx;
 
 	idx = 0;
 	while (env[idx] != '\0')
@@ -28,7 +28,7 @@ int	get_idx_equal(char *env)
 
 void	set_key_value(char **key_value, int idx_equal, char *env)
 {
-	int env_len;
+	int	env_len;
 
 	env_len = ft_strlen(env);
 	key_value[0] = malloc(sizeof(char) * (idx_equal + 1));

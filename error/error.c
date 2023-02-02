@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:41:24 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/31 19:57:35 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 20:23:38 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exit_error(int error_code)
 {
-	char *msg;
+	char	*msg;
 
 	msg = NULL;
 	if (error_code == ERR_ARGC)
