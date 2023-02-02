@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:56:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 21:10:13 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 21:33:24 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	print_envl(t_list *envl)
 		if (ft_strcmp(tmp_env->key, "?") == FALSE)
 		{
 			printf("declare -x ");
-			printf("%s=%s\n", tmp_env->key, tmp_env->value);
+			if (tmp_env->value != NULL)
+				printf("%s=\"%s\"\n", tmp_env->key, tmp_env->value);
+			else
+				printf("%s\n", tmp_env->key);
 		}
 		tmp = tmp->next;
 	}
@@ -66,6 +69,8 @@ void	add_env_to_list(t_list *envl, char *env)
 	t_environ	*content;
 
 	idx_equal = get_idx_equal(env);
+	if (idx_equal == -1)
+		return (add_only_key_to_list(envl, env));
 	set_key_value(key_value, idx_equal, env);
 	if (is_key_in_envl(envl, key_value[0]) == FALSE)
 	{
@@ -79,7 +84,8 @@ void	add_env_to_list(t_list *envl, char *env)
 	else
 	{
 		content = find_env_by_key(envl, key_value[0]);
-		free(content->value);
+		if (content->value != NULL)
+			free(content->value);
 		content->value = ft_strdup(key_value[1]);
 	}
 }

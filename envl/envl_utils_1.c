@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 20:51:50 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 21:06:59 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 21:41:06 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int	is_key_in_envl(t_list *envl, char *key)
 	{
 		tmp_env = tmp->content;
 		if (tmp_env != NULL \
-		&& tmp_env->key != NULL \
-		&& tmp_env->value != NULL \
 		&& ft_strcmp(tmp_env->key, key) == TRUE)
 			return (TRUE);
 		tmp = tmp->next;
@@ -45,4 +43,17 @@ t_environ	*find_env_by_key(t_list *envl, char *key)
 		tmp = tmp->next;
 	}
 	return (NULL);
+}
+
+void	add_only_key_to_list(t_list *envl, char *env)
+{
+	t_environ	*content;
+
+	if (is_key_in_envl(envl, env) == FALSE)
+	{
+		content = malloc(sizeof(t_environ));
+		content->key = ft_strdup(env);
+		content->value = NULL;
+		ft_lstadd_back(&envl, ft_lstnew(content));
+	}
 }
