@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 14:30:18 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:25:52 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void check_leaks(void)
 {
 	char *str = "\n**********************PROGRAM END************************\n";
 	write(1, str, ft_strlen(str));
-	system("leaks a.out");
+	system("leaks minishell");
 }
 
 int	is_string_only_white_spaces(char *str)
@@ -73,8 +73,9 @@ int main(int ac, __attribute__((unused))char **av, char **envp)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
 	g_envl = map_envp_to_list(envp);
-	add_env_to_list(g_envl, "hello=world");
-	print_envl(g_envl);
+	atexit(check_leaks);
+	// add_env_to_list(g_envl, "hello=world");
+	// print_envl(g_envl);
 	while (WAIT_FOR_SIG)
 	{
 		input = readline("🐤AengMuShell $ ");
@@ -93,10 +94,8 @@ int main(int ac, __attribute__((unused))char **av, char **envp)
 			continue ;
 		}
 		print_processes_list(processes);
-		// system("leaks a.out");
 		exec_process(envp, processes);
 		free_process_list(processes);
-		// system("leaks a.out");
 		free(input);
 	}
 }

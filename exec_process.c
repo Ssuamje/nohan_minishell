@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/02 14:08:11 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:48:25 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ void	check(void)
 	system("leaks a.out");
 }
 
-void	pipe_process(t_list *processes, int *pfd, char **env_path, char **envp, int stdfd[])
+void	pipe_process(t_list *processes, char **env_path, char **envp, int stdfd[])
 {
 	t_list		*tmp1;
 	t_list		*tmp2;
 	t_process	*cur_proc;
+	int			pfd[2];
 
 	tmp1 = processes->next;
 	tmp2 = processes->next;
@@ -49,20 +50,20 @@ void	exec_process(char **envp, t_list *processes)
 {
 	t_env	env;
 	int		stdfd[2];
-	int		pfd[2];
-	int		status = -1;
+	int		status;
 	int		child_size;
 
-	env_path(&env, envp);
-	child_size = ft_lstsize(processes) - 1;
 	stdfd[0] = dup(STDIN_FILENO);
 	stdfd[1] = dup(STDOUT_FILENO);
-	pipe_process(processes, pfd, env.path, envp, stdfd);
+	env_path(&env, envp);
+	child_size = ft_lstsize(processes) - 1;
+	pipe_process(processes, env.path, envp, stdfd);
 	while (--child_size)
 		wait(&status);
+	free_env_path(&env);
 	dup2(stdfd[0], STDIN_FILENO);
 	dup2(stdfd[1], STDOUT_FILENO);
-	free_env_path(&env);
+	// atexit(check);
 }
 
-// gcc *.c ./libft/*.c ./redirection/*.c ./command/*.c -I./includes 
+// gcc prompt.c ./parser/tokenizer/*.c ./parser/lexer/*.c -I ./include ./libft/*.c ./error/error.c ./parser/*.c ./execute/execute.c ./redirection/*.c exec_process.c env_path.c ./envl/*.c ./utils/*.c -lreadline

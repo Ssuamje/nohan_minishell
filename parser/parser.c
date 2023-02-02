@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 14:26:28 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:39:06 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,11 +295,26 @@ int	parse_tokens(t_list *tokens, t_list *processes, t_parser *parser)
 	return (err);
 }
 
+void	free_redir_list(t_list *redir_list)
+{
+	t_list *tmp;
+	t_redir *tmp_redir;
+
+	tmp = redir_list->next;
+	while (tmp != NULL)
+	{
+		tmp_redir = tmp->content;
+		free(tmp_redir->file);
+		tmp = tmp->next;
+	}
+	ft_lstclear(&redir_list, free);
+}
+
 void	free_process(t_process *process)
 {
 	free_split(process->cmd);
-	ft_lstclear(&(process->redir_in), free);
-	ft_lstclear(&(process->redir_out), free);
+	free_redir_list(process->redir_in);
+	free_redir_list(process->redir_out);
 }
 
 void	free_process_list(t_list *processes)

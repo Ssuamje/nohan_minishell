@@ -6,30 +6,24 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/02 14:24:29 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/02 17:33:45 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/redirection.h"
 #include "readline/readline.h"
 
-static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
+static void	create_heredoc_tmp(t_redir *redir)
 {
 	char		*buffer;
 	size_t		buffer_len;
-	char		heredoc[3];
 
-	(*idx)++;
-	heredoc[0] = 't';
-	heredoc[1] = *idx + 48;
-	heredoc[2] = '\0';
-	proc->fd_infile = open(heredoc, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	dup2(proc->fd_infile, STDOUT_FILENO);
-	close(proc->fd_infile);
 	while (1)
 	{
-		buffer = malloc(sizeof(char) * 1000);
-		read(0, buffer, 1000);
+		buffer = ft_calloc(sizeof(char), 1024);
+		if (buffer == NULL)
+			exit_error(ERR_MALLOC);
+		read(0, buffer, 1024);
 		buffer_len = 0;
 		while (buffer[buffer_len] != '\n')
 			buffer_len++;
@@ -39,11 +33,28 @@ static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
 			free(buffer);
 			break ;
 		}
+		buffer[buffer_len + 1] = '\0';
 		ft_putstr(buffer);
 		free(buffer);
 	}
+}
+
+static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
+{
+	char	*heredoc;
+	char	*tmp;
+
+	(*idx)++;
+	tmp = ft_itoa(*idx);
+	heredoc = ft_strjoin(tmp, "_heredoc.txt");
+	free(tmp);
+	proc->fd_infile = open(heredoc, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	dup2(proc->fd_infile, STDOUT_FILENO);
+	close(proc->fd_infile);
+	create_heredoc_tmp(redir);
 	free(redir->file);
 	redir->file = ft_strdup(heredoc);
+	free(heredoc);
 }
 
 void	heredoc(t_process *proc)
