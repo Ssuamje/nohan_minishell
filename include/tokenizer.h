@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:55:16 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 14:03:30 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 14:15:42 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ typedef struct s_token{
 typedef struct s_lexer	t_lexer;
 
 t_list	*tokenize(char *input, t_lexer *lexer);
-void	print_token(t_list *tokens);
 t_token	*get_token(void);
 void	put_token_to_list(t_lexer *lexer, t_list *tokens);
 void	free_tokens(t_list **tokens);
 int		process_env(t_list *envl, t_token *token);
-void	print_envp(t_list *envl); // need to delete
 int 	is_num(char c);
 int		is_alnum(char c);
 int 	is_in_charset(char c, char *charset);
@@ -37,6 +35,5 @@ int 	is_special(char c);
 int		process_tokens_env(t_list *envl, t_list *tokens);
 int		count_char(char *string, char c);
 void	free_split(char **split);
-void	print_split(char **split);
 
 #endif
