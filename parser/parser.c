@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 13:52:55 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 11:17:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,16 @@ int	syntax_env(t_token *cur)
 	return (ERR_FALSE);
 }
 
+int	is_token_not_env_not_has_special(t_token *token)
+{
+	return (is_in_charset(token->string[0], "~!@#$%^&*()_+`-=[]{}\\|/?><,.")
+		&&	(token->status != PAR_ENV));
+}
+
 int	check_first_arg(t_token *token)
 {
-	return (token->status != LEX_PIPE);
+	return (token->status != LEX_PIPE
+		&&	is_token_not_env_not_has_special(token) == FALSE);
 }
 
 int	get_redir_flag(char *redir)
@@ -376,14 +383,13 @@ t_list *parse(t_list *envl, char *input)
 		return (NULL);
 	}
 	join_tokens(tokens);
-	// print_token(tokens);
 	parser = get_parser();
 	processes = ft_lstnew(NULL);
 	if (parse_tokens(tokens, processes, parser) == ERR_TRUE)
 	{
 		free_tokens(&tokens);
 		free_parser(&parser);
-		ft_lstclear(&processes, free); // need to be strict
+		free_process_list(processes);
 		printf("parse error occurred!\n");
 		return (NULL);
 	}
