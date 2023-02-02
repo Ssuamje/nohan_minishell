@@ -6,11 +6,13 @@
 /*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 01:25:46 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/03 02:19:37 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/execute.h"
+
+void	echo(t_process *cur);
 
 char	*find_full_path(t_process *cur, char **path)
 {
@@ -29,7 +31,7 @@ char	*find_full_path(t_process *cur, char **path)
 	return (NULL);
 }
 
-void	manage_dup2(t_process *cur, t_process *next, pid_t pid)
+void	manage_pipe(t_process *cur, t_process *next, pid_t pid)
 {
 	if (pid == 0)
 	{
@@ -55,14 +57,19 @@ void	execute(t_process *cur, t_process *next, char **path, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
-		manage_dup2(cur, next, pid);
+		manage_pipe(cur, next, pid);
 		redirection(cur);
-		full_path = find_full_path(cur, path);
-		execve(full_path, cur->cmd, envp);
-		exit(0);
+		if (ft_strcmp(cur->cmd[0], "echo"))
+			echo(cur);
+		else
+		{
+			full_path = find_full_path(cur, path);
+			execve(full_path, cur->cmd, envp);
+			exit(0);
+		}
 	}
 	if (pid > 0)
-		manage_dup2(cur, next, pid);
+		manage_pipe(cur, next, pid);
 	if (next == NULL)
 		waitpid(pid, &status, 0);
 }

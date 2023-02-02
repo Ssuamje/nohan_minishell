@@ -6,7 +6,7 @@
 /*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:35:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 01:08:40 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/03 01:50:53 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ t_list *g_envl;
 void	env_path(t_env *env, char **envp);
 void	free_env_path(t_env *env);
 void	exec_process(char **envp, t_list *processes);
+void	echo(t_process *cur);
 
 #endif
