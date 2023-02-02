@@ -6,13 +6,13 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 16:31:26 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/24 18:10:41 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 19:36:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
 
-void check_apost_quote_flag(char *c, t_lexer *lexer)
+void	check_apost_quote_flag(char *c, t_lexer *lexer)
 {
 	if (*c == '\'')
 	{

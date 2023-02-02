@@ -6,27 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 10:59:16 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 19:30:15 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/tokenizer.h"
-
-int		count_char(char *string, char c)
-{
-	int idx;
-	int count;
-
-	idx = 0;
-	count = 0;
-	while (string[idx] != '\0')
-	{
-		if (string[idx] == c)
-			count++;
-		idx++;
-	}
-	return (count);
-}
 
 char	*remove_quote_apost(char *string, char c, int *flag)
 {
@@ -34,7 +18,7 @@ char	*remove_quote_apost(char *string, char c, int *flag)
 	int		end;
 	char	*result;
 	char	*trimmed;
-	char 	*white;
+	char	*white;
 
 	start = 0;
 	*flag = TRUE;
@@ -66,7 +50,7 @@ void	check_set_token_properties(t_token *token)
 
 char	*lstrip_once(char *string)
 {
-	char *stripped;
+	char	*stripped;
 
 	if ((string[0] != ' ') && (string[0] != '\t'))
 		stripped = ft_strdup(string);
@@ -106,33 +90,8 @@ int	process_tokens_env(t_list *envl, t_list *tokens)
 		tmp_token = tmp_node->content;
 		check_string_condition(tmp_token);
 		if (process_env(envl, tmp_token) == FALSE)
-			return(FALSE);
+			return (FALSE);
 		tmp_node = tmp_node->next;
 	}
 	return (TRUE);
-}
-
-void	free_lexer(t_lexer *lexer)
-{
-	ft_lstclear(&(lexer->env_buffer), free);
-	ft_lstclear(&(lexer->str_buffer), free);
-	free(lexer);
-}
-
-t_list *get_processed_tokens(t_list *envl, char *input)
-{
-	t_lexer	*lexer;
-	t_list	*tokens;
-	
-	lexer = get_lexer();
-	tokens = tokenize(input, lexer);
-	if (process_tokens_env(envl, tokens) == FALSE)
-	{
-		if (tokens)
-			free_tokens(&tokens);
-		free_lexer(lexer);
-		return (NULL);
-	}
-	free_lexer(lexer);
-	return (tokens);
 }
