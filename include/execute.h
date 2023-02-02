@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:41 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/01/31 20:54:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 23:05:18 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 # include "libft.h"
 # include "parser.h"
 
-void	execute(t_process *cur_proc, t_process *next_proc, int pfd[], char **path, char **envp);
+void	execute(t_process *cur, t_process *next, char **path, char **envp);
 
 #endif

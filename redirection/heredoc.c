@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/02 17:33:45 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/02 23:05:55 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
 void	heredoc(t_process *proc)
 {
 	t_list		*tmp;
-	t_redir 	*tmp_redir;
+	t_redir		*tmp_redir;
 	static int	idx;
 
 	tmp = proc->redir_in->next;
