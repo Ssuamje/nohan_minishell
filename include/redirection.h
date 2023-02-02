@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:53:34 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/02 13:29:25 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 00:53:59 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "libft.h"
 # include "parser.h"
 
-typedef struct s_process t_process;
+typedef struct s_process	t_process;
 
 enum e_flag_redir{
 	IN_TRUNC,
@@ -39,8 +39,9 @@ typedef struct s_env
 	char	**path;
 }	t_env;
 
+void	redirection(t_process *proc);
 void	redirect_in(t_process *proc);
 void	redirect_out(t_process *proc);
-void	heredoc(t_process *proc);
+void	set_heredoc_fd(t_list *procs, int stdfd[]);
 
 #endif

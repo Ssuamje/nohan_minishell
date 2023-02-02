@@ -6,7 +6,7 @@
 /*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/02 23:05:55 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/03 00:55:56 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static void	create_heredoc_tmp(t_redir *redir)
 static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
 {
 	char	*heredoc;
-	char	*tmp;
+	char	*idx_tmp;
 
 	(*idx)++;
-	tmp = ft_itoa(*idx);
-	heredoc = ft_strjoin(tmp, "_heredoc.txt");
-	free(tmp);
+	idx_tmp = ft_itoa(*idx);
+	heredoc = ft_strjoin(idx_tmp, "_heredoc");
+	free(idx_tmp);
 	proc->fd_infile = open(heredoc, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	dup2(proc->fd_infile, STDOUT_FILENO);
 	close(proc->fd_infile);
@@ -72,4 +72,20 @@ void	heredoc(t_process *proc)
 		tmp = tmp->next;
 	}
 	idx = 0;
+}
+
+void	set_heredoc_fd(t_list *procs, int stdfd[])
+{
+	t_list		*tmp;
+	t_process	*cur;
+
+	tmp = procs->next;
+	while (tmp != NULL && tmp->content != NULL)
+	{
+		cur = tmp->content;
+		heredoc(cur);
+		tmp = tmp->next;
+	}
+	dup2(stdfd[0], STDIN_FILENO);
+	dup2(stdfd[1], STDOUT_FILENO);
 }

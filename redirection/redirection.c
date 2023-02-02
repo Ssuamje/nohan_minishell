@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.h                                          :+:      :+:    :+:   */
+/*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 12:52:41 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 00:44:42 by hyungseok        ###   ########.fr       */
+/*   Created: 2023/02/03 00:38:47 by hyungseok         #+#    #+#             */
+/*   Updated: 2023/02/03 00:41:42 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTE_H
-# define EXECUTE_H
+#include "../include/redirection.h"
 
-# include <stdio.h>
-# include <sys/stat.h>
-# include "redirection.h"
-# include "libft.h"
-# include "parser.h"
-
-void	execute(t_process *cur, t_process *next, char **path, char **envp);
-
-#endif
+void	redirection(t_process *proc)
+{
+	if (proc->redir_in != NULL)
+		redirect_in(proc);
+	if (proc->redir_out != NULL)
+		redirect_out(proc);
+}
