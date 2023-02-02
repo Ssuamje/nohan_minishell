@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/01 15:54:28 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/02 13:42:20 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	pipe_process(t_list *processes, int *pfd, char **env_path, char **envp, int
 	while (tmp1 != NULL && tmp1->content != NULL)
 	{
 		cur_proc = tmp1->content;
-		pipe(pfd);
-		heredoc(cur_proc, pfd);
+		heredoc(cur_proc);
 		tmp1 = tmp1->next;
 	}
 	dup2(stdfd[0], STDIN_FILENO);
@@ -54,8 +53,7 @@ void	exec_process(char **envp, t_list *processes)
 	int		status = -1;
 	int		child_size;
 
-	env_path(&env, envp); // setting
-
+	env_path(&env, envp);
 	child_size = ft_lstsize(processes) - 1;
 	stdfd[0] = dup(STDIN_FILENO);
 	stdfd[1] = dup(STDOUT_FILENO);
