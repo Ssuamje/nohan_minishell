@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 14:20:00 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 14:25:01 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int main(int ac, __attribute__((unused))char **av, char **envp)
 		system("leaks a.out");
 		// exec_process(envp, processes);
 		free_process_list(processes);
+		// system("leaks a.out");
 		free(input);
 	}
 }
