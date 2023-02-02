@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 20:14:24 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 20:46:01 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,12 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		if (is_input_empty(input) == TRUE)
 			continue ;
 		processes = parse(g_envl, input);
-		if (processes == NULL)
+		if (processes != NULL)
 		{
-			free(input);
-			continue ;
+			print_processes_list(processes);
+			exec_process(envp, processes);
+			free_process_list(processes);
 		}
-		print_processes_list(processes);
-		exec_process(envp, processes);
-		printf("error in prompt!\n");
-		system("leaks a.out");
-		free_process_list(processes);
 		free(input);
 	}
 }
-
-//스페이스바 세그폴트

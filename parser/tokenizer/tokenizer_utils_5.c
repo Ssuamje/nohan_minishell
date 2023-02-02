@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:28:26 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 19:28:37 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 20:41:42 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int	is_key_correct(char *key, char *to_find)
 		&&ft_strncmp(key, to_find, ft_strlen(key)) == 0);
 }
 
+// int	process_special_env(char **to_find)
+// {
+// 	free(*to_find);
+		
+// }
+
 int	interpret_env(t_list *envl, char **to_find)
 {
 	char		*after;
@@ -35,8 +41,8 @@ int	interpret_env(t_list *envl, char **to_find)
 	divide_interpret_part(to_find, &after);
 	while (tmp != NULL)
 	{
-		// if (check_special_env(*to_find) == TRUE)
-		// 	return (process_special_env(*to_find));
+		// if (ft_strcmp(*to_find, "?") == TRUE)
+		// 	return (process_special_env(to_find));
 		tmp_env = tmp->content;
 		if (is_key_correct(tmp_env->key, *to_find))
 		{
