@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 16:11:22 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 10:54:32 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,17 @@ int main(int ac, __attribute__((unused))char **av, char **envp)
 		}
 		add_history(input);
 		processes = parse(g_envl, input);
+		if (processes == NULL)
+		{
+			free(input);
+			system("leaks a.out");
+			continue ;
+		}
 		print_processes(processes);
-		exec_process(envp, processes);
+		// exec_process(envp, processes);
 		free_process_list(processes);
-		system("leaks a.out");
 		free(input);
 	}
 }
+
+//스페이스바 세그폴트

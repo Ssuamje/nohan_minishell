@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 14:04:37 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 10:59:16 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,13 @@ int	process_tokens_env(t_list *envl, t_list *tokens)
 	return (TRUE);
 }
 
+void	free_lexer(t_lexer *lexer)
+{
+	ft_lstclear(&(lexer->env_buffer), free);
+	ft_lstclear(&(lexer->str_buffer), free);
+	free(lexer);
+}
+
 t_list *get_processed_tokens(t_list *envl, char *input)
 {
 	t_lexer	*lexer;
@@ -123,9 +130,9 @@ t_list *get_processed_tokens(t_list *envl, char *input)
 	{
 		if (tokens)
 			free_tokens(&tokens);
-		free(lexer);
+		free_lexer(lexer);
 		return (NULL);
 	}
-	free(lexer);
+	free_lexer(lexer);
 	return (tokens);
 }

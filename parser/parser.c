@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/01 13:52:55 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 10:52:35 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ int	check_syntax(t_list *tokens)
 	int		err;
 
 	tmp = tokens->next;
-	if (check_first_arg(tokens->next->content) == ERR_TRUE)
+	if (tmp == NULL \
+	||	check_first_arg(tokens->next->content) == ERR_TRUE)
 		return (ERR_TRUE);
 	while (tmp != NULL)
 	{
@@ -376,14 +377,13 @@ t_list *parse(t_list *envl, char *input)
 		return (NULL);
 	}
 	join_tokens(tokens);
-	// print_token(tokens);
 	parser = get_parser();
 	processes = ft_lstnew(NULL);
 	if (parse_tokens(tokens, processes, parser) == ERR_TRUE)
 	{
 		free_tokens(&tokens);
 		free_parser(&parser);
-		ft_lstclear(&processes, free); // need to be strict
+		free_process_list(processes);
 		printf("parse error occurred!\n");
 		return (NULL);
 	}
