@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 17:45:25 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 18:41:35 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/03 19:33:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@ int	is_arg_numeric(char *arg)
 	int idx;
 
 	idx = 0;
+	if (arg[0] == '-')
+	{
+		idx++;
+		while (arg[idx] != '\0')
+		{
+			if (ft_isdigit(arg[idx]) == FALSE)
+				return (FALSE);
+			idx++;
+		}
+		return (TRUE);
+	}
 	while (arg[idx] != '\0')
 	{
 		if (ft_isdigit(arg[idx]) == FALSE)
@@ -31,11 +42,54 @@ int	is_arg_numeric(char *arg)
 	return (TRUE);	
 }
 
+int	set_up_down_long_long_max(char *arg, int sign, int *up_down)
+{
+	int idx;
+	char *long_long_max_plus;
+	char *long_long_max_minus;
+
+	idx = 0;
+	long_long_max_plus = "9223372036854775807";
+	long_long_max_minus = "9223372036854775808";
+	if (sign == -1)
+	{
+		while (idx < 19)
+		{
+			if (arg[idx] >= long_long_max_minus[idx])
+				up_down[idx] = 1;
+			idx++;
+		} 
+		if (idx == 19 && arg[18] > '8')
+			return (TRUE);
+	}
+	else
+	{
+		while (idx < 19)
+		{
+			if (arg[idx] >= long_long_max_plus[idx])
+				up_down[idx] = 1;
+			idx++;
+		}
+		if (idx == 19 && arg[18] > '7')
+			return (TRUE);
+	}
+	return (FALSE);
+}
+
 int	is_arg_long_long_overflow(char *arg)
 {
-	if (ft_strlen(arg) > 20)
+	int	len_arg;
+	int	up_down[19];
+
+	len_arg = ft_strlen(arg);
+	if (len_arg < 19)
+		return (FALSE);
+	if (len_arg > 20)
 		return (TRUE);
-	return (FALSE);
+	if (arg[0] == '-')
+		return (set_up_down_long_long_max(arg, -1, up_down));
+	else
+		return (set_up_down_long_long_max(arg, 1, up_down));
 }
 
 int	is_exit_syntax_error(char **args)
@@ -63,14 +117,29 @@ int	convert_question_value_and_free(char *value)
 	return (exit_code);
 }
 
+int	minus_char_max_absolute(int n)
+{
+	int	num;
+
+	num = n % 256;
+
+	if (num < 0)
+		return (256 + num);
+	else
+		return (256 - num);
+}
+
 void	builtin_exit(char **cmd, t_list *envl)
 {
 	int	former_exit_code;
 
 	if (is_exit_syntax_error(cmd) == TRUE)
 		;
+	printf("nothing error\n");
 	if (is_arg_numeric(cmd[1]) == TRUE)
-		exit(ft_atoi(cmd[1]));
+		exit(minus_char_max_absolute(
+					ft_atoi(cmd[1])));
+	printf("nothing error\n");
 	if (cmd[1] == NULL)
 	{
 		former_exit_code = convert_question_value_and_free(
