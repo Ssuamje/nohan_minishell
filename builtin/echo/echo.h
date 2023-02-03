@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   echo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:48:38 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 14:58:41 by hyungnoh         ###   ########.fr       */
+/*   Created: 2023/02/03 12:16:39 by sanan             #+#    #+#             */
+/*   Updated: 2023/02/03 13:34:37 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#ifndef ECHO_H
+# define ECHO_H
 
-# include "../builtin/export/export.h"
-# include "../builtin/unset/unset.h"
-# include "../builtin/echo/echo.h"
-# include "../builtin/pwd/pwd.h"
-# include "../builtin/cd/cd.h"
+# include "../../include/execute.h"
+
+void	builtin_echo(t_process *cur);
 
 #endif

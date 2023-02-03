@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 01:36:30 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/02/03 02:38:15 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/03 14:07:20 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/minishell.h"
+#include "echo.h"
 
 void	check_n(t_process *cur, int flag, int *i, int *j)
 {
@@ -33,7 +33,7 @@ void	check_n(t_process *cur, int flag, int *i, int *j)
 	}
 }
 
-void	echo(t_process *cur)
+void	builtin_echo(t_process *cur)
 {
 	int	i;
 	int	j;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:26:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 12:24:22 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/03 13:55:26 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,5 @@ void	builtin_export(char **cmd, t_list *envl)
 			add_set_env_to_list(envl, cmd[idx++]);
 		}
 	}
+	exit(0);
 }

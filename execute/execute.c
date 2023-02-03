@@ -6,30 +6,11 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 13:04:36 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 15:30:27 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/execute.h"
-
-void	echo(t_process *cur);
-
-char	*find_full_path(t_process *cur, char **path)
-{
-	char		*tmp_path;
-	struct stat	sb;
-	int			i;
-
-	i = 0;
-	while (path[++i])
-	{
-		tmp_path = ft_strjoin(path[i], cur->cmd[0]);
-		if (stat(tmp_path, &sb) == 0)
-			return (tmp_path);
-		free(tmp_path);
-	}
-	return (NULL);
-}
 
 void	manage_pipe(t_process *cur, t_process *next, pid_t pid)
 {
@@ -48,6 +29,23 @@ void	manage_pipe(t_process *cur, t_process *next, pid_t pid)
 	}
 }
 
+char	*find_full_path(t_process *cur, char **path)
+{
+	char		*tmp_path;
+	struct stat	sb;
+	int			i;
+
+	i = 0;
+	while (path[++i])
+	{
+		tmp_path = ft_strjoin(path[i], cur->cmd[0]);
+		if (stat(tmp_path, &sb) == 0)
+			return (tmp_path);
+		free(tmp_path);
+	}
+	return (NULL);
+}
+
 void	execute_path(t_process *cur, char **path, char **envp)
 {
 	char	*full_path;
@@ -57,7 +55,16 @@ void	execute_path(t_process *cur, char **path, char **envp)
 	exit(0);
 }
 
-void	execute(t_process *cur, t_process *next, char **path, char **envp)
+int	execute_builtin(t_process *cur)
+{
+	if (ft_strcmp(cur->cmd[0], "echo"))
+		builtin_echo(cur);
+	else if (ft_strcmp(cur->cmd[0], "pwd"))
+		builtin_pwd();
+	return (0);
+}
+
+void	fork_child(t_process *cur, t_process *next, char **path, char **envp)
 {
 	pid_t	pid;
 	int		status;
@@ -67,8 +74,8 @@ void	execute(t_process *cur, t_process *next, char **path, char **envp)
 	{
 		manage_pipe(cur, next, pid);
 		redirection(cur);
-		if (ft_strcmp(cur->cmd[0], "echo"))
-			echo(cur);
+		if (execute_builtin(cur))
+			;
 		else
 			execute_path(cur, path, envp);
 	}
@@ -76,4 +83,12 @@ void	execute(t_process *cur, t_process *next, char **path, char **envp)
 		manage_pipe(cur, next, pid);
 	if (next == NULL)
 		waitpid(pid, &status, 0);
+}
+
+void	execute(t_process *cur, t_process *next, char **path, char **envp)
+{
+	if (ft_strcmp(cur->cmd[0], "cd") && next == NULL)
+		builtin_cd(cur);
+	else if (!ft_strcmp(cur->cmd[0], "cd"))
+		fork_child(cur, next, path, envp);
 }

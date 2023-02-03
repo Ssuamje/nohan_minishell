@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:48:38 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 14:58:41 by hyungnoh         ###   ########.fr       */
+/*   Created: 2023/02/03 14:27:25 by hyungnoh          #+#    #+#             */
+/*   Updated: 2023/02/03 15:29:05 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "cd.h"
 
-# include "../builtin/export/export.h"
-# include "../builtin/unset/unset.h"
-# include "../builtin/echo/echo.h"
-# include "../builtin/pwd/pwd.h"
-# include "../builtin/cd/cd.h"
-
-#endif
+void	builtin_cd(t_process *cur)
+{
+	if (cur->cmd[1] == NULL || ft_strcmp(cur->cmd[1], "~"))
+		chdir("/Users/hyungnoh");
+	else
+		chdir(cur->cmd[1]);
+}

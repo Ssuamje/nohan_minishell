@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:48:38 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 14:58:41 by hyungnoh         ###   ########.fr       */
+/*   Created: 2023/02/03 14:13:21 by hyungnoh          #+#    #+#             */
+/*   Updated: 2023/02/03 14:19:19 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "pwd.h"
 
-# include "../builtin/export/export.h"
-# include "../builtin/unset/unset.h"
-# include "../builtin/echo/echo.h"
-# include "../builtin/pwd/pwd.h"
-# include "../builtin/cd/cd.h"
+void	builtin_pwd(void)
+{
+	char	*cwd;
 
-#endif
+	cwd = getcwd(NULL, 1024);
+	ft_putstr(cwd);
+	ft_putstr("\n");
+	exit(0);
+}

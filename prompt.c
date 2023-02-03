@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 13:07:24 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 15:25:00 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		if (processes != NULL)
 		{
 			print_processes_list(processes);
-			builtin_unset(((t_process *)processes->next->content)->cmd, g_envl);
-			print_envl(g_envl);
-			// exec_process(envp, processes);
+			// if (ft_strcmp(((t_process *)processes->next->content)->cmd[0], "export") == TRUE)
+			// 	builtin_export(((t_process *)processes->next->content)->cmd, g_envl);
+			// if (ft_strcmp(((t_process *)processes->next->content)->cmd[0], "unset") == TRUE)
+			// 	builtin_unset(((t_process *)processes->next->content)->cmd, g_envl);
+			// print_envl(g_envl);
+			exec_process(envp, processes);
 			free_process_list(processes);
 		}
 		free(input);
