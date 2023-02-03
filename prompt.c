@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 17:44:14 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:49:46 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 	signal(SIGINT, sighandler);
 	g_envl = map_envp_to_list(envp);
 	my_envp = envl_to_envp(g_envl);
-	print_split(my_envp);
+	// print_split(my_envp);
 	while (WAIT_FOR_SIG)
 	{
 		input = readline("🐤AengMuShell $ ");
@@ -45,10 +45,10 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		processes = parse(g_envl, input);
 		if (processes != NULL)
 		{
-			print_processes_list(processes);
-			builtin_export(((t_process *)processes->next->content)->cmd, g_envl);
-			print_envl(g_envl);
-			// exec_process(envp, processes);
+			// print_processes_list(processes);
+			// builtin_export(((t_process *)processes->next->content)->cmd, g_envl);
+			// print_envl(g_envl);
+			exec_process(envp, processes);
 			free_process_list(processes);
 		}
 		free(input);

@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 17:43:41 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:45:38 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	manage_pipe(t_process *cur, t_process *next, pid_t pid)
 {
-	if (pid == 0)
+	if (pid == CHILD)
 	{
 		close(cur->pfd[0]);
 		if (next != NULL)
@@ -98,7 +98,7 @@ void	fork_child(t_process *cur, t_process *next, t_info *info, char **envp)
 	{
 		manage_pipe(cur, next, pid);
 		redirection(cur);
-		if (execute_builtin(cur, info, pid))
+		if (execute_builtin(cur, info, CHILD))
 			;
 		else
 			execute_path(cur, info->path, envp);
@@ -111,7 +111,7 @@ void	fork_child(t_process *cur, t_process *next, t_info *info, char **envp)
 
 void	execute(t_process *cur, t_process *next, t_info *info, char **envp)
 {
-	if (execute_builtin(cur, info, 1))
+	if (execute_builtin(cur, info, PARENTS))
 		;
 	else
 		fork_child(cur, next, info, envp);

@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 16:31:26 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:42:09 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	exec_process(char **envp, t_list *procs)
 	stdfd[1] = dup(STDOUT_FILENO);
 	env_path(&info, envp);
 	process_dup_pipe(procs, &info, envp, stdfd);
-	free_env_path(&info);
+	free_split(envp);
 	dup2(stdfd[0], STDIN_FILENO);
 	dup2(stdfd[1], STDOUT_FILENO);
 }
 
-// gcc prompt.c ./parser/tokenizer/*.c ./parser/lexer/*.c -I ./include ./libft/*.c ./error/error.c ./parser/*.c ./execute/execute.c ./redirection/*.c exec_process.c env_path.c ./envl/*.c ./utils/*.c -lreadline
+// gcc prompt*.c ./parser/tokenizer/*.c ./parser/lexer/*.c -I ./include ./libft/*.c ./error/error.c ./parser/*.c exec_process.c env_path.c ./execute/execute.c ./redirection/*.c ./envl/*.c ./utils/*.c  ./builtin/export/*.c ./builtin/unset/*.c ./builtin/echo/*.c ./builtin/pwd/*.c ./builtin/cd/*.c -lreadline
