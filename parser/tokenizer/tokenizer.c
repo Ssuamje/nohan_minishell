@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:36:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 14:02:14 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/02 20:20:04 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,12 @@ void	free_tokens(t_list **tokens)
 		ft_lstdelone(tmp, free);
 		tmp = *tokens;
 	}
+}
+
+void	free_double(void *p1, void *p2)
+{
+	if (p1)
+		free(p1);
+	if (p2)
+		free(p2);
 }

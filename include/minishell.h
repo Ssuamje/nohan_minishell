@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:35:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 01:50:53 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/03 13:07:37 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "execute.h"
 # include "parser.h"
 
-t_list *g_envl;
+t_list	*g_envl;
 
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0

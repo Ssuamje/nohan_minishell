@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:55:16 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 17:36:43 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 13:07:55 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,30 @@ t_token	*get_token(void);
 void	put_token_to_list(t_lexer *lexer, t_list *tokens);
 void	free_tokens(t_list **tokens);
 int		process_env(t_list *envl, t_token *token);
-int 	is_num(char c);
-int		is_alnum(char c);
-int 	is_in_charset(char c, char *charset);
-int 	is_special(char c);
+char	**split_env_string(char *origin, char **processed_string);
+int		get_env_idx(char *string);
+char	*get_env_string(char *input, int idx_env);
+void	divide_interpret_part(char **to_find, char **after);
+char	*remove_quote_apost(char *string, char c, int *flag);
+void	check_set_token_properties(t_token *token);
+char	*lstrip_once(char *string);
+void	check_string_condition(t_token *token);
 int		process_tokens_env(t_list *envl, t_list *tokens);
+int		is_num(char c);
+int		is_alnum(char c);
+int		is_in_charset(char c, char *charset);
+int		is_special(char c);
 int		count_char(char *string, char c);
+void	free_lexer(t_lexer *lexer);
+t_list	*get_processed_tokens(t_list *envl, char *input);
+int		count_env_string(char **split);
 void	free_split(char **split);
+char	*skip_white_spaces(char **origin, int *idx_dollar);
+void	set_env_to_string(t_environ *env, char **to_find);
+int		is_key_correct(char *key, char *to_find);
+int		interpret_env(t_list *envl, char **to_find);
+char	*join_env(char *input, int idx_env, char *env_string);
+int		count_dollar_sign(char *string);
+void	free_double(void *p1, void *p2);
 
 #endif

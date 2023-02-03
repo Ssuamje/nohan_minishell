@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 02:19:37 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/03 13:04:36 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,17 @@ void	manage_pipe(t_process *cur, t_process *next, pid_t pid)
 	}
 }
 
-void	execute(t_process *cur, t_process *next, char **path, char **envp)
+void	execute_path(t_process *cur, char **path, char **envp)
 {
 	char	*full_path;
+
+	full_path = find_full_path(cur, path);
+	execve(full_path, cur->cmd, envp);
+	exit(0);
+}
+
+void	execute(t_process *cur, t_process *next, char **path, char **envp)
+{
 	pid_t	pid;
 	int		status;
 
@@ -62,11 +70,7 @@ void	execute(t_process *cur, t_process *next, char **path, char **envp)
 		if (ft_strcmp(cur->cmd[0], "echo"))
 			echo(cur);
 		else
-		{
-			full_path = find_full_path(cur, path);
-			execve(full_path, cur->cmd, envp);
-			exit(0);
-		}
+			execute_path(cur, path, envp);
 	}
 	if (pid > 0)
 		manage_pipe(cur, next, pid);

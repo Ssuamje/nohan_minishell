@@ -3,37 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 01:08:55 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/03 13:07:24 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/error.h"
-#include "readline/readline.h"
-#include "./include/parser.h"
-#include "./include/minishell.h"
-#include "./include/envl.h"
-#include "./include/utils.h"
-
+#include "./include/prompt.h"
 #define WAIT_FOR_SIG 1
-
-int get_len(char *str)
-{
-	int idx;
-	
-	idx = 0;
-	while (str[idx])
-		idx++;
-	return (idx);
-}
-
-void    sighandler(int signo)
-{
-	if (signo == SIGINT)
-		printf("AengMu : You can quit by only Ctrl + D\n");
-}
 
 //need to delete
 #include <unistd.h>
@@ -44,27 +22,7 @@ void check_leaks(void)
 	system("leaks minishell");
 }
 
-int	is_string_only_white_spaces(char *str)
-{
-	int idx;
-
-	idx = 0;
-	while (str[idx] != '\0')
-	{
-		if (is_in_charset(str[idx], " \t") == FALSE)
-			return (FALSE);
-		idx++;
-	}
-	return (TRUE);
-}
-
-int	is_input_empty(char *input)
-{
-	return (get_len(input) == 0 \
-		||	is_string_only_white_spaces(input));
-}
-
-int main(int ac, __attribute__((unused))char **av, char **envp)
+int	main(int ac, __attribute__((unused))char **av, char **envp)
 {
 	char	*input;
 	t_list	*processes;
@@ -73,31 +31,23 @@ int main(int ac, __attribute__((unused))char **av, char **envp)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
 	g_envl = map_envp_to_list(envp);
-	// atexit(check_leaks);
-	// add_env_to_list(g_envl, "hello=world");
-	// print_envl(g_envl);
 	while (WAIT_FOR_SIG)
 	{
 		input = readline("🐤AengMuShell $ ");
 		if (input == NULL)
 			return (1);
-		if (is_input_empty(input) == TRUE)
-		{
-			free(input);
-			continue ;
-		}
 		add_history(input);
-		processes = parse(g_envl, input);
-		if (processes == NULL)
-		{
-			free(input);
+		if (is_input_empty(input) == TRUE)
 			continue ;
+		processes = parse(g_envl, input);
+		if (processes != NULL)
+		{
+			print_processes_list(processes);
+			builtin_unset(((t_process *)processes->next->content)->cmd, g_envl);
+			print_envl(g_envl);
+			// exec_process(envp, processes);
+			free_process_list(processes);
 		}
-		print_processes_list(processes);
-		exec_process(envp, processes);
-		free_process_list(processes);
 		free(input);
 	}
 }
-
-//스페이스바 세그폴트
