@@ -6,15 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:26:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 22:29:32 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/03 12:14:26 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "export.h"
-
-
-// cmd[0] == ""
-// -> export: `': not a valid identifier 
 
 int	is_in_str(char c, char *str)
 {
