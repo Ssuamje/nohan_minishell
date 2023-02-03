@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:50:13 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 17:38:02 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/03 18:06:56 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,14 @@ char	**envl_to_envp(t_list *envl)
 		tmp = tmp->next;
 	}
 	return (to_return);
+}
+
+char	*get_value_by_key(t_list *envl, char *key)
+{
+	t_environ *target;
+
+	target = find_env_by_key(envl, key);
+	if (target == NULL)
+		return (NULL);
+	return (ft_strdup(target->value));
 }

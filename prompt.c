@@ -6,7 +6,11 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/02/03 17:49:46 by hyungnoh         ###   ########.fr       */
+=======
+/*   Updated: 2023/02/03 18:41:16 by sanan            ###   ########.fr       */
+>>>>>>> 655092e05b6a8e145692a4450331cc9e77a7ffb3
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +50,12 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		if (processes != NULL)
 		{
 			// print_processes_list(processes);
-			// builtin_export(((t_process *)processes->next->content)->cmd, g_envl);
 			// print_envl(g_envl);
-			exec_process(envp, processes);
+			my_envp = envl_to_envp(g_envl);
+			exec_process(my_envp, processes);
 			free_process_list(processes);
+			free_split(my_envp);
 		}
 		free(input);
 	}
 }
-
-//STRING일 시에 trim 필요.
