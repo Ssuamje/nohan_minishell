@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 16:32:22 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 17:43:41 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,19 @@ void	execute_path(t_process *cur, char **path, char **envp)
 	execve(full_path, cur->cmd, envp);
 	exit(0);
 }
+// is_builtin(cur) == BUILTIN_ECHO
+// enum BUILTIN_ECHO, BUILTIN_EXPORT
+// if (strcmp(cur->cmd, "echo") == TRUE)
+//		return (BUILTIN_ECHO);
 
-int	execute_builtin(t_process *cur, t_process *next, pid_t pid)
+// int flag;
+// is_fork_needed(BUILTIN_ECHO)
+
+// (char **cmd, t_list *envl) 
+
+int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 {
-	if (pid == 0)
+	if (pid == CHILD)
 	{
 		if (ft_strcmp(cur->cmd[0], "echo"))
 			builtin_echo(cur);
@@ -66,7 +75,7 @@ int	execute_builtin(t_process *cur, t_process *next, pid_t pid)
 	}
 	else
 	{
-		if (ft_strcmp(cur->cmd[0], "cd") && next == NULL)
+		if (ft_strcmp(cur->cmd[0], "cd") && info->pipe_cnt == 0)
 		{
 			builtin_cd(cur);
 			return (1);
@@ -75,17 +84,21 @@ int	execute_builtin(t_process *cur, t_process *next, pid_t pid)
 	return (0);
 }
 
+// char **envp
+// envp = envl_to_envp(g_envl);
+// free_split(envp);
+
 void	fork_child(t_process *cur, t_process *next, t_info *info, char **envp)
 {
 	pid_t	pid;
 	int		status;
 
 	pid = fork();
-	if (pid == 0)
+	if (pid == CHILD)
 	{
 		manage_pipe(cur, next, pid);
 		redirection(cur);
-		if (execute_builtin(cur, next, pid))
+		if (execute_builtin(cur, info, pid))
 			;
 		else
 			execute_path(cur, info->path, envp);
@@ -98,7 +111,7 @@ void	fork_child(t_process *cur, t_process *next, t_info *info, char **envp)
 
 void	execute(t_process *cur, t_process *next, t_info *info, char **envp)
 {
-	if (execute_builtin(cur, next, 1))
+	if (execute_builtin(cur, info, 1))
 		;
 	else
 		fork_child(cur, next, info, envp);

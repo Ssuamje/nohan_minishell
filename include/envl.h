@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:54:28 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 12:28:57 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/03 17:37:30 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int			is_key_in_envl(t_list *envl, char *key);
 t_environ	*find_env_by_key(t_list *envl, char *key);
 void		add_only_key_to_list(t_list *envl, char *env);
 void		delete_env_by_key(t_list *envl, char *key);
+char		**envl_to_envp(t_list *envl);
 
 #endif
