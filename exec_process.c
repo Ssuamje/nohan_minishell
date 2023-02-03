@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 18:42:09 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:48:00 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	exec_process(char **envp, t_list *procs)
 	stdfd[1] = dup(STDOUT_FILENO);
 	env_path(&info, envp);
 	process_dup_pipe(procs, &info, envp, stdfd);
-	free_split(envp);
 	dup2(stdfd[0], STDIN_FILENO);
 	dup2(stdfd[1], STDOUT_FILENO);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_cmd_has_special_after.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:22:34 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 16:22:43 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/03 18:56:05 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_cmd_has_special_after(char *cmd)
 	idx = 0;
 	while (cmd[idx] != '\0')
 	{
-		if (is_in_str(cmd[idx], "~`!@#$%^&*()-+=\"\':;|\\}]{[.,<>?/") == TRUE)
+		if (is_in_str(cmd[idx], "~`!@#$%^&*()-+\"\':;|\\}]{[.,<>?/") == TRUE)
 			return (TRUE);
 		idx++;
 	}

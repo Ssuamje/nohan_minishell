@@ -2,6 +2,10 @@
 	"files.associations": {
 		"parser.h": "c",
 		"minishell.h": "c",
-		"execute.h": "c"
+		"execute.h": "c",
+		"export.h": "c",
+		"utils.h": "c",
+		"prompt.h": "c",
+		"envl.h": "c"
 	}
 }
