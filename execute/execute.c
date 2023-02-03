@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 15:37:11 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:32:22 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	execute_builtin(t_process *cur, t_process *next, pid_t pid)
 	return (0);
 }
 
-void	fork_child(t_process *cur, t_process *next, char **path, char **envp)
+void	fork_child(t_process *cur, t_process *next, t_info *info, char **envp)
 {
 	pid_t	pid;
 	int		status;
@@ -88,7 +88,7 @@ void	fork_child(t_process *cur, t_process *next, char **path, char **envp)
 		if (execute_builtin(cur, next, pid))
 			;
 		else
-			execute_path(cur, path, envp);
+			execute_path(cur, info->path, envp);
 	}
 	if (pid > 0)
 		manage_pipe(cur, next, pid);
@@ -96,10 +96,10 @@ void	fork_child(t_process *cur, t_process *next, char **path, char **envp)
 		waitpid(pid, &status, 0);
 }
 
-void	execute(t_process *cur, t_process *next, char **path, char **envp)
+void	execute(t_process *cur, t_process *next, t_info *info, char **envp)
 {
 	if (execute_builtin(cur, next, 1))
 		;
 	else
-		fork_child(cur, next, path, envp);
+		fork_child(cur, next, info, envp);
 }

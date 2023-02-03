@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   env_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:59 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 01:08:48 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/03 16:29:22 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/minishell.h"
 
-void	free_env_path(t_env *env)
+void	free_env_path(t_info *info)
 {
 	int	i;
 
 	i = -1;
-	while (env->path[++i] != NULL)
-		free(env->path[i]);
-	free(env->path);
+	while (info->path[++i] != NULL)
+		free(info->path[i]);
+	free(info->path);
 }
 
-void	env_path(t_env *env, char **envp)
+void	env_path(t_info *info, char **envp)
 {
 	int		i;
 	char	*tmp_path;
@@ -34,13 +34,13 @@ void	env_path(t_env *env, char **envp)
 		if (!ft_strncmp("PATH=", envp[i], 5))
 			tmp_path = ft_strdup(envp[i] + 5);
 	}
-	env->path = ft_split(tmp_path, ':');
+	info->path = ft_split(tmp_path, ':');
 	free(tmp_path);
 	i = -1;
-	while (env->path[++i])
+	while (info->path[++i])
 	{
-		tmp_free = env->path[i];
-		env->path[i] = ft_strjoin(env->path[i], "/");
+		tmp_free = info->path[i];
+		info->path[i] = ft_strjoin(info->path[i], "/");
 		free(tmp_free);
 	}
 }

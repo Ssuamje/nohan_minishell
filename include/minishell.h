@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:35:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 13:07:37 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:28:18 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ t_list	*g_envl;
 # define READ 0
 # define WRITE 1
 
-void	env_path(t_env *env, char **envp);
-void	free_env_path(t_env *env);
+void	env_path(t_info *info, char **envp);
+void	free_env_path(t_info *info);
 void	exec_process(char **envp, t_list *processes);
 void	echo(t_process *cur);
 

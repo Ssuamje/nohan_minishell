@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:53:34 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 13:07:49 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 16:30:26 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ typedef struct s_redir{
 	char			*file;
 }	t_redir;
 
-typedef struct s_env
+typedef struct s_info
 {
 	char	**path;
-}	t_env;
+	int		pipe_cnt;
+}	t_info;
 
 void	redirection(t_process *proc);
 void	redirect_in(t_process *proc);

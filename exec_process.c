@@ -3,49 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 01:08:52 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/03 16:31:26 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./include/minishell.h"
 
-void	process_dup_pipe(t_list *procs, char **path, char **envp, int stdfd[])
+void	process_dup_pipe(t_list *procs, t_info *info, char **envp, int stdfd[])
 {
 	t_list		*tmp;
 	t_process	*cur;
 	int			status;
-	int			child_cnt;
 
 	set_heredoc_fd(procs, stdfd);
+	info->pipe_cnt = ft_lstsize(procs) - 1;
 	tmp = procs->next;
 	while (tmp != NULL && tmp->content != NULL)
 	{
 		cur = tmp->content;
 		pipe(cur->pfd);
 		if (tmp->next == NULL)
-			execute(cur, NULL, path, envp);
+			execute(cur, NULL, info, envp);
 		else
-			execute(cur, tmp->next->content, path, envp);
+			execute(cur, tmp->next->content, info, envp);
 		tmp = tmp->next;
 	}
-	child_cnt = ft_lstsize(procs) - 1;
-	while (--child_cnt)
+	while (--(info->pipe_cnt))
 		wait(&status);
 }
 
 void	exec_process(char **envp, t_list *procs)
 {
-	t_env	env;
+	t_info	info;
 	int		stdfd[2];
 
 	stdfd[0] = dup(STDIN_FILENO);
 	stdfd[1] = dup(STDOUT_FILENO);
-	env_path(&env, envp);
-	process_dup_pipe(procs, env.path, envp, stdfd);
-	free_env_path(&env);
+	env_path(&info, envp);
+	process_dup_pipe(procs, &info, envp, stdfd);
+	free_env_path(&info);
 	dup2(stdfd[0], STDIN_FILENO);
 	dup2(stdfd[1], STDOUT_FILENO);
 }
