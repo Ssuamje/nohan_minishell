@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   exit.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:48:38 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 18:22:33 by sanan            ###   ########.fr       */
+/*   Created: 2023/02/03 17:45:02 by sanan             #+#    #+#             */
+/*   Updated: 2023/02/03 18:21:31 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#ifndef EXIT_H
+# define EXIT_H
 
-# include "../builtin/export/export.h"
-# include "../builtin/unset/unset.h"
-# include "../builtin/exit/exit.h"
+# include "../../include/envl.h"
+
+void	builtin_exit(char **cmd, t_list *envl);
 
 #endif
