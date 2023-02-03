@@ -6,25 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:16:28 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 16:17:22 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/03 16:23:33 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "unset.h"
-
-int	is_cmd_has_special_after(char *cmd)
-{
-	int idx;
-	
-	idx = 0;
-	while (cmd[idx] != '\0')
-	{
-		if (is_in_str(cmd[idx], "~`!@#$%^&*()-+=\"\':;|\\}]{[.,<>?/") == TRUE)
-			return (TRUE);
-		idx++;
-	}
-	return (FALSE);
-}
 
 int	is_unset_syntax_error(char *cmd)
 {

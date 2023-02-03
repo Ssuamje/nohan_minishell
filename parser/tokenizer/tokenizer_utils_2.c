@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 20:20:23 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/03 16:30:59 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	check_string_condition(t_token *token)
 	if (token->status == LEX_QUOTATION)
 		token->string = remove_quote_apost(token->string, '\"', &flag_trim);
 	if (token->is_seperated == TRUE)
+		token->string = lstrip_once(token->string);
+	if (token->status == LEX_STRING)
 		token->string = lstrip_once(token->string);
 	if (flag_trim == TRUE)
 		free(tmp);
