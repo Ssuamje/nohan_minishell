@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 15:30:27 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/03 15:37:11 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,23 @@ void	execute_path(t_process *cur, char **path, char **envp)
 	exit(0);
 }
 
-int	execute_builtin(t_process *cur)
+int	execute_builtin(t_process *cur, t_process *next, pid_t pid)
 {
-	if (ft_strcmp(cur->cmd[0], "echo"))
-		builtin_echo(cur);
-	else if (ft_strcmp(cur->cmd[0], "pwd"))
-		builtin_pwd();
+	if (pid == 0)
+	{
+		if (ft_strcmp(cur->cmd[0], "echo"))
+			builtin_echo(cur);
+		else if (ft_strcmp(cur->cmd[0], "pwd"))
+			builtin_pwd();
+	}
+	else
+	{
+		if (ft_strcmp(cur->cmd[0], "cd") && next == NULL)
+		{
+			builtin_cd(cur);
+			return (1);
+		}
+	}
 	return (0);
 }
 
@@ -74,7 +85,7 @@ void	fork_child(t_process *cur, t_process *next, char **path, char **envp)
 	{
 		manage_pipe(cur, next, pid);
 		redirection(cur);
-		if (execute_builtin(cur))
+		if (execute_builtin(cur, next, pid))
 			;
 		else
 			execute_path(cur, path, envp);
@@ -87,8 +98,8 @@ void	fork_child(t_process *cur, t_process *next, char **path, char **envp)
 
 void	execute(t_process *cur, t_process *next, char **path, char **envp)
 {
-	if (ft_strcmp(cur->cmd[0], "cd") && next == NULL)
-		builtin_cd(cur);
-	else if (!ft_strcmp(cur->cmd[0], "cd"))
+	if (execute_builtin(cur, next, 1))
+		;
+	else
 		fork_child(cur, next, path, envp);
 }
