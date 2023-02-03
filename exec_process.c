@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 18:48:00 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/04 00:05:00 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	process_dup_pipe(t_list *procs, t_info *info, char **envp, int stdfd[])
 	int			status;
 
 	set_heredoc_fd(procs, stdfd);
-	info->pipe_cnt = ft_lstsize(procs) - 1;
+	info->process_cnt = ft_lstsize(procs) - 1;
 	tmp = procs->next;
 	while (tmp != NULL && tmp->content != NULL)
 	{
@@ -31,7 +31,7 @@ void	process_dup_pipe(t_list *procs, t_info *info, char **envp, int stdfd[])
 			execute(cur, tmp->next->content, info, envp);
 		tmp = tmp->next;
 	}
-	while (--(info->pipe_cnt))
+	while (--(info->process_cnt))
 		wait(&status);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 19:25:19 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/04 00:15:28 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 		else if (ft_strcmp(cur->cmd[0], "export") && cur->cmd[1] == NULL)
 			builtin_export(cur->cmd, g_envl);
 	}
-	else
+	else if (pid == PARENTS)
 	{
-		if (info->pipe_cnt == 0)
+		if (info->process_cnt == 1)
 		{
 			if (ft_strcmp(cur->cmd[0], "cd"))
 			{
@@ -90,7 +90,7 @@ int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 	return (0);
 }
 
-void	fork_child(t_process *cur, t_process *next, t_info *info, char **envp)
+void	execute_program(t_process *cur, t_process *next, t_info *info, char **envp)
 {
 	pid_t	pid;
 	int		status;
@@ -116,5 +116,5 @@ void	execute(t_process *cur, t_process *next, t_info *info, char **envp)
 	if (execute_builtin(cur, info, PARENTS))
 		;
 	else
-		fork_child(cur, next, info, envp);
+		execute_program(cur, next, info, envp);
 }
