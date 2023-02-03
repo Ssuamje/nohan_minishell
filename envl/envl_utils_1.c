@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 20:51:50 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 21:41:06 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/03 12:28:42 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,23 @@ void	add_only_key_to_list(t_list *envl, char *env)
 		content->key = ft_strdup(env);
 		content->value = NULL;
 		ft_lstadd_back(&envl, ft_lstnew(content));
+	}
+}
+
+void	delete_env_by_key(t_list *envl, char *key)
+{
+	t_list		*tmp;
+	t_environ	*tmp_env;
+
+	tmp = envl->next;
+	while (tmp != NULL)
+	{
+		tmp_env = tmp->content;
+		if (ft_strcmp(tmp_env->key, key) == TRUE)
+		{
+			ft_lstpop(envl, tmp, 0);
+			return ;
+		}
+		tmp = tmp->next;
 	}
 }

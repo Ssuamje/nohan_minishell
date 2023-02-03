@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.h                                           :+:      :+:    :+:   */
+/*   is_in_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:49:07 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 12:25:33 by sanan            ###   ########.fr       */
+/*   Created: 2023/02/03 12:25:02 by sanan             #+#    #+#             */
+/*   Updated: 2023/02/03 12:25:12 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPORT_H
-# define EXPORT_H
+#include "../include/utils.h"
 
-# include "../../include/envl.h"
-# include "../../include/utils.h"
+int	is_in_str(char c, char *str)
+{
+	int	idx;
 
-void	builtin_export(char **cmd, t_list *envl);
-
-#endif
+	idx = 0;
+	while (str[idx] != '\0')
+	{
+		if (str[idx] == c)
+			return (TRUE);
+		idx++;
+	}
+	return (FALSE);
+}
