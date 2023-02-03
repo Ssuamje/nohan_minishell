@@ -6,25 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:26:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 16:16:49 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/03 16:23:28 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "export.h"
-
-int	is_cmd_has_special_after(char *cmd)
-{
-	int idx;
-	
-	idx = 0;
-	while (cmd[idx] != '\0')
-	{
-		if (is_in_str(cmd[idx], "~`!@#$%^&*()-+=\"\':;|\\}]{[.,<>?/") == TRUE)
-			return (TRUE);
-		idx++;
-	}
-	return (FALSE);
-}
 
 int	is_export_syntax_error(char *cmd)
 {
