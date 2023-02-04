@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 13:07:50 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/04 23:32:38 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int			parse_redirect(t_token *token, t_parser *parser, \
 void		argv_list_to_split(t_process *cur_proc, t_parser *parser);
 void		check_syntax_by_type(t_token *token, int *err);
 int			check_syntax(t_list *tokens);
+int			check_args_first(t_list *tokens);
 void		free_process(t_process *process);
 void		free_process_list(t_list *processes);
 void		seperate_process_by_pipe(t_process **proc, t_parser *parser, \

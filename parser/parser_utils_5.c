@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:41:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 20:38:49 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 23:34:27 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	check_syntax(t_list *tokens)
 	int		err;
 
 	tmp = tokens->next;
-	if ((check_first_arg(tokens->next->content) == ERR_TRUE)
+	if ((check_first_arg(tmp->content) == ERR_TRUE)
 	|| (check_available_type(tokens) == FALSE))
 		return (ERR_TRUE);
 	while (tmp != NULL)

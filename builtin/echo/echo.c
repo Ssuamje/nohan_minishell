@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 01:36:30 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/02/03 19:18:51 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/04 23:29:00 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	builtin_echo(t_process *cur)
 	}
 	if (j == 0)
 		ft_putstr("\n");
+	set_exit_code(g_envl, 0);
 	exit(0);
 }
