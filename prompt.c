@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 12:01:22 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 12:17:30 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		processes = parse(g_envl, input);
 		if (processes != NULL)
 		{
-			// print_processes_list(processes);
-			builtin_exit(((t_process *)processes->next->content)->cmd, g_envl);
+			print_processes_list(processes);
 			// print_envl(g_envl);
 			// exec_process(envp, processes);
 			free_process_list(processes);
@@ -54,5 +53,3 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		free(input);
 	}
 }
-
-//STRING일 시에 trim 필요.

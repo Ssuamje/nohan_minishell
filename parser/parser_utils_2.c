@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:38:13 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 19:44:11 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 12:15:03 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 int	is_token_not_env_not_has_special(t_token *token)
 {
-	return (is_in_charset(token->string[0], "~!@#$%^&*()_+`-=[]{}\\|/?><,.")
+	return (is_in_charset(token->string[0], "~!@#$%^&*()_+`-=[]{}\\|/?,.")
 		&& (token->status != PAR_ENV));
 }
 
 int	check_first_arg(t_token *token)
 {
 	return (token->status != PAR_PIPE
-		&& token->status != PAR_REDIRECT
 		&& is_token_not_env_not_has_special(token) == FALSE);
 }
 
