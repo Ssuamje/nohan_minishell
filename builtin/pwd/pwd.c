@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:13:21 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 19:19:02 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/04 12:02:23 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	builtin_pwd(void)
 	cwd = getcwd(NULL, 1024);
 	ft_putstr(cwd);
 	ft_putstr("\n");
+	free(cwd);
 	exit(0);
 }
