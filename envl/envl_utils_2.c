@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:50:13 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 18:06:56 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 20:54:41 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,13 @@ char	*get_value_by_key(t_list *envl, char *key)
 	if (target == NULL)
 		return (NULL);
 	return (ft_strdup(target->value));
+}
+
+void	set_exit_code(t_list *envl, pid_t waitpid)
+{
+	t_environ	*question;
+
+	question = find_env_by_key(envl, "?");
+	free(question->value);
+	question->value = ft_itoa((waitpid >> 8) & 0x000000ff);
 }

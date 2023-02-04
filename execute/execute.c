@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/04 18:53:50 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 20:56:03 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ void	execute_program(t_process *cur, t_process *next, t_info *info, char **envp)
 	if (pid > 0)
 		manage_pipe(cur, next, pid);
 	if (next == NULL)
+	{
 		waitpid(pid, &status, 0);
+		set_exit_code(g_envl, status);
+	}
 }
 
 void	execute(t_process *cur, t_process *next, t_info *info, char **envp)
