@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:39:12 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 12:20:43 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 23:25:13 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ t_redir	*get_redir(t_parser *parser)
 
 void	put_redir_token(t_parser *parser, t_process *cur_proc)
 {
+	if (ft_strcmp(parser->string, "<") \
+		|| ft_strcmp(parser->string, "<<") \
+		|| ft_strcmp(parser->string, ">") \
+		|| ft_strcmp(parser->string, ">>"))
+		return ;
 	if (parser->flag_redir == IN_TRUNC \
 	|| parser->flag_redir == IN_APPEND)
 		ft_lstadd_back(&(cur_proc->redir_in), ft_lstnew(get_redir(parser)));
