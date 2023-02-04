@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/04 19:01:49 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/04 20:31:20 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRC_BUILTIN = \
  ./builtin/exit/exit.c \
  ./builtin/export/export.c \
  ./builtin/pwd/pwd.c \
- ./builtin/unset/unset.c
+ ./builtin/unset/unset.c \
+ ./builtin/env/env.c
 
 SRC_ENVL = \
 ./envl/envl.c \

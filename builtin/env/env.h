@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 13:48:38 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 20:30:00 by sanan            ###   ########.fr       */
+/*   Created: 2023/02/04 20:23:26 by sanan             #+#    #+#             */
+/*   Updated: 2023/02/04 20:29:49 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#ifndef ENV_H
+# define ENV_H
 
-# include "../builtin/cd/cd.h"
-# include "../builtin/echo/echo.h"
-# include "../builtin/exit/exit.h"
-# include "../builtin/export/export.h"
-# include "../builtin/pwd/pwd.h"
-# include "../builtin/unset/unset.h"
-# include "../builtin/env/env.h"
+#include "../export/export.h"
+
+void	builtin_env(char **cmd, t_list *envl);
 
 #endif

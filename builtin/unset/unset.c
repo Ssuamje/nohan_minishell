@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:16:28 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 16:23:33 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 20:13:27 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ void	builtin_unset(char **cmd, t_list *envl)
 	{
 		while (cmd[idx] != NULL)
 		{
-			if (is_unset_syntax_error(cmd[1]) == TRUE)
+			if (is_unset_syntax_error(cmd[idx]) == TRUE)
 			{
 				printf("unset: `%s\': not a valid identifier\n", cmd[idx]);
-				return ;
+				idx++;
+				continue ;
 			}
 			delete_env_by_key(envl, cmd[idx++]);
 		}
