@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 21:59:50 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 22:17:43 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 	t_list	*processes;
 	char	**tmp_envp;
 
-	atexit(check_leaks);
+	// atexit(check_leaks);
 	if (ac != 1)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
@@ -45,6 +45,7 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		processes = parse(g_envl, input);
 		if (processes != NULL)
 		{
+			printf("parse success!\n");
 			tmp_envp = envl_to_envp(g_envl);
 			exec_process(tmp_envp, processes);
 			free_process_list(processes);
