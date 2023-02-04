@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 13:14:20 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 14:30:54 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		exit_error(ERR_ARGC);
 	signal(SIGINT, sighandler);
 	g_envl = map_envp_to_list(envp);
+	atexit(check_leaks);
 	while (WAIT_FOR_SIG)
 	{
 		input = readline("🐤AengMuShell $ ");
@@ -43,7 +44,6 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		processes = parse(g_envl, input);
 		if (processes != NULL)
 		{
-			check_leaks();
 			tmp_envp = envl_to_envp(g_envl);
 			// print_processes_list(processes);
 			// print_envl(g_envl);

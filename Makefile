@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/04 13:03:13 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/04 13:22:10 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,8 +90,7 @@ INCLUDE = -I ./include
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(LIB_FT)
-	$(CC) $(WFLAGS) $(SRCS) $(LIB_FT) $(READLINE) \
-	$(INCLUDE) -o $(NAME)
+	$(CC) $(WFLAGS) $(SRCS) $(LIB_FT) $(READLINE) $(INCLUDE) -o $(NAME)
 
 %.o : %.c
 	$(CC) $(WFLAGS) -c $< -o $@
