@@ -6,11 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 12:17:30 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 12:44:03 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/prompt.h"
+#include "../include/prompt.h"
 #define WAIT_FOR_SIG 1
 
 //need to delete

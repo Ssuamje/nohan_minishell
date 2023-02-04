@@ -6,11 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:37:18 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 14:44:05 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 12:43:58 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/prompt.h"
+#include "../include/prompt.h"
 
 int	get_len(char *str)
 {
