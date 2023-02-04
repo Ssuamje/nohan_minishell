@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/04 19:00:33 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 00:29:10 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void	exec_process(char **envp, t_list *procs)
 	process_dup_pipe(procs, &info, envp, stdfd);
 	dup2(stdfd[0], STDIN_FILENO);
 	dup2(stdfd[1], STDOUT_FILENO);
+	free_split(info.path);
 }

@@ -10,7 +10,7 @@ void	print_split(char **split)
 	printf("*************printing split***********\n");
 	while (split[idx] != NULL)
 	{
-		printf("_%s_ ", split[idx]);
+		printf("_%s_\n", split[idx]);
 		idx++;
 	}
 	printf("\n");
