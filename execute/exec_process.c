@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/04 00:05:00 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/04 19:00:33 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./include/minishell.h"
+#include "../include/minishell.h"
 
 void	process_dup_pipe(t_list *procs, t_info *info, char **envp, int stdfd[])
 {
@@ -47,5 +47,3 @@ void	exec_process(char **envp, t_list *procs)
 	dup2(stdfd[0], STDIN_FILENO);
 	dup2(stdfd[1], STDOUT_FILENO);
 }
-
-// gcc prompt*.c ./parser/tokenizer/*.c ./parser/lexer/*.c -I ./include ./libft/*.c ./error/error.c ./parser/*.c exec_process.c env_path.c ./execute/execute.c ./redirection/*.c ./envl/*.c ./utils/*.c  ./builtin/export/*.c ./builtin/unset/*.c ./builtin/echo/*.c ./builtin/pwd/*.c ./builtin/cd/*.c -lreadline

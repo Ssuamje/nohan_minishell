@@ -6,6 +6,7 @@
 		"export.h": "c",
 		"utils.h": "c",
 		"prompt.h": "c",
-		"envl.h": "c"
+		"envl.h": "c",
+		"ios": "c"
 	}
 }

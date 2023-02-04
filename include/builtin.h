@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 13:48:38 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 18:44:24 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/04 18:59:09 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-# include "../builtin/export/export.h"
-# include "../builtin/unset/unset.h"
-# include "../builtin/echo/echo.h"
-# include "../builtin/pwd/pwd.h"
 # include "../builtin/cd/cd.h"
-// # include "../builtin/exit/exit.h"
+# include "../builtin/echo/echo.h"
+# include "../builtin/exit/exit.h"
+# include "../builtin/export/export.h"
+# include "../builtin/pwd/pwd.h"
+# include "../builtin/unset/unset.h"
 
 #endif
