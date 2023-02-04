@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:26:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 16:23:28 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 14:37:35 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	builtin_export(char **cmd, t_list *envl)
 			if (is_export_syntax_error(cmd[idx]) == TRUE)
 			{
 				printf("export: `%s\': not a valid identifier\n", cmd[idx]);
-				return ;
+				idx++;
+				continue ;
 			}
 			add_set_env_to_list(envl, cmd[idx++]);
 		}
