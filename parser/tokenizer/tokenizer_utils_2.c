@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 16:30:59 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 23:16:02 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*remove_quote_apost(char *string, char c, int *flag)
 
 void	check_set_token_properties(t_token *token)
 {
-	if (token->string[0] == ' ' || token->string[0] == ' ')
+	if (token->string[0] == ' ' || token->string[0] == '\t')
 		token->is_seperated = TRUE;
 }
 

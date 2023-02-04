@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 21:11:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 19:25:59 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 23:17:43 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	is_in_charset(char c, char *charset)
 
 int	is_special(char c)
 {
-	return (is_in_charset(c, "!@#%^&*()-+={[}]\\|:;/.,<>~`"));
+	return (is_in_charset(c, "!@#%^&*()-+={[}]\\|:;/.,<>~`\'\""));
 }
 
 int	count_char(char *string, char c)
