@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_cmd_has_special_after.c                         :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 16:22:34 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 18:54:49 by sanan            ###   ########.fr       */
+/*   Created: 2023/02/03 14:27:25 by hyungnoh          #+#    #+#             */
+/*   Updated: 2023/02/04 12:00:15 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/utils.h"
+#include "cd.h"
 
-int	is_cmd_has_special_after(char *cmd)
+void	builtin_cd(t_process *cur)
 {
-	int idx;
-	
-	idx = 0;
-	while (cmd[idx] != '\0')
-	{
-		if (is_in_str(cmd[idx], "~`!@#$%^&*()-+\"\':;|\\}]{[.,<>?/") == TRUE)
-			return (TRUE);
-		idx++;
-	}
-	return (FALSE);
+	if (cur->cmd[1] == NULL || ft_strcmp(cur->cmd[1], "~"))
+		chdir(getenv("HOME"));
+	else
+		chdir(cur->cmd[1]);
 }

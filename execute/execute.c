@@ -6,97 +6,115 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/04 13:01:57 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 18:53:50 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/execute.h"
 
-void	env_command(t_process *cur_proc, t_process *next_proc, int pfd[], char **path, char **envp)
+void	manage_pipe(t_process *cur, t_process *next, pid_t pid)
 {
-	int		i;
+	if (pid == CHILD)
+	{
+		close(cur->pfd[0]);
+		if (next != NULL)
+			dup2(cur->pfd[1], STDOUT_FILENO);
+		close(cur->pfd[1]);
+	}
+	else if (pid > 0)
+	{
+		close(cur->pfd[1]);
+		dup2(cur->pfd[0], STDIN_FILENO);
+		close(cur->pfd[0]);
+	}
+}
+
+char	*find_full_path(t_process *cur, char **path)
+{
+	char		*tmp_path;
+	struct stat	sb;
+	int			i;
+
+	i = 0;
+	while (path[++i])
+	{
+		tmp_path = ft_strjoin(path[i], cur->cmd[0]);
+		if (stat(tmp_path, &sb) == 0)
+			return (tmp_path);
+		free(tmp_path);
+	}
+	return (NULL);
+}
+
+void	execute_path(t_process *cur, char **path, char **envp)
+{
 	char	*full_path;
+
+	full_path = find_full_path(cur, path);
+	execve(full_path, cur->cmd, envp);
+	exit(0);
+}
+
+int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
+{
+	if (pid == CHILD)
+	{
+		if (ft_strcmp(cur->cmd[0], "echo"))
+			builtin_echo(cur);
+		else if (ft_strcmp(cur->cmd[0], "pwd"))
+			builtin_pwd();
+		else if (ft_strcmp(cur->cmd[0], "export") && cur->cmd[1] == NULL)
+			builtin_export(cur->cmd, g_envl);
+	}
+	else if (pid == PARENTS)
+	{
+		if (info->process_cnt == 1)
+		{
+			if (ft_strcmp(cur->cmd[0], "cd"))
+			{
+				builtin_cd(cur);
+				return (1);
+			}
+			else if (ft_strcmp(cur->cmd[0], "export") && cur->cmd[1] != NULL)
+			{
+				builtin_export(cur->cmd, g_envl);
+				return (1);
+			}
+			else if (ft_strcmp(cur->cmd[0], "unset") && cur->cmd[1] != NULL)
+			{
+				builtin_unset(cur->cmd, g_envl);
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
+void	execute_program(t_process *cur, t_process *next, t_info *info, char **envp)
+{
 	pid_t	pid;
 	int		status;
 
-	status = -1;
 	pid = fork();
-	if (pid == 0)
+	if (pid == CHILD)
 	{
-		close(pfd[0]);
-		if (next_proc != NULL)
-			dup2(pfd[1], STDOUT_FILENO);
-		close(pfd[1]);
-		redirect_in(cur_proc);
-		redirect_out(cur_proc);
-		i = -1;
-		while (path[++i])
-		{
-			full_path = ft_strjoin(path[i], cur_proc->cmd[0]);
-			free(path[i]);
-			execve(full_path, cur_proc->cmd, envp);
-		}
-		exit(0);
+		manage_pipe(cur, next, pid);
+		redirection(cur);
+		if (execute_builtin(cur, info, CHILD))
+			;
+		else
+			execute_path(cur, info->path, envp);
 	}
 	if (pid > 0)
-	{
-		close(pfd[1]);
-		dup2(pfd[0], STDIN_FILENO);
-		close(pfd[0]);
-	}
-	if (next_proc == NULL)
+		manage_pipe(cur, next, pid);
+	if (next == NULL)
 		waitpid(pid, &status, 0);
 }
 
-void	execute(t_process *cur_proc, t_process *next_proc, int pfd[], char **path, char **envp)
+void	execute(t_process *cur, t_process *next, t_info *info, char **envp)
 {
-	env_command(cur_proc, next_proc, pfd, path, envp);
-}
-
-void	pipe_process(t_list *processes, int *pfd, char **env_path, char **envp, int stdfd[])
-{
-	t_list		*tmp1;
-	t_list		*tmp2;
-	t_process	*cur_proc;
-
-	tmp1 = processes->next;
-	tmp2 = processes->next;
-	while (tmp1 != NULL && tmp1->content != NULL)
-	{
-		cur_proc = tmp1->content;
-		heredoc(cur_proc);
-		tmp1 = tmp1->next;
-	}
-	dup2(stdfd[0], STDIN_FILENO);
-	dup2(stdfd[1], STDOUT_FILENO);
-	while (tmp2 != NULL && tmp2->content != NULL)
-	{
-		cur_proc = tmp2->content;
-		pipe(pfd);
-		if (tmp2->next == NULL)
-			execute(cur_proc, NULL, pfd, env_path, envp);
-		else
-			execute(cur_proc, tmp2->next->content, pfd, env_path, envp);
-		tmp2 = tmp2->next;
-	}
-}
-
-void	exec_process(char **envp, t_list *processes)
-{
-	t_env	env;
-	int		stdfd[2];
-	int		pfd[2];
-	int		status = -1;
-	int		child_size;
-
-	env_path(&env, envp);
-	child_size = ft_lstsize(processes) - 1;
-	stdfd[0] = dup(STDIN_FILENO);
-	stdfd[1] = dup(STDOUT_FILENO);
-	pipe_process(processes, pfd, env.path, envp, stdfd);
-	while (--child_size)
-		wait(&status);
-	dup2(stdfd[0], STDIN_FILENO);
-	dup2(stdfd[1], STDOUT_FILENO);
-	free_env_path(&env);
+	if (execute_builtin(cur, info, PARENTS))
+		;
+	else
+		execute_program(cur, next, info, envp);
 }

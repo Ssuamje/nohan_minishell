@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_cmd_has_special_after.c                         :+:      :+:    :+:   */
+/*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 16:22:34 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 18:54:49 by sanan            ###   ########.fr       */
+/*   Created: 2023/02/03 00:38:47 by hyungseok         #+#    #+#             */
+/*   Updated: 2023/02/03 00:41:42 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/utils.h"
+#include "../include/redirection.h"
 
-int	is_cmd_has_special_after(char *cmd)
+void	redirection(t_process *proc)
 {
-	int idx;
-	
-	idx = 0;
-	while (cmd[idx] != '\0')
-	{
-		if (is_in_str(cmd[idx], "~`!@#$%^&*()-+\"\':;|\\}]{[.,<>?/") == TRUE)
-			return (TRUE);
-		idx++;
-	}
-	return (FALSE);
+	if (proc->redir_in != NULL)
+		redirect_in(proc);
+	if (proc->redir_out != NULL)
+		redirect_out(proc);
 }
