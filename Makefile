@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/04 12:50:17 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/04 13:03:13 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC_ERROR = \
 ./error/error.c
 
 SRC_EXECUTE = \
-./execute/execute.c
+./execute/execute.c \
+./execute/env_path.c
 
 SRC_PARSER = \
 ./parser/parser.c \
@@ -50,8 +51,7 @@ SRC_PARSER = \
 SRC_REDIRECTION = \
 ./redirection/redirect_in.c \
 ./redirection/redirect_out.c \
-./redirection/heredoc.c \
-./redirection/env_path.c
+./redirection/heredoc.c
 
 SRC_UTILS = \
 ./utils/is_cmd_has_special_after.c \
@@ -100,11 +100,11 @@ $(LIB_FT) :
 	make -C $(dir $(LIB_FT)) bonus
 
 clean :
-	make -C $(dir $(LIB_FT)) clean bonus
+	make -C $(dir $(LIB_FT)) clean
 	rm -rf $(OBJS)
 
 fclean : clean
-	make -C $(dir $(LIB_FT)) fclean bonus
+	make -C $(dir $(LIB_FT)) fclean
 	rm -rf $(NAME)
 
 re : 

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:38:04 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 22:02:16 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 13:07:13 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "error.h"
 # include "readline/readline.h"
 # include "parser.h"
-# include "minishell.h"
 # include "envl.h"
+# include "execute.h"
 # include "utils.h"
 # include "builtin.h"
 
