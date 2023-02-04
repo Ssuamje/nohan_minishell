@@ -6,15 +6,18 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/04 13:22:10 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/04 19:01:49 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRC_BUILTIN = \
+ ./builtin/cd/cd.c \
+ ./builtin/echo/echo.c \
  ./builtin/exit/exit.c \
  ./builtin/export/export.c \
+ ./builtin/pwd/pwd.c \
  ./builtin/unset/unset.c
 
 SRC_ENVL = \
@@ -27,6 +30,7 @@ SRC_ERROR = \
 
 SRC_EXECUTE = \
 ./execute/execute.c \
+./execute/exec_process.c \
 ./execute/env_path.c
 
 SRC_PARSER = \
@@ -51,6 +55,7 @@ SRC_PARSER = \
 SRC_REDIRECTION = \
 ./redirection/redirect_in.c \
 ./redirection/redirect_out.c \
+./redirection/redirection.c \
 ./redirection/heredoc.c
 
 SRC_UTILS = \

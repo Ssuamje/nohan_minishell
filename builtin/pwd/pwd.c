@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_cmd_has_special_after.c                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/03 16:22:34 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 18:54:49 by sanan            ###   ########.fr       */
+/*   Created: 2023/02/03 14:13:21 by hyungnoh          #+#    #+#             */
+/*   Updated: 2023/02/04 12:02:23 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/utils.h"
+#include "pwd.h"
 
-int	is_cmd_has_special_after(char *cmd)
+void	builtin_pwd(void)
 {
-	int idx;
-	
-	idx = 0;
-	while (cmd[idx] != '\0')
-	{
-		if (is_in_str(cmd[idx], "~`!@#$%^&*()-+\"\':;|\\}]{[.,<>?/") == TRUE)
-			return (TRUE);
-		idx++;
-	}
-	return (FALSE);
+	char	*cwd;
+
+	cwd = getcwd(NULL, 1024);
+	ft_putstr(cwd);
+	ft_putstr("\n");
+	free(cwd);
+	exit(0);
 }
