@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 00:55:56 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/04 22:02:33 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
 
 	(*idx)++;
 	idx_tmp = ft_itoa(*idx);
-	heredoc = ft_strjoin(idx_tmp, "_heredoc");
-	free(idx_tmp);
+	heredoc = ft_join_and_free(idx_tmp, ft_strdup("_heredoc"));
 	proc->fd_infile = open(heredoc, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	dup2(proc->fd_infile, STDOUT_FILENO);
 	close(proc->fd_infile);
