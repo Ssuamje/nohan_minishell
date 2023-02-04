@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:41:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 12:14:21 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/04 19:42:53 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,31 @@ void	check_syntax_by_type(t_token *token, int *err)
 		*err = syntax_env(token);
 }
 
+int	check_available_type(t_list *tokens)
+{
+	t_list	*tmp;
+	t_token	*tmp_token;
+	t_token	*next_token;
+
+	tmp = tokens->next;
+	while (tmp->next != NULL)
+	{
+		tmp_token = tmp->content;
+		next_token = tmp->next->content;
+		if (((tmp_token->status == PAR_REDIRECT) && (next_token->status = PAR_REDIRECT)) \
+		|| ((tmp_token->status == PAR_PIPE) && (next_token->status = PAR_PIPE))
+		|| ((tmp_token->status == PAR_REDIRECT) && (next_token->status = PAR_PIPE))
+		|| ((tmp_token->status == PAR_PIPE) && (next_token->status = PAR_REDIRECT)))
+			return (FALSE);
+		tmp = tmp->next;
+	}
+	tmp_token = tmp->content;
+	if ((tmp_token->status == PAR_PIPE) \
+	|| (tmp_token->status == PAR_REDIRECT))
+		return (FALSE);
+	return (TRUE);
+}
+
 int	check_syntax(t_list *tokens)
 {
 	t_list	*tmp;
@@ -34,7 +59,8 @@ int	check_syntax(t_list *tokens)
 	int		err;
 
 	tmp = tokens->next;
-	if (check_first_arg(tokens->next->content) == ERR_TRUE)
+	if ((check_first_arg(tokens->next->content) == ERR_TRUE)
+	|| (check_available_type(tokens) == FALSE))
 		return (ERR_TRUE);
 	while (tmp != NULL)
 	{
