@@ -3,10 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
+#    By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/06 00:16:55 by hyungseok         #+#    #+#              #
+#    Updated: 2023/02/06 00:16:59 by hyungseok        ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/05 21:01:46 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/06 00:06:39 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,26 +108,52 @@ LIB_FT = ./libft/libft.a
 INCLUDE = -I./include $(READLINE_INCLUDE)
 
 all : $(NAME)
-
+	@$(ECHO) $(PURPLE) "🐤 AengMu : I'm Ready!" $(RESET)
+	
 $(NAME) : $(OBJS) $(LIB_FT)
-	$(CC) $(WFLAGS) $(SRCS) $(LIB_FT) $(READLINE_CMP_LINK) $(INCLUDE) -o $(NAME)
+	@$(ECHO) $(CYAN) 🐤 assembling $(GREEN) $@
+	@$(CC) $(WFLAGS) $(SRCS) $(LIB_FT) $(READLINE_CMP_LINK) $(INCLUDE) -o $(NAME)
 
 %.o : %.c
-	$(CC) $(WFLAGS) $(INCLUDE) -c $< -o $@
+	@$(ECHO) $(BLUE) 🐤 compiling $(GREEN) $<
+	@$(CC) $(WFLAGS) $(INCLUDE) -c $< -o $@
 
 $(LIB_FT) :
-	make -C $(dir $(LIB_FT)) bonus
+	@$(ECHO) $(BLUE) 🐤 compiling $(GREEN) $@
+	@make -C $(dir $(LIB_FT)) bonus
 
 clean :
-	make -C $(dir $(LIB_FT)) clean
-	rm -rf $(OBJS)
+	@make -C $(dir $(LIB_FT)) clean
+	@rm -rf $(OBJS)
+	@echo $(RED) "	   🐤 cleaned object files!" $(RESET)
 
 fclean : clean
-	make -C $(dir $(LIB_FT)) fclean
-	rm -rf $(NAME)
+	@make -C $(dir $(LIB_FT)) fclean
+	@rm -rf $(NAME)
+	@echo $(RED) "	   🐤 cleaned archive, target files!" $(RESET)
 
 re :
-	make fclean
-	make all
+	@make fclean
+	@make all
+
+RESET	=	"\x1b[0m"
+GREY	=	"\x1b[30m"
+RED		=	"\x1b[31m"
+GREEN	=	"\x1b[32m"
+YELLOW	=	"\x1b[33m"
+BLUE	=	"\x1b[34m"
+PURPLE	=	"\x1b[35m"
+CYAN	=	"\x1b[36m"
+WHITE	=	"\x1b[37m"
+
+ifndef ECHO
+T := $(shell $(MAKE) $(MAKECMDGOALS) --no-print-directory \
+      -nrRf $(firstword $(MAKEFILE_LIST)) \
+      ECHO="COUNTTHIS" | grep -c "COUNTTHIS")
+
+N := x
+C = $(words $N)$(eval N := x $N)
+ECHO = echo $(YELLOW) "`expr " [ \`expr $C '*' 100 / $T\`" : '.*\(....\)$$'`% ]" $(RESET) 
+endif
 
 .PHONY : all clean fclean re

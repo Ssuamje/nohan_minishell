@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/05 20:09:50 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/06 00:23:38 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	create_heredoc_tmp(t_redir *redir, t_process *proc)
 
 	while (1)
 	{
-		buffer = readline("> ");
+		buffer = readline("🐦 > ");
 		if (buffer == NULL)
 		{
 			free(buffer);
