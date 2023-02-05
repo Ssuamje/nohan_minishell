@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:50:13 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 22:15:54 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 20:58:12 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*join_key_value_to_string(t_environ *env)
 {
 	char	*to_return;
-	
+
 	if (env->key && env->value)
 	{
 		to_return = ft_join_and_free(ft_strdup(env->key), ft_strdup("="));

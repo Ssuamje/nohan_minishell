@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/05 19:44:35 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/05 20:34:49 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,8 @@ SRC_UTILS = \
 
 SRC_PROMPT = \
 ./prompt/prompt.c \
-./prompt/prompt_utils_1.c
+./prompt/prompt_utils_1.c\
+./prompt/prompt_utils_2.c
 
 SRCS = \
 $(SRC_BUILTIN) \

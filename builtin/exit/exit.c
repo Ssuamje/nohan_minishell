@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 17:45:25 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 12:07:20 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 20:57:22 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ int	is_arg_numeric(char *arg)
 			return (FALSE);
 		idx++;
 	}
-	return (TRUE);	
+	return (TRUE);
 }
 
 int	is_exit_syntax_error(char **args)
 {
 	if (is_arg_numeric(args[1]) == FALSE)
 	{
-		printf("exit: %s: numeric argument required\n", args[1]);
+		printf("🐤AengMuShell $ exit: %s: numeric argument required\n", args[1]);
 		exit(255);
 	}
 	if (args[2] != NULL)
 	{
-		printf("exit: too many arguments\n");
+		printf("🐤AengMuShell $ exit: too many arguments\n");
 		exit(1);
 	}
 	return (FALSE);

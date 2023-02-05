@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 23:15:41 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 20:44:07 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*free_token_return_null(t_list **tokens, char *msg)
 {
 	free_tokens(tokens);
 	printf("%s", msg);
-	add_set_env_to_list(g_envl, "?=1");
+	set_exit_code(g_envl, 258);
 	return (NULL);
 }
 

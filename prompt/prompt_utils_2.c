@@ -1,47 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_utils_1.c                                   :+:      :+:    :+:   */
+/*   prompt_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 14:37:18 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 20:27:01 by sanan            ###   ########.fr       */
+/*   Created: 2023/02/05 20:27:03 by sanan             #+#    #+#             */
+/*   Updated: 2023/02/05 20:35:24 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/prompt.h"
 
-int	get_len(char *str)
+void	sig_int_handler(int signo)
 {
-	int	idx;
-
-	idx = 0;
-	while (str[idx])
-		idx++;
-	return (idx);
+	if (signo == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 1);
+		rl_redisplay();
+		add_set_env_to_list(g_envl, "?=1");
+	}
 }
 
-int	is_string_only_white_spaces(char *str)
+void	sig_quit_handler(__attribute__((unused))int signo)
 {
-	int	idx;
-
-	idx = 0;
-	while (str[idx] != '\0')
-	{
-		if (is_in_charset(str[idx], " \t") == FALSE)
-			return (FALSE);
-		idx++;
-	}
-	return (TRUE);
 }
 
-int	is_input_empty(char *input)
+void	init_sighandler(void)
 {
-	if (get_len(input) == 0 ||is_string_only_white_spaces(input))
-	{
-		free(input);
-		return (TRUE);
-	}
-	return (FALSE);
+	rl_catch_signals = 0;
+	signal(SIGINT, sig_int_handler);
+	signal(SIGQUIT, sig_quit_handler);
 }

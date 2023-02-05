@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 19:48:38 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 20:56:56 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,12 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 	g_envl = map_envp_to_list(envp);
 	while (WAIT_FOR_SIG)
 	{
-		input = readline("🐤AengMuShell $ ");
+		input = readline("🐤AengMuShell$ ");
 		if (input == NULL)
-			return (1);
+		{
+			printf("exit\n");
+			return (0);
+		}
 		add_history(input);
 		if (is_input_empty(input) == TRUE)
 			continue ;
