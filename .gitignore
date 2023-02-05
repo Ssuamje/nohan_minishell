@@ -4,3 +4,4 @@ minishell
 .DS*
 *.o
 a.out*
+libft/libft.a
