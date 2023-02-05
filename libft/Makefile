@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 16:09:39 by sanan             #+#    #+#              #
-#    Updated: 2022/11/11 06:38:43 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/04 12:50:43 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ ft_strrchr.c\
 ft_strlcat.c\
 ft_strlcpy.c\
 ft_strdup.c\
+ft_strldup.c\
 ft_striteri.c\
 ft_strlen.c\
 ft_strmapi.c\
@@ -46,7 +47,13 @@ ft_strjoin.c\
 ft_strtrim.c\
 ft_substr.c\
 ft_tolower.c\
-ft_toupper.c
+ft_toupper.c\
+ft_free_and_return.c\
+ft_join_and_free.c\
+ft_lstpop.c\
+ft_putstr.c\
+ft_strcmp.c
+
 
 BONUS_SRC_FILES = ft_lstnew.c\
 ft_lstadd_front.c\

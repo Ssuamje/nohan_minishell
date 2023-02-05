@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstreplace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 18:43:14 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/23 23:32:26 by sanan            ###   ########.fr       */
+/*   Created: 2023/01/21 20:10:58 by sanan             #+#    #+#             */
+/*   Updated: 2023/02/02 20:22:17 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+void	ft_lstreplace(t_list **list)
 {
-	if (!lst || !del)
+	t_list	*tmp;
+	t_list	*next;
+
+	if (list == NULL || *list == NULL)
 		return ;
-	del(lst->content);
-	free(lst);
+	tmp = *list;
+	while (tmp->next != NULL)
+	{
+		next = tmp->next;
+		free(tmp);
+		tmp = next;
+	}
+	*list = ft_lstnew(NULL);
 }

@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_join_and_free.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 18:43:14 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/23 23:32:26 by sanan            ###   ########.fr       */
+/*   Created: 2023/01/27 22:31:03 by sanan             #+#    #+#             */
+/*   Updated: 2023/02/02 20:21:46 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+char	*ft_join_and_free(char *s1, char *s2)
 {
-	if (!lst || !del)
-		return ;
-	del(lst->content);
-	free(lst);
+	char	*to_return;
+
+	to_return = ft_strjoin(s1, s2);
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+	return (to_return);
 }

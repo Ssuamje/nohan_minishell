@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:51:05 by sanan             #+#    #+#             */
-/*   Updated: 2022/11/11 05:36:58 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/30 22:38:37 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *src)
 	char	*dest;
 
 	i = 0;
+	if (src == NULL)
+		return (NULL);
 	while (src[i])
 		i++;
 	dest = (char *)malloc(sizeof(char) * i + 1);

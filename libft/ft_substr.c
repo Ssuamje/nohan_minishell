@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 10:50:14 by sanan             #+#    #+#             */
-/*   Updated: 2022/11/11 05:45:42 by sanan            ###   ########.fr       */
+/*   Updated: 2023/01/21 19:31:11 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
 	char	*substr;
 	size_t	src_len;
 	size_t	length;
 
 	if (!s)
 		return (0);
-	i = 0;
 	src_len = ft_strlen(s);
 	if (start >= src_len)
 	{

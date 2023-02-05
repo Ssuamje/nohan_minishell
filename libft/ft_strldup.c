@@ -1,22 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_strldup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 18:43:14 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/23 23:32:26 by sanan            ###   ########.fr       */
+/*   Created: 2023/01/25 15:57:34 by sanan             #+#    #+#             */
+/*   Updated: 2023/02/02 20:22:24 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+char	*ft_strldup(char *src, int len)
 {
-	if (!lst || !del)
-		return ;
-	del(lst->content);
-	free(lst);
+	char	*dest;
+	int		src_len;
+	int		dest_len;
+	int		idx;
+
+	if (src == NULL)
+		return (NULL);
+	idx = 0;
+	src_len = ft_strlen(src);
+	if (src_len > len)
+		dest_len = len;
+	else
+		dest_len = src_len;
+	dest = malloc(sizeof(char) * (dest_len + 1));
+	while (idx < dest_len && src[idx] != '\0')
+	{
+		dest[idx] = src[idx];
+		idx++;
+	}
+	dest[idx] = '\0';
+	return (dest);
 }

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:27:25 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/05 14:22:33 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 16:34:09 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	builtin_cd(t_process *cur)
 		if (find_env_by_key(g_envl, "HOME") == NULL)
 		{
 			printf("cd: HOME not set\n");
-			return(set_exit_code(g_envl, 1));
+			return (set_exit_code(g_envl, 1));
 		}
 		else
 			chdir(getenv("HOME"));
