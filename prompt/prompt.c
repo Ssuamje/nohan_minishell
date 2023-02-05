@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 16:31:02 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/05 17:14:00 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 	// atexit(check_leaks);
 	if (ac != 1)
 		exit_error(ERR_ARGC);
-	signal(SIGINT, sighandler);
+	signal(SIGINT, sighandler);	
 	g_envl = map_envp_to_list(envp);
 	while (WAIT_FOR_SIG)
 	{
