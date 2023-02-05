@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 14:38:04 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 15:41:24 by sanan            ###   ########.fr       */
+/*   Created: 2022/11/07 13:02:54 by sanan             #+#    #+#             */
+/*   Updated: 2022/11/11 06:04:34 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
+static int	ft_isupper(int c)
+{
+	if ('A' <= c && c <= 'Z')
+		return (1);
+	else
+		return (0);
+}
 
-# include "error.h"
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "parser.h"
-# include "envl.h"
-# include "execute.h"
-# include "utils.h"
-# include "builtin.h"
+static int	ft_islower(int c)
 
-int		get_len(char *str);
-void	sighandler(int signo);
-int		is_string_only_white_spaces(char *str);
-int		is_input_empty(char *input);
+{
+	if ('a' <= c && c <= 'z')
+		return (1);
+	else
+		return (0);
+}
 
-#endif
+int	ft_isalpha(int c)
+{
+	return (ft_isupper(c) || ft_islower(c));
+}

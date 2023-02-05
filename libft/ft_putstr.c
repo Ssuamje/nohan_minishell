@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 14:38:04 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 15:41:24 by sanan            ###   ########.fr       */
+/*   Created: 2022/11/15 17:05:53 by hyungnoh          #+#    #+#             */
+/*   Updated: 2023/01/31 20:22:41 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
+#include "libft.h"
+#include <unistd.h>
 
-# include "error.h"
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "parser.h"
-# include "envl.h"
-# include "execute.h"
-# include "utils.h"
-# include "builtin.h"
+void	ft_putstr(char *s)
+{
+	int	i;
 
-int		get_len(char *str);
-void	sighandler(int signo);
-int		is_string_only_white_spaces(char *str);
-int		is_input_empty(char *input);
-
-#endif
+	i = -1;
+	while (s[++i])
+		write(1, &s[i], 1);
+}

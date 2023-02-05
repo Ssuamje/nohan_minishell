@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 14:38:04 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 15:41:24 by sanan            ###   ########.fr       */
+/*   Created: 2023/01/30 13:45:08 by sanan             #+#    #+#             */
+/*   Updated: 2023/01/30 13:46:43 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
+#include "libft.h"
+#include <stdlib.h>
 
-# include "error.h"
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "parser.h"
-# include "envl.h"
-# include "execute.h"
-# include "utils.h"
-# include "builtin.h"
+int	ft_strcmp(char *s1, char *s2)
+{
+	int idx;
 
-int		get_len(char *str);
-void	sighandler(int signo);
-int		is_string_only_white_spaces(char *str);
-int		is_input_empty(char *input);
-
-#endif
+	if (s1 == NULL && s2 == NULL)
+		return (1);
+	if (s1 == NULL || s2 == NULL)
+		return (0);
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (0);
+	idx = 0;
+	while (s1[idx])
+	{
+		if (s1[idx] != s2[idx])
+			return (0);
+		idx++;
+	}
+	return (1);
+}

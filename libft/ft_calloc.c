@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 14:38:04 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 15:41:24 by sanan            ###   ########.fr       */
+/*   Created: 2022/11/08 19:43:45 by sanan             #+#    #+#             */
+/*   Updated: 2022/11/11 06:03:18 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
+#include <stdlib.h>
+#include "libft.h"
 
-# include "error.h"
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "parser.h"
-# include "envl.h"
-# include "execute.h"
-# include "utils.h"
-# include "builtin.h"
+void	*ft_calloc(size_t count, size_t size)
+{
+	unsigned char	*dest;
 
-int		get_len(char *str);
-void	sighandler(int signo);
-int		is_string_only_white_spaces(char *str);
-int		is_input_empty(char *input);
-
-#endif
+	if (!size)
+	{
+		dest = malloc(1);
+		dest[0] = 0;
+		return (dest);
+	}
+	if (count > SIZE_MAX / size)
+		return (0);
+	dest = malloc(count * size);
+	if (dest == 0)
+		return (0);
+	ft_memset(dest, 0, count * size);
+	return ((void *)dest);
+}

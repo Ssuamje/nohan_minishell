@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   ft_lstreplace.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 14:38:04 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 15:41:24 by sanan            ###   ########.fr       */
+/*   Created: 2023/01/21 20:10:58 by sanan             #+#    #+#             */
+/*   Updated: 2023/01/21 20:16:09 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
+#include "libft.h"
+#include <stdlib.h>
 
-# include "error.h"
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "parser.h"
-# include "envl.h"
-# include "execute.h"
-# include "utils.h"
-# include "builtin.h"
+void    ft_lstreplace(t_list **list)
+{
+    t_list *tmp;
+    t_list *next;
 
-int		get_len(char *str);
-void	sighandler(int signo);
-int		is_string_only_white_spaces(char *str);
-int		is_input_empty(char *input);
-
-#endif
+    if (list == NULL || *list == NULL)
+        return ;
+    tmp = *list;
+    while (tmp->next != NULL)
+    {
+        next = tmp->next;
+        free(tmp);
+        tmp = next;
+    }
+    *list = ft_lstnew(NULL);
+}

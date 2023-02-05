@@ -6,7 +6,7 @@
 #    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/05 15:43:19 by hyungnoh         ###   ########.fr        #
+#    Updated: 2023/02/05 16:30:59 by hyungnoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ CC = cc
 
 WFLAGS = -Wall -Wextra -Werror
 
-READLINE = -lreadline
+READLINE = -lreadline -I/Users/ssuamje/.brew/opt/readline/include
 
 LIB_FT = ./libft/libft.a
 

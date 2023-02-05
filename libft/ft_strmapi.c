@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 14:38:04 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 15:41:24 by sanan            ###   ########.fr       */
+/*   Created: 2022/11/09 21:16:07 by sanan             #+#    #+#             */
+/*   Updated: 2022/11/10 23:31:22 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
+#include "libft.h"
+#include <stdlib.h>
 
-# include "error.h"
-# include "readline/readline.h"
-# include "readline/history.h"
-# include "parser.h"
-# include "envl.h"
-# include "execute.h"
-# include "utils.h"
-# include "builtin.h"
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	int		len;
+	int		idx;
+	char	*result;
 
-int		get_len(char *str);
-void	sighandler(int signo);
-int		is_string_only_white_spaces(char *str);
-int		is_input_empty(char *input);
-
-#endif
+	if (!s || !f)
+		return (0);
+	len = ft_strlen(s);
+	idx = 0;
+	result = malloc(sizeof(char) * len + 1);
+	if (!result)
+		return (0);
+	result[len] = 0;
+	while (idx < len)
+	{
+		result[idx] = f(idx, s[idx]);
+		idx++;
+	}
+	return (result);
+}
