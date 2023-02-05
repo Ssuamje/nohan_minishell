@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/05 15:13:11 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/05 19:44:35 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,23 +83,24 @@ $(SRC_PROMPT)
 
 OBJS = $(SRCS:.c=.o)
 
-CC = cc -g3
+CC = cc
 
 WFLAGS = -Wall -Wextra -Werror
 
-READLINE = -lreadline -I/Users/ssuamje/.brew/opt/readline/include
+READLINE_CMP_LINK = -L$(shell brew --prefix readline)/lib/ -lreadline
+READLINE_INCLUDE = -I$(shell brew --prefix readline)/include/
 
 LIB_FT = ./libft/libft.a
 
-INCLUDE = -I ./include
+INCLUDE = -I./include $(READLINE_INCLUDE)
 
 all : $(NAME)
 
 $(NAME) : $(OBJS) $(LIB_FT)
-	$(CC) $(WFLAGS) $(SRCS) $(LIB_FT) $(READLINE) $(INCLUDE) -o $(NAME)
+	$(CC) $(WFLAGS) $(SRCS) $(LIB_FT) $(READLINE_CMP_LINK) $(INCLUDE) -o $(NAME)
 
 %.o : %.c
-	$(CC) $(WFLAGS) -c $< -o $@
+	$(CC) $(WFLAGS) $(INCLUDE) -c $< -o $@
 
 $(LIB_FT) :
 	make -C $(dir $(LIB_FT)) bonus
@@ -112,7 +113,7 @@ fclean : clean
 	make -C $(dir $(LIB_FT)) fclean
 	rm -rf $(NAME)
 
-re : 
+re :
 	make fclean
 	make all
 

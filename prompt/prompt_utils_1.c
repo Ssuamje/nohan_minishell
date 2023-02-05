@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:37:18 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 15:14:02 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 19:50:04 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,20 @@ void	sighandler(int signo)
 {
 	if (signo == SIGINT)
 	{
+		printf("\n");
 		rl_on_new_line();
+		rl_replace_line("", 1);
 		rl_redisplay();
+		add_set_env_to_list(g_envl, "?=1");
 	}
 }
+
+void	init_sighandler(void)
+{
+	rl_catch_signals = 0;
+	signal(SIGINT, sighandler);
+}
+
 
 int	is_string_only_white_spaces(char *str)
 {
