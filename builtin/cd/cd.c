@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:27:25 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/05 14:09:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 14:22:33 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ void	builtin_cd(t_process *cur)
 	}
 	else
 	{
-
-		if (chdir(cur->cmd[1]) == -1)	
+		if (chdir(cur->cmd[1]) == -1)
 		{
 			printf("cd: %s: No such file or directory\n", cur->cmd[1]);
 			return (set_exit_code(g_envl, 1));

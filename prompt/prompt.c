@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 00:34:06 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 15:34:38 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 //need to delete
 #include <unistd.h>
-void check_leaks(void)
+void	check_leaks(void)
 {
 	char *str = "\n**********************PROGRAM END************************\n";
 	write(1, str, ft_strlen(str));
