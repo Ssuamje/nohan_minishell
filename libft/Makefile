@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
+#    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 16:09:39 by sanan             #+#    #+#              #
-#    Updated: 2023/02/05 19:43:25 by hyungnoh         ###   ########.fr        #
+#    Updated: 2023/02/05 23:20:07 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,19 +82,19 @@ endif
 all : $(NAME)
 
 $(NAME) : $(ALL_OBJECTS)
-	ar rcus $@ $^
+	@ar rcus $@ $^
 
 %.o: %.c
-	$(CC) -c $(WFLAG) $< -o $@
+	@$(CC) -c $(WFLAG) $< -o $@
 
 clean :
-	rm -rf $(OBJECTS) $(BONUS_OBJECTS)
+	@rm -rf $(OBJECTS) $(BONUS_OBJECTS)
 
 fclean : clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 bonus :
-	make BONUS=1 all
+	@make BONUS=1 all
 
 re : fclean all
 
