@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/04 23:56:24 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/05 15:43:19 by hyungnoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ $(SRC_PROMPT)
 
 OBJS = $(SRCS:.c=.o)
 
-CC = cc -g3
+CC = cc
 
 WFLAGS = -Wall -Wextra -Werror
 

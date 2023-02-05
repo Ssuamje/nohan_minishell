@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/04 22:02:33 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 16:28:43 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,35 +56,35 @@ static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
 	free(heredoc);
 }
 
-void	heredoc(t_process *proc)
+void	heredoc(t_process *proc, int *idx)
 {
 	t_list		*tmp;
 	t_redir		*tmp_redir;
-	static int	idx;
 
 	tmp = proc->redir_in->next;
 	while (tmp != NULL && tmp->content != NULL)
 	{
 		tmp_redir = tmp->content;
 		if (tmp_redir->flag == IN_APPEND)
-			exec_heredoc(tmp_redir, proc, &idx);
+			exec_heredoc(tmp_redir, proc, idx);
 		tmp = tmp->next;
 	}
-	idx = 0;
 }
 
 void	set_heredoc_fd(t_list *procs, int stdfd[])
 {
 	t_list		*tmp;
 	t_process	*cur;
+	static int	idx;
 
 	tmp = procs->next;
 	while (tmp != NULL && tmp->content != NULL)
 	{
 		cur = tmp->content;
-		heredoc(cur);
+		heredoc(cur, &idx);
 		tmp = tmp->next;
 	}
+	idx = 0;
 	dup2(stdfd[0], STDIN_FILENO);
 	dup2(stdfd[1], STDOUT_FILENO);
 }
