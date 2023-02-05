@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 17:45:25 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 22:10:14 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 22:17:15 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,14 @@ void	builtin_exit(char **cmd, t_list *envl)
 	int	former_exit_code;
 
 	if (cmd[1] == NULL)
-		exit(0);
-	if (is_exit_syntax_error(cmd) == TRUE)
-		;
-	if (is_arg_numeric(cmd[1]) == TRUE)
-		exit(minus_char_max_absolute(
-					ft_atoi(cmd[1])));
-	if (cmd[1] == NULL)
 	{
 		former_exit_code = convert_question_value_and_free(
 							get_value_by_key(envl, "?"));
 		exit(former_exit_code);
 	}
+	if (is_exit_syntax_error(cmd) == TRUE)
+		;
+	if (is_arg_numeric(cmd[1]) == TRUE)
+		exit(minus_char_max_absolute(
+					ft_atoi(cmd[1])));
 }
