@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:39:12 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 23:25:13 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 22:54:58 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	parse_redirect(t_token *token, t_parser *parser, t_process *cur_proc)
 	parser->status = token->status;
 	if (token->status == PAR_PIPE)
 		return (ERR_TRUE);
-	if (token->string[0] != '<'
+	if (token->string[0] != '<' \
 	&& token->string[1] != '>')
 	{
 		parser->string = ft_strdup(token->string);

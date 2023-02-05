@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 22:22:02 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 22:57:51 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ t_list	*parse(t_list *envl, char *input)
 
 	tokens = get_processed_tokens(envl, input);
 	if (tokens == NULL)
-		return (free_token_return_null(&tokens, "invalid env!\n"));
+		return (free_token_return_null(&tokens, \
+									"🐤AengMuShell: invaliad env!\n"));
 	if (check_syntax(tokens) == ERR_TRUE)
-		return (free_token_return_null(&tokens, "syntax error occurred!\n"));
+		return (free_token_return_null(&tokens, \
+									"🐤AengMuShell: syntax error occurred!\n"));
 	join_tokens(tokens);
 	parser = get_parser();
 	processes = ft_lstnew(NULL);
