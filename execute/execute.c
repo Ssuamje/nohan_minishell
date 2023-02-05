@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/05 22:16:05 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 22:27:57 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,9 @@ void	execute_program(t_process *cur, t_process *next, t_info *info, char **envp)
 		waitpid(pid, &status, 0);
 		if ((status & 0177) == 0) // return이나 exit으로 종료되었다면,
 			set_exit_code(g_envl, (status >> 8) & 0xff);
-		else if (((status & 0177) != 0) && ((status & 0177) != 0177)) 
+		else if (((status & 0177) != 0) && ((status & 0177) != 0177))
+			set_exit_code(g_envl, 128 + (status & 0177));
 		// return이나 exit으로 종료되지 않았고 command not found가 아니라면
-			set_exit_code(g_envl, 128 + (status + 0177));
 		// 128 : fatal error + 시그널 no값을 더해서 표기한다.
 	}
 }

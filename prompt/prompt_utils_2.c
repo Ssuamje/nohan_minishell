@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 20:27:03 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 21:56:24 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 22:19:58 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	sig_int_handler(int signo)
 
 void	sig_quit_handler(__attribute__((unused))int signo)
 {
-	(void)signo;
 }
 
 void	init_sighandler(void)
