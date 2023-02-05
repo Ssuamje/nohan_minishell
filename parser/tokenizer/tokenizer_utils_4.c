@@ -1,0 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer_utils_4.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/02 19:26:19 by sanan             #+#    #+#             */
+/*   Updated: 2023/02/04 22:52:33 by sanan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/tokenizer.h"
+
+void	free_lexer(t_lexer *lexer)
+{
+	ft_lstclear(&(lexer->env_buffer), free);
+	ft_lstclear(&(lexer->str_buffer), free);
+	free(lexer);
+}
+
+t_list	*get_processed_tokens(t_list *envl, char *input)
+{
+	t_lexer	*lexer;
+	t_list	*tokens;
+
+	lexer = get_lexer();
+	tokens = tokenize(input, lexer);
+	if (process_tokens_env(envl, tokens) == FALSE)
+	{
+		if (tokens)
+			free_tokens(&tokens);
+		free_lexer(lexer);
+		return (NULL);
+	}
+	free_lexer(lexer);
+	return (tokens);
+}
+
+int	count_env_string(char **split)
+{
+	int	idx;
+
+	idx = 0;
+	while (split[idx] != NULL && split[idx][0] != '\0')
+		idx++;
+	return (idx);
+}
+
+void	free_split(char **split)
+{
+	int	idx;
+
+	idx = 0;
+	while (split[idx] != NULL)
+		free(split[idx++]);
+	free(split);
+}
+
+char	*skip_white_spaces(char **origin, int *idx_dollar)
+{
+	char	*skipped;
+
+	skipped = *origin;
+	*idx_dollar = 0;
+	while (*skipped != '$')
+	{
+		skipped++;
+		(*idx_dollar)++;
+	}
+	return (skipped + 1);
+}
