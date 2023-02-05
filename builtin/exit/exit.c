@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 17:45:25 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 20:57:22 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 22:10:14 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,15 @@ int	minus_char_max_absolute(int n)
 	if (num < 0)
 		return (256 + num);
 	else
-		return (256 - num);
+		return (num);
 }
 
 void	builtin_exit(char **cmd, t_list *envl)
 {
 	int	former_exit_code;
 
+	if (cmd[1] == NULL)
+		exit(0);
 	if (is_exit_syntax_error(cmd) == TRUE)
 		;
 	if (is_arg_numeric(cmd[1]) == TRUE)

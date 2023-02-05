@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/05 21:03:32 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 22:09:25 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 				builtin_cd(cur);
 				return (1);
 			}
-			else if (ft_strcmp(cur->cmd[0], "export") && cur->cmd[1] != NULL)
+			else if (ft_strcmp(cur->cmd[0], "export"))
 			{
 				builtin_export(cur->cmd, g_envl);
 				return (1);
@@ -84,6 +84,11 @@ int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 			else if (ft_strcmp(cur->cmd[0], "unset") && cur->cmd[1] != NULL)
 			{
 				builtin_unset(cur->cmd, g_envl);
+				return (1);
+			}
+			else if (ft_strcmp(cur->cmd[0], "exit"))
+			{
+				builtin_exit(cur->cmd, g_envl);
 				return (1);
 			}
 		}
@@ -103,11 +108,11 @@ void	execute_program(t_process *cur, t_process *next, t_info *info, char **envp)
 		redirection(cur);
 		if (execute_builtin(cur, info, CHILD))
 			;
-		else if (find_full_path(cur, info->path) == NULL)
-		{
-			printf("AengMuShell: %s: command not found\n", cur->cmd[0]);
-			exit(0);
-		}
+		// else if (find_full_path(cur, info->path) == NULL)
+		// {
+		// 	printf("AengMuShell: %s: command not found\n", cur->cmd[0]);
+		// 	exit(0);
+		// }
 		else
 			execute_path(cur, info->path, envp);
 	}
@@ -116,10 +121,12 @@ void	execute_program(t_process *cur, t_process *next, t_info *info, char **envp)
 	if (next == NULL)
 	{
 		waitpid(pid, &status, 0);
-		if ((status & 0177) == 0)
+		if ((status & 0177) == 0) // return이나 exit으로 종료되었다면,
 			set_exit_code(g_envl, (status >> 8) & 0xff);
-		else if ((status & 0177) != 0 && (status & 0177) != 0177)
+		else if (((status & 0177) != 0) && ((status & 0177) != 0177)) 
+		// return이나 exit으로 종료되지 않았고 command not found가 아니라면
 			set_exit_code(g_envl, 128 + (status + 0177));
+		// 128 : fatal error + 시그널 no값을 더해서 표기한다.
 	}
 }
 
