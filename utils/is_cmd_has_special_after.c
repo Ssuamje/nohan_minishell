@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:22:34 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 19:51:56 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 23:01:16 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_cmd_has_special_after(char *cmd)
 {
-	int idx;
+	int	idx;
 
 	idx = 0;
 	while (cmd[idx] != '\0')

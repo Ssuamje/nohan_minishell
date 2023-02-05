@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:37:18 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 21:01:53 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 23:00:54 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_string_only_white_spaces(char *str)
 
 int	is_input_empty(char *input)
 {
-	if (get_len(input) == 0 ||is_string_only_white_spaces(input))
+	if (get_len(input) == 0 || is_string_only_white_spaces(input))
 	{
 		free(input);
 		return (TRUE);
