@@ -6,28 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/05 20:45:33 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 21:01:50 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/execute.h"
-
-void	manage_pipe(t_process *cur, t_process *next, pid_t pid)
-{
-	if (pid == CHILD)
-	{
-		close(cur->pfd[0]);
-		if (next != NULL)
-			dup2(cur->pfd[1], STDOUT_FILENO);
-		close(cur->pfd[1]);
-	}
-	else if (pid > 0)
-	{
-		close(cur->pfd[1]);
-		dup2(cur->pfd[0], STDIN_FILENO);
-		close(cur->pfd[0]);
-	}
-}
 
 char	*find_full_path(t_process *cur, char **path)
 {
@@ -44,6 +27,24 @@ char	*find_full_path(t_process *cur, char **path)
 		free(tmp_path);
 	}
 	return (NULL);
+}
+
+void	manage_pipe(t_process *cur, t_process *next, char **path, pid_t pid)
+{
+	if (pid == CHILD)
+	{
+		close(cur->pfd[0]);
+		if (next != NULL && find_full_path(cur, path) != NULL)
+			dup2(cur->pfd[1], STDOUT_FILENO);
+		close(cur->pfd[1]);
+	}
+	else if (pid > 0)
+	{
+		close(cur->pfd[1]);
+		if (find_full_path(cur, path) != NULL)
+			dup2(cur->pfd[0], STDIN_FILENO);
+		close(cur->pfd[0]);
+	}
 }
 
 void	execute_path(t_process *cur, char **path, char **envp)
@@ -98,15 +99,20 @@ void	execute_program(t_process *cur, t_process *next, t_info *info, char **envp)
 	pid = fork();
 	if (pid == CHILD)
 	{
-		manage_pipe(cur, next, pid);
+		manage_pipe(cur, next, info->path, pid);
 		redirection(cur);
 		if (execute_builtin(cur, info, CHILD))
 			;
+		else if (find_full_path(cur, info->path) == NULL)
+		{
+			printf("bash: %s: command not found\n", cur->cmd[0]);
+			exit(0);
+		}
 		else
 			execute_path(cur, info->path, envp);
 	}
 	if (pid > 0)
-		manage_pipe(cur, next, pid);
+		manage_pipe(cur, next, info->path, pid);
 	if (next == NULL)
 	{
 		waitpid(pid, &status, 0);

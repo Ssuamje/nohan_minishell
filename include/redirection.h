@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:53:34 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/04 00:05:22 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/05 20:32:11 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,12 @@ typedef struct s_info
 {
 	char	**path;
 	int		process_cnt;
+	int		stdfd[2];
 }	t_info;
 
 void	redirection(t_process *proc);
 void	redirect_in(t_process *proc);
 void	redirect_out(t_process *proc);
-void	set_heredoc_fd(t_list *procs, int stdfd[]);
+void	set_heredoc_fd(t_list *procs);
 
 #endif
