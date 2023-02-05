@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:26:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 20:57:49 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 23:54:24 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	builtin_export(char **cmd, t_list *envl)
 
 	idx = 1;
 	if (cmd[1] == NULL)
-		return (print_envl(envl));
+	{
+		print_envl(envl);
+	}
 	else
 	{
 		while (cmd[idx] != NULL)
