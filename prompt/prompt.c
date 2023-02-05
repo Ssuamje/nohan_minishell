@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 22:00:42 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 00:50:09 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 	// atexit(check_leaks);
 	if (ac != 1)
 		exit_error(ERR_ARGC);
+	print_logo();
 	init_sighandler();
 	g_envl = map_envp_to_list(envp);
 	while (WAIT_FOR_SIG)
