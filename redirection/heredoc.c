@@ -6,40 +6,32 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/05 18:23:04 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/05 19:24:58 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/redirection.h"
 #include "readline/readline.h"
 
-static void	create_heredoc_tmp(t_redir *redir)
+static void	create_heredoc_tmp(t_redir *redir, t_process *proc)
 {
 	char		*buffer;
-	size_t		buffer_len;
 
-	// signal(SIGQUIT, sighandler2);
 	while (1)
 	{
-		buffer = ft_calloc(sizeof(char), 1024);
+		buffer = readline("> ");
 		if (buffer == NULL)
-			exit_error(ERR_MALLOC);
-		if (read(0, buffer, 1024) == 0)
 		{
 			free(buffer);
 			break ;
 		}
-		buffer_len = 0;
-		while (buffer[buffer_len] != '\n')
-			buffer_len++;
-		if (!ft_strncmp(buffer, redir->file,
-				ft_strlen(redir->file)) && buffer_len == ft_strlen(redir->file))
+		if (ft_strcmp(buffer, redir->file))
 		{
 			free(buffer);
 			break ;
 		}
-		buffer[buffer_len + 1] = '\0';
-		ft_putstr(buffer);
+		ft_putstr_fd(buffer, proc->fd_infile);
+		ft_putstr_fd("\n", proc->fd_infile);
 		free(buffer);
 	}
 }
@@ -53,9 +45,7 @@ static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
 	idx_tmp = ft_itoa(*idx);
 	heredoc = ft_join_and_free(ft_strdup("/tmp/heredoc"), idx_tmp);
 	proc->fd_infile = open(heredoc, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	dup2(proc->fd_infile, STDOUT_FILENO);
-	close(proc->fd_infile);
-	create_heredoc_tmp(redir);
+	create_heredoc_tmp(redir, proc);
 	free(redir->file);
 	redir->file = ft_strdup(heredoc);
 	free(heredoc);
@@ -82,6 +72,7 @@ void	set_heredoc_fd(t_list *procs, int stdfd[])
 	t_process	*cur;
 	static int	idx;
 
+	(void)stdfd;
 	tmp = procs->next;
 	while (tmp != NULL && tmp->content != NULL)
 	{
@@ -90,8 +81,4 @@ void	set_heredoc_fd(t_list *procs, int stdfd[])
 		tmp = tmp->next;
 	}
 	idx = 0;
-	dup2(stdfd[0], STDIN_FILENO);
-	dup2(stdfd[1], STDOUT_FILENO);
 }
-
-// rl_catch_signals
