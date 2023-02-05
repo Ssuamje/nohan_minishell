@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:27:25 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/05 20:57:01 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 22:58:54 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	set_env_pwd(void)
 void	print_set_exit_code(int error_flag, int exit_code, int flag, char *dir)
 {
 	if (error_flag == HOME_NOT_SET)
-		printf("🐤AengMuShell $ cd: HOME not set\n");
+		printf("🐤AengMuShell: cd: HOME not set\n");
 	if (error_flag == NO_FILE_DIR)
-		printf("🐤AengMuShell $ cd: %s: No such file or directory\n", dir);
+		printf("🐤AengMuShell: cd: %s: No such file or directory\n", dir);
 	set_exit_code(g_envl, exit_code);
 	if (flag == TRUE)
 		free(dir);
