@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/05 21:01:50 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 21:03:32 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	execute_program(t_process *cur, t_process *next, t_info *info, char **envp)
 			;
 		else if (find_full_path(cur, info->path) == NULL)
 		{
-			printf("bash: %s: command not found\n", cur->cmd[0]);
+			printf("AengMuShell: %s: command not found\n", cur->cmd[0]);
 			exit(0);
 		}
 		else
