@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:45:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/30 13:46:43 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 19:44:27 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	int idx;
+	int	idx;
 
 	if (s1 == NULL && s2 == NULL)
 		return (1);

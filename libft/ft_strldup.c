@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strldup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:57:34 by sanan             #+#    #+#             */
-/*   Updated: 2023/01/25 15:59:10 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/05 19:44:18 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-char *ft_strldup(char *src, int len)
+char	*ft_strldup(char *src, int len)
 {
 	char	*dest;
 	int		src_len;
