@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 19:51:55 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:56:42 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 	g_envl = map_envp_to_list(envp);
 	while (WAIT_FOR_SIG)
 	{
-		input = readline("🐤AengMuShell $ ");
+		input = readline("🐤AengMuShell$ ");
 		if (input == NULL)
 			return (1);
 		add_history(input);
