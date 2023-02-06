@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 18:25:02 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:43:15 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	execute_cmd(t_process *cur, t_info *info, char **envp)
 		else
 			execute_path(cur, info->path, envp);
 	}
+	exit(1);
 }
 
 void	execute_bin(t_process *cur, t_process *next, t_info *info, char **envp)

@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 18:25:06 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:38:46 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	process_dup_pipe(t_list *procs, t_info *info, char **envp)
 	set_heredoc_fd(procs);
 	info->process_cnt = ft_lstsize(procs) - 1;
 	tmp = procs->next;
-	while (tmp != NULL && tmp->content != NULL)
+	info->err_flag = 0;
+	while (tmp != NULL && tmp->content != NULL && info->err_flag == 0)
 	{
 		info->err_flag = 0;
 		cur = tmp->content;
