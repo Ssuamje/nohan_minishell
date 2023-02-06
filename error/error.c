@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 21:41:24 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 20:23:38 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 11:38:19 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exit_error(int error_code)
 
 	msg = NULL;
 	if (error_code == ERR_ARGC)
-		msg = "Error : Argument counts is not correct.\n";
+		msg = "Usage : ./minishell *NO ARGS*\n";
 	if (error_code == ERR_MALLOC)
 		msg = "Error : Memory allocation has failed.\n";
 	if (error_code == ERR_STATUS)
