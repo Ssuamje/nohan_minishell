@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+         #
+#    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 00:16:55 by hyungseok         #+#    #+#              #
-#    Updated: 2023/02/06 00:16:59 by hyungseok        ###   ########.fr        #
+#    Updated: 2023/02/06 13:45:53 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRC_ERROR = \
 
 SRC_EXECUTE = \
 ./execute/execute.c \
+./execute/execute_utils_1.c \
 ./execute/exec_process.c \
 ./execute/env_path.c
 
@@ -109,7 +110,7 @@ INCLUDE = -I./include $(READLINE_INCLUDE)
 
 all : $(NAME)
 	@$(ECHO) $(PURPLE) "🐤 AengMu : I'm Ready!" $(RESET)
-	
+
 $(NAME) : $(OBJS) $(LIB_FT)
 	@$(ECHO) $(CYAN) 🐤 assembling $(GREEN) $@
 	@$(CC) $(WFLAGS) $(SRCS) $(LIB_FT) $(READLINE_CMP_LINK) $(INCLUDE) -o $(NAME)
@@ -153,7 +154,7 @@ T := $(shell $(MAKE) $(MAKECMDGOALS) --no-print-directory \
 
 N := x
 C = $(words $N)$(eval N := x $N)
-ECHO = echo $(YELLOW) "`expr " [ \`expr $C '*' 100 / $T\`" : '.*\(....\)$$'`% ]" $(RESET) 
+ECHO = echo $(YELLOW) "`expr " [ \`expr $C '*' 100 / $T\`" : '.*\(....\)$$'`% ]" $(RESET)
 endif
 
 .PHONY : all clean fclean re

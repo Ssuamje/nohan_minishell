@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:26:45 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/04 20:08:34 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 13:56:18 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "../../include/execute.h"
 
-void	builtin_cd(t_process *cur);
+int	builtin_cd(t_process *cur);
 
 #endif

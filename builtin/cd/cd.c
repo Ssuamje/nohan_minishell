@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:27:25 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 11:16:30 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 13:54:13 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	set_env_pwd(void)
 	free(to_put);
 }
 
-void	print_set_exit_code(int error_flag, int exit_code, int flag, char *dir)
+int	print_set_exit_code(int error_flag, int exit_code, int flag, char *dir)
 {
 	if (error_flag == HOME_NOT_SET)
 		printf("🐤AengMuShell: cd: HOME not set\n");
@@ -37,6 +37,7 @@ void	print_set_exit_code(int error_flag, int exit_code, int flag, char *dir)
 	set_exit_code(g_envl, exit_code);
 	if (flag == TRUE)
 		free(dir);
+	return (1);
 }
 
 void	set_dir_home_set_flag_chdir(char **dir, int *flag)
@@ -53,7 +54,7 @@ void	interpret_home_set_dir_flag(t_process *cur, char **dir, int *flag)
 	*flag = TRUE;
 }
 
-void	builtin_cd(t_process *cur)
+int	builtin_cd(t_process *cur)
 {
 	char	*dir;
 	int		flag;
@@ -76,4 +77,5 @@ void	builtin_cd(t_process *cur)
 	}
 	print_set_exit_code(SUCCESS, 0, flag, dir);
 	set_env_pwd();
+	return (1);
 }

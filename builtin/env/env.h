@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:23:26 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 22:55:57 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 13:56:26 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "../export/export.h"
 
-void	builtin_env(char **cmd, t_list *envl);
+int	builtin_env(char **cmd, t_list *envl);
 
 #endif

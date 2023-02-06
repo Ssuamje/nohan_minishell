@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:26:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 11:11:33 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 14:01:13 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_export_syntax_error(char *cmd)
 	|| (is_cmd_has_special_after(cmd)));
 }
 
-void	builtin_export(char **cmd, t_list *envl)
+int	builtin_export(char **cmd, t_list *envl)
 {
 	int	idx;
 
@@ -41,4 +41,5 @@ void	builtin_export(char **cmd, t_list *envl)
 			add_set_env_to_list(envl, cmd[idx++]);
 		}
 	}
+	return (1);
 }

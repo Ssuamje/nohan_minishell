@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:16:28 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 13:07:39 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 13:57:16 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	is_unset_syntax_error(char *cmd)
 	|| (is_cmd_has_special_after(cmd)));
 }
 
-void	builtin_unset(char **cmd, t_list *envl)
+int	builtin_unset(char **cmd, t_list *envl)
 {
 	int	idx;
 
 	idx = 1;
 	if (cmd[1] == NULL)
-		return ;
+		return (1);
 	else
 	{
 		while (cmd[idx] != NULL)
@@ -41,4 +41,5 @@ void	builtin_unset(char **cmd, t_list *envl)
 			delete_env_by_key(envl, cmd[idx++]);
 		}
 	}
+	return (1);
 }
