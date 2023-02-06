@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 19:55:39 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 00:36:29 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,16 @@
 
 void	execute_cmd(t_process *cur, t_info *info, char **envp)
 {
-	redirection(cur, info);
-	if (info->err_flag == 0)
+	redirection(cur);
+	if (execute_builtin(cur, info, CHILD))
+		;
+	else if (!check_cmd(cur, info->path, 0))
 	{
-		if (execute_builtin(cur, info, CHILD))
-			;
-		else if (!check_cmd(cur, info->path))
-		{
-			printf("🐤AengMuShell: %s: command not found\n", cur->cmd[0]);
-			exit(127);
-		}
-		else
-			execute_path(cur, info->path, envp);
+		printf("🐤AengMuShell: %s: command not found\n", cur->cmd[0]);
+		exit(127);
 	}
-	exit(1);
+	else
+		execute_path(cur, info->path, envp);
 }
 
 void	execute_bin(t_process *cur, t_process *next, t_info *info, char **envp)
