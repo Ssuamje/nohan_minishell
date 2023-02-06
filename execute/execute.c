@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 11:31:46 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 12:56:23 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	check_cmd(t_process *cur, char **path)
 
 void	manage_pipe(t_process *cur, t_process *next, char **path, pid_t pid)
 {
-	(void)path;
 	if (pid == CHILD)
 	{
 		close(cur->pfd[0]);
@@ -68,8 +67,7 @@ void	manage_pipe(t_process *cur, t_process *next, char **path, pid_t pid)
 	else if (pid > 0)
 	{
 		close(cur->pfd[1]);
-		if (check_cmd(cur, path))
-			dup2(cur->pfd[0], STDIN_FILENO);
+		dup2(cur->pfd[0], STDIN_FILENO);
 		close(cur->pfd[0]);
 	}
 }
