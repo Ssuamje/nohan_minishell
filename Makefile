@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/06 18:14:09 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/06 18:39:45 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRC_REDIRECTION = \
 ./redirection/redirect_in.c \
 ./redirection/redirect_out.c \
 ./redirection/redirection.c \
+./redirection/heredoc_utils_1.c \
 ./redirection/heredoc.c
 
 SRC_UTILS = \

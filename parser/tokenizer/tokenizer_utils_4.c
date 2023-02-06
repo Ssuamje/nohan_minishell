@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:26:19 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 16:32:04 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 18:42:27 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ char	*skip_white_spaces(char **origin, int *idx_dollar)
 
 	skipped = *origin;
 	*idx_dollar = 0;
-	while (*skipped != '$')
+	while (*skipped != '$' && *skipped != '\0')
 	{
-		skipped++;
 		(*idx_dollar)++;
+		skipped++;
 	}
 	return (skipped + 1);
 }

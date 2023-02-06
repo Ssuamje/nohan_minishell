@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 15:38:22 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:44:12 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	create_heredoc_tmp(t_redir *redir, t_process *proc)
 			free(buffer);
 			break ;
 		}
+		// if (count_dollar_sign(buffer) > 0)
+		// 	interpret_buffer_env(&buffer);
 		ft_putstr_fd(buffer, proc->fd_infile);
 		ft_putstr_fd("\n", proc->fd_infile);
 		free(buffer);
