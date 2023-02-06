@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 00:14:03 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/06 11:31:46 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_cmd(t_process *cur, char **path)
 		return (1);
 	if (ft_strcmp(cur->cmd[0], "export") && cur->cmd[1] == NULL)
 		return (1);
-	return (0);	
+	return (0);
 }
 
 void	manage_pipe(t_process *cur, t_process *next, char **path, pid_t pid)
@@ -106,6 +106,11 @@ int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 			else if (ft_strcmp(cur->cmd[0], "export") && cur->cmd[1] != NULL)
 			{
 				builtin_export(cur->cmd, g_envl);
+				return (1);
+			}
+			else if (ft_strcmp(cur->cmd[0], "env"))
+			{
+				builtin_env(cur->cmd, g_envl);
 				return (1);
 			}
 			else if (ft_strcmp(cur->cmd[0], "unset"))

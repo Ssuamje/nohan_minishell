@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:24:16 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 22:56:03 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 11:33:03 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,8 @@ void	builtin_env(__attribute__((unused))char **cmd, t_list *envl)
 	{
 		tmp_env = tmp->content;
 		if (ft_strcmp(tmp_env->key, "?") == FALSE)
-		{
 			if (tmp_env->value != NULL)
 				printf("%s=\"%s\"\n", tmp_env->key, tmp_env->value);
-			else
-				printf("%s\n", tmp_env->key);
-		}
 		tmp = tmp->next;
 	}
 }
