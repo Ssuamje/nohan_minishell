@@ -6,39 +6,32 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 19:06:35 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:39:45 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/redirection.h"
 #include "../builtin/cd/cd.h"
 
-int	find_last_slash_idx(char *cmd)
-{
-	int	idx;
-
-	idx = 0;
-	while (cmd[idx])
-		idx++;
-	idx--;
-	while (idx >= 0)
-	{
-		if (cmd[idx] == '/')
-			return (idx);
-		idx--;
-	}
-	return (-1);
-}
-
 static void	in_trunc(t_process *proc, t_redir *redir, t_info *info)
 {
 	struct stat	sb;
+	int			mode;
 
+	mode = R_OK;
 	if (stat(redir->file, &sb) == 0)
 	{
-		proc->fd_infile = open(redir->file, O_RDONLY);
-		dup2(proc->fd_infile, STDIN_FILENO);
-		close(proc->fd_infile);
+		if (access(redir->file, mode) == 0)
+		{
+			proc->fd_infile = open(redir->file, O_RDONLY);
+			dup2(proc->fd_infile, STDIN_FILENO);
+			close(proc->fd_infile);
+		}
+		else
+		{
+			info->err_flag = 1;
+			printf("AengMuShell: %s: Permission denied\n", redir->file);	
+		}
 	}
 	else
 	{
@@ -50,13 +43,22 @@ static void	in_trunc(t_process *proc, t_redir *redir, t_info *info)
 static void	in_append(t_process *proc, t_redir *redir, t_info *info)
 {
 	struct stat	sb;
+	int			mode;
 
+	mode = R_OK;
 	if (stat(redir->file, &sb) == 0)
 	{
-		proc->fd_infile = open(redir->file, O_RDONLY);
-		dup2(proc->fd_infile, STDIN_FILENO);
-		close(proc->fd_infile);
-		unlink(redir->file);
+		if (access(redir->file, mode) == 0)
+		{
+			proc->fd_infile = open(redir->file, O_RDONLY);
+			dup2(proc->fd_infile, STDIN_FILENO);
+			close(proc->fd_infile);
+		}
+		else
+		{
+			info->err_flag = 1;
+			printf("AengMuShell: %s: Permission denied\n", redir->file);	
+		}
 	}
 	else
 	{
@@ -65,7 +67,7 @@ static void	in_append(t_process *proc, t_redir *redir, t_info *info)
 	}
 }
 
-void	interpret_redir_file(t_redir *redir)
+static void	interpret_redir_file(t_redir *redir)
 {
 	char	*tmp;
 
