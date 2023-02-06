@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 18:21:09 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:25:02 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	execute_bin(t_process *cur, t_process *next, t_info *info, char **envp)
 	pid_t	pid;
 	int		status;
 
+	set_sigint_to_default();
 	pid = fork();
 	if (pid == CHILD)
 	{
@@ -49,6 +50,7 @@ void	execute_bin(t_process *cur, t_process *next, t_info *info, char **envp)
 			set_exit_code(g_envl, (status >> 8) & 0xff);
 		else if (((status & 0177) != 0) && ((status & 0177) != 0177))
 			set_exit_code(g_envl, 128 + (status & 0177));
+		init_sighandler();
 	}
 }
 
