@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 22:19:04 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 22:44:11 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parse_and_execute(char *input)
 	if (processes != NULL)
 	{
 		tmp_envp = envl_to_envp(g_global->g_envl);
-		exec_process(tmp_envp, processes);
+		// exec_process(tmp_envp, processes);
 		free_process_list(processes);
 		free_split(tmp_envp);
 	}
@@ -71,7 +71,6 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		{
 			printf("exit\n");
 			free_global(&g_global);
-			system("leaks minishell");
 			return (0);
 		}
 		add_history(input);
@@ -79,6 +78,5 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 			continue ;
 		parse_and_execute(input);
 		free(input);
-		system("leaks minishell");
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:36:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 16:38:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 22:43:23 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	free_tokens(t_list **tokens)
 	t_list	*tmp;
 	t_token	*tmp_token;
 
-	tmp = *tokens;
-	while (tmp && tmp->content)
+	tmp = (*tokens)->next;
+	while (tmp)
 	{
 		tmp_token = tmp->content;
 		if (tmp_token->string)
