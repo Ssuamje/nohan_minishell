@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:41:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 22:55:21 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 15:25:14 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int	check_syntax(t_list *tokens)
 void	free_process(t_process *process)
 {
 	free_split(process->cmd);
-	ft_lstclear(&(process->redir_in), free);
-	ft_lstclear(&(process->redir_out), free);
+	free_redir_list(&(process->redir_in));
+	free_redir_list(&(process->redir_out));
 }
 
 void	free_process_list(t_list *processes)

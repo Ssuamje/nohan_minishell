@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:45:06 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 14:43:27 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 15:25:19 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,20 @@ int	parse_tokens(t_list *tokens, t_list *processes, t_parser *parser)
 	argv_list_to_split(cur_proc, parser);
 	ft_lstadd_back(&processes, ft_lstnew(cur_proc));
 	return (err);
+}
+
+void	free_redir_list(t_list	**redir)
+{
+	t_list	*tmp;
+	t_redir	*tmp_redir;
+
+	tmp = (*redir)->next;
+	while (tmp != NULL)
+	{
+		tmp_redir = tmp->content;
+		free(tmp_redir->file);
+		tmp = tmp->next;
+	}
+	ft_lstclear(redir, free);
+	free(*redir);
 }

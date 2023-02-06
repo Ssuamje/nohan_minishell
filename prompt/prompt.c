@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 14:27:50 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 15:35:08 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		if (is_input_empty(input) == TRUE)
 			continue ;
 		processes = parse(g_envl, input);
-		print_processes_list(processes);
 		if (processes != NULL)
 		{
 			tmp_envp = envl_to_envp(g_envl);

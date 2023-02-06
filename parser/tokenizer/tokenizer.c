@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:36:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 20:20:04 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 15:28:22 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,17 @@ void	put_token_to_list(t_lexer *lexer, t_list *tokens)
 void	free_tokens(t_list **tokens)
 {
 	t_list	*tmp;
+	t_token	*tmp_token;
 
-	tmp = *tokens;
+	tmp = (*tokens)->next;
 	while (tmp)
 	{
-		*tokens = tmp->next;
-		if (tmp->content)
-			free(((t_token *)tmp->content)->string);
-		ft_lstdelone(tmp, free);
-		tmp = *tokens;
+		tmp_token = tmp->content;
+		free(tmp_token->string);
+		tmp = tmp->next;
 	}
+	ft_lstclear(tokens, free);
+	free(*tokens);
 }
 
 void	free_double(void *p1, void *p2)
