@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:38:33 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 13:45:28 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 18:00:03 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ int	check_cmd(t_process *cur, char **path)
 	int			i;
 
 	i = 0;
+	if (cur->cmd[0] == NULL)
+		return (2);
 	if (cur->cmd[0][0] == '/')
-		return (TRUE);
+		return (1);
 	while (path[++i])
 	{
 		tmp_path = ft_strjoin(path[i], cur->cmd[0]);
@@ -68,7 +70,7 @@ void	manage_pipe(t_process *cur, t_process *next, char **path, pid_t pid)
 	if (pid == CHILD)
 	{
 		close(cur->pfd[0]);
-		if (next != NULL && check_cmd(cur, path))
+		if (next != NULL && check_cmd(cur, path) == 1)
 			dup2(cur->pfd[1], STDOUT_FILENO);
 		close(cur->pfd[1]);
 	}

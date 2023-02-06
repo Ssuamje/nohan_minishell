@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 15:09:27 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 18:05:51 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	process_dup_pipe(t_list *procs, t_info *info, char **envp)
 	tmp = procs->next;
 	while (tmp != NULL && tmp->content != NULL)
 	{
+		info->err_flag = 0;
 		cur = tmp->content;
 		pipe(cur->pfd);
 		if (tmp->next == NULL)
