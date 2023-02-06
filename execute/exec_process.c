@@ -6,11 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 15:09:27 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 18:17:08 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/execute.h"
 
 void	process_dup_pipe(t_list *procs, t_info *info, char **envp)
 {

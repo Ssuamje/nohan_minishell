@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:41 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 16:05:50 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:16:25 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "builtin.h"
 # include "envl.h"
 # include "minishell.h"
+# include "prompt.h"
 
 # define RELATVIE 0
 # define ABSOLUTE 1
