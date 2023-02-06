@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:16:28 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 16:47:11 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:49:48 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int	builtin_unset(char **cmd, t_list *envl)
 			delete_env_by_key(envl, cmd[idx++]);
 		}
 	}
-	// sort_envl(envl);
+	sort_envl(envl);
 	return (1);
 }
