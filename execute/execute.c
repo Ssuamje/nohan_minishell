@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 13:56:03 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 14:35:33 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	exec_and_void(char *builtin, t_process *cur)
 		builtin_pwd();
 	if (ft_strcmp(builtin, "export") && cur->cmd[1] == NULL)
 		builtin_export(cur->cmd, g_envl);
+	if (ft_strcmp(builtin, "env"))
+		builtin_env(cur->cmd, g_envl);
 }
 
 int	exec_and_return(char *builtin, t_process *cur)
@@ -41,8 +43,6 @@ int	exec_and_return(char *builtin, t_process *cur)
 		return (builtin_cd(cur));
 	if (ft_strcmp(builtin, "export") && cur->cmd[1] != NULL)
 		return (builtin_export(cur->cmd, g_envl));
-	if (ft_strcmp(builtin, "env"))
-		return (builtin_env(cur->cmd, g_envl));
 	if (ft_strcmp(builtin, "unset"))
 		return (builtin_unset(cur->cmd, g_envl));
 	if (ft_strcmp(builtin, "exit"))
