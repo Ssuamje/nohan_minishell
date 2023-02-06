@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:27:25 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/05 22:58:54 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 11:16:30 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,15 @@
 
 void	set_env_pwd(void)
 {
-	add_set_env_to_list(g_envl, ft_join_and_free(ft_strdup("OLDPWD="), \
-								get_value_by_key(g_envl, "PWD")));
-	add_set_env_to_list(g_envl, ft_join_and_free(ft_strdup("PWD="), \
-								getcwd(NULL, 1024)));
+	char	*to_put;
+
+	to_put = ft_join_and_free(ft_strdup("OLDPWD="), \
+								get_value_by_key(g_envl, "PWD"));
+	add_set_env_to_list(g_envl, to_put);
+	free(to_put);
+	to_put = ft_join_and_free(ft_strdup("PWD="), getcwd(NULL, 1024));
+	add_set_env_to_list(g_envl, to_put);
+	free(to_put);
 }
 
 void	print_set_exit_code(int error_flag, int exit_code, int flag, char *dir)
