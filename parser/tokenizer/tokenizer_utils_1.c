@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 23:01:18 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 23:25:04 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@
 #define ENV_SYNTAX_ERROR 0
 #define ENV_SUCCESS 1
 
+int	is_dont_need_interpret(t_token *token)
+{
+	if (token->status == LEX_APOSTROPHE
+		|| count_dollar_sign(token->string) == 0)
+		return (TRUE);
+	if ((token->string[0] == '$') && \
+			((token->string[1] == '\0') || \
+			(is_special(token->string[1]) == TRUE) || \
+			(ft_isdigit(token->string[1]) == TRUE)))
+		return (TRUE);
+	return (FALSE);
+}
+
 int	process_env(t_list *envl, t_token *token)
 {
 	char	**env_splitted;
@@ -23,10 +36,7 @@ int	process_env(t_list *envl, t_token *token)
 	char	*processed_string;
 	char	*tmp;
 
-	if (count_dollar_sign(token->string) == 0
-		|| token->status == LEX_APOSTROPHE
-		|| token->string[1] == '\0'
-		|| is_special(token->string[1]))
+	if (is_dont_need_interpret(token) == TRUE)
 		return (ENV_NONE);
 	idx = 0;
 	processed_string = NULL;
@@ -39,13 +49,20 @@ int	process_env(t_list *envl, t_token *token)
 			return (ENV_SYNTAX_ERROR);
 		tmp = processed_string;
 		if (env_splitted[idx] != NULL)
+		{
 			processed_string = \
 			ft_strjoin(processed_string, env_splitted[idx++]);
-		free(tmp);
+			free(tmp);
+		}
 	}
 	free(token->string);
 	free_split(env_splitted);
 	token->string = processed_string;
+	if (token->string[0] == '\0')
+	{
+		free(token->string);
+		token->string = NULL;
+	}
 	return (ENV_SUCCESS);
 }
 
