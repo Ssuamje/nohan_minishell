@@ -6,19 +6,28 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 12:56:23 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 13:32:06 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/execute.h"
 
-char	*find_full_path(t_process *cur, char **path)
+#define RELATVIE 0
+#define	ABSOLUTE 1
+
+char	*find_full_path(t_process *cur, char **path, int *flag)
 {
 	char		*tmp_path;
 	struct stat	sb;
 	int			i;
 
 	i = 0;
+	if (stat(cur->cmd[0], &sb) == 0)
+	{
+		tmp_path = ft_strdup(cur->cmd[0]);
+		*flag = ABSOLUTE;
+		return (tmp_path);
+	}
 	while (path[++i])
 	{
 		tmp_path = ft_strjoin(path[i], cur->cmd[0]);
@@ -36,6 +45,8 @@ int	check_cmd(t_process *cur, char **path)
 	int			i;
 
 	i = 0;
+	if (cur->cmd[0][0] == '/') // 절대경로인 것 처럼 인식되는 경우
+		return (TRUE);
 	while (path[++i])
 	{
 		tmp_path = ft_strjoin(path[i], cur->cmd[0]);
@@ -72,11 +83,45 @@ void	manage_pipe(t_process *cur, t_process *next, char **path, pid_t pid)
 	}
 }
 
+int	find_last_slash_index(char *cmd)
+{
+	int	idx;
+
+	idx = 0;
+	while (cmd[idx])
+		idx++;
+	idx--;
+	while (idx >= 0)
+	{
+		if (cmd[idx] == '/')
+			return (idx);
+		idx--;
+	}
+	return (-1);
+}
+
+void	parse_cmd(t_process *cur)
+{
+	char	*tmp;
+	int		idx_slash;
+
+	idx_slash = find_last_slash_index(cur->cmd[0]);
+	if (idx_slash == -1)
+		return ;
+	tmp = ft_strdup(&(cur->cmd[0][idx_slash + 1]));
+	free(cur->cmd[0]);
+	cur->cmd[0] = tmp;
+}
+
 void	execute_path(t_process *cur, char **path, char **envp)
 {
 	char	*full_path;
+	int		flag;
 
-	full_path = find_full_path(cur, path);
+	flag = RELATVIE;
+	full_path = find_full_path(cur, path, &flag);
+	if (flag == ABSOLUTE)
+		parse_cmd(cur);
 	execve(full_path, cur->cmd, envp);
 	exit(0);
 }
