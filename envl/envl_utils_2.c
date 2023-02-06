@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:50:13 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 20:58:12 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 11:55:35 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	**envl_to_envp(t_list *envl)
 	tmp = envl->next;
 	size = ft_lstsize(tmp);
 	to_return = malloc(sizeof(char *) * (size + 1));
+	if (to_return == NULL)
+		exit_error(ERR_MALLOC);
 	to_return[size] = NULL;
 	idx = 0;
 	while (idx < size)

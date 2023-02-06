@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:39:12 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/05 22:54:58 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 11:57:07 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_redir	*get_redir(t_parser *parser)
 	t_redir	*to_return;
 
 	to_return = malloc(sizeof(t_redir));
+	if (to_return == NULL)
+		exit_error(ERR_MALLOC);
 	to_return->flag = parser->flag_redir;
 	to_return->file = ft_strdup(parser->string);
 	return (to_return);
@@ -74,6 +76,8 @@ void	argv_list_to_split(t_process *cur_proc, t_parser *parser)
 	cmd_list = parser->argv->next;
 	count_nodes = ft_lstsize(cmd_list);
 	split = malloc(sizeof(char *) * (count_nodes + 1));
+	if (split == NULL)
+		exit_error(ERR_MALLOC);
 	split[count_nodes] = NULL;
 	idx = 0;
 	while (idx < count_nodes && cmd_list != NULL)

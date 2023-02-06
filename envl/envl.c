@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:56:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 11:01:07 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 11:56:05 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	set_key_value(char **key_value, int idx_equal, char *env)
 		key_value[1] = malloc(sizeof(char) * (env_len - idx_equal + 1));
 		if (key_value[1] == NULL)
 			exit_error(ERR_MALLOC);
-		ft_strlcpy(key_value[1], &env[idx_equal + 1], (env_len - idx_equal + 1));
+		ft_strlcpy(key_value[1], &env[idx_equal + 1], \
+					(env_len - idx_equal + 1));
 	}
 	else
 		key_value[1] = NULL;
@@ -80,6 +81,8 @@ void	add_set_env_to_list(t_list *envl, char *env)
 	if (is_key_in_envl(envl, key_value[0]) == FALSE)
 	{
 		content = malloc(sizeof(t_environ));
+		if (content == NULL)
+			exit_error(ERR_MALLOC);
 		content->key = ft_strdup(key_value[0]);
 		content->value = ft_strdup(key_value[1]);
 		ft_lstadd_back(&envl, ft_lstnew(content));
