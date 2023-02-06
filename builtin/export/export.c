@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:26:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 14:01:13 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 14:39:07 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	builtin_export(char **cmd, t_list *envl)
 		{
 			if (is_export_syntax_error(cmd[idx]) == TRUE)
 			{
-				printf("🐤AengMuShell $ export: `%s\': not a valid identifier\n", \
+				printf("AengMuShell $ export: `%s\': not a valid identifier\n", \
 					cmd[idx]);
 				idx++;
 				continue ;
@@ -41,5 +41,6 @@ int	builtin_export(char **cmd, t_list *envl)
 			add_set_env_to_list(envl, cmd[idx++]);
 		}
 	}
+	sort_envl(envl);
 	return (1);
 }
