@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 22:54:28 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 23:01:18 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	process_env(t_list *envl, t_token *token)
 
 	if (count_dollar_sign(token->string) == 0
 		|| token->status == LEX_APOSTROPHE
-		|| token->string[1] == '\0')
+		|| token->string[1] == '\0'
+		|| is_special(token->string[1]))
 		return (ENV_NONE);
 	idx = 0;
 	processed_string = NULL;

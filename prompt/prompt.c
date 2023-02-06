@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 22:54:56 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 22:56:09 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	parse_and_execute(char *input)
 	if (processes != NULL)
 	{
 		tmp_envp = envl_to_envp(g_global->g_envl);
-		// exec_process(tmp_envp, processes);
+		exec_process(tmp_envp, processes);
 		free_process_list(processes);
 		free_split(tmp_envp);
 	}

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 22:20:52 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 22:56:55 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	execute_cmd(t_process *cur, t_info *info, char **envp)
 			;
 		else if (!check_cmd(cur, info->path))
 		{
-			system("leaks minishell");
 			printf("🐤AengMuShell: %s: command not found\n", cur->cmd[0]);
 			exit(127);
 		}
