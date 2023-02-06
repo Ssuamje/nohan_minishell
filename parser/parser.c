@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:19:22 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 15:29:01 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 16:29:45 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_list	*parse(t_list *envl, char *input)
 	processes = ft_lstnew(NULL);
 	if (parse_tokens(tokens, processes, parser) == ERR_TRUE)
 		return (free_process_return_null(&tokens, processes, parser));
-	print_token_list(tokens);
 	free_tokens(&tokens);
 	free_parser(&parser);
 	return (processes);
