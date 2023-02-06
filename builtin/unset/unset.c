@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:16:28 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 11:11:49 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 13:07:39 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_unset_syntax_error(char *cmd)
 {
 	return ((ft_strcmp(cmd, "") == TRUE) \
 	|| (ft_isdigit(cmd[0]) == TRUE) \
-	|| (is_in_charset(cmd[0], "`~!@#%$%^&*(){}\\|-\'\";:+,.=?")) \
+	|| (is_in_charset(cmd[0], "`~!@#%$^&*(){}\\|-\'\";:+,.=?")) \
 	|| (is_cmd_has_special_after(cmd)));
 }
 
