@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 01:36:30 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/02/04 23:29:00 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 17:59:03 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ void	builtin_echo(t_process *cur)
 	int	i;
 	int	j;
 
+	if (cur->cmd[1] == NULL)
+	{
+		ft_putstr("\n");
+		exit(0);
+	}
 	check_n(cur, 0, &i, &j);
 	i--;
 	j = i;
