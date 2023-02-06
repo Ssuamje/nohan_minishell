@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 16:31:42 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 16:34:57 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		add_history(input);
 		if (is_input_empty(input) == TRUE)
 			continue ;
-		// parse_and_execute(input);
+		parse_and_execute(input);
 		free(input);
 	}
 }
