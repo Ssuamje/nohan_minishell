@@ -6,7 +6,7 @@
 #    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/06 14:51:26 by hyungnoh         ###   ########.fr        #
+#    Updated: 2023/02/06 16:06:21 by hyungnoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC_ERROR = \
 SRC_EXECUTE = \
 ./execute/execute.c \
 ./execute/execute_utils_1.c \
+./execute/execute_utils_2.c \
 ./execute/exec_process.c \
 ./execute/env_path.c
 
