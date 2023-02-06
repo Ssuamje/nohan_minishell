@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 20:51:50 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 11:55:24 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 12:00:39 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ void	add_only_key_to_list(t_list *envl, char *env)
 
 	if (is_key_in_envl(envl, env) == FALSE)
 	{
-		content = malloc(sizeof(t_environ));
-		if (content == NULL)
-			exit_error(ERR_MALLOC);
+		content = get_environ();
 		content->key = ft_strdup(env);
 		content->value = NULL;
 		ft_lstadd_back(&envl, ft_lstnew(content));

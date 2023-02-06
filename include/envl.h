@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:54:28 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 20:45:06 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 12:00:04 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ char		**envl_to_envp(t_list *envl);
 t_environ	*find_env_by_key(t_list *envl, char *key);
 char		*get_value_by_key(t_list *envl, char *key);
 void		set_exit_code(t_list *envl, int exit_code);
+t_environ	*get_environ(void);
 
 #endif

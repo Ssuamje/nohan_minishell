@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 16:50:13 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 11:55:35 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 12:00:13 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**envl_to_envp(t_list *envl)
 
 char	*get_value_by_key(t_list *envl, char *key)
 {
-	t_environ *target;
+	t_environ	*target;
 
 	target = find_env_by_key(envl, key);
 	if (target == NULL)
@@ -68,4 +68,14 @@ void	set_exit_code(t_list *envl, int exit_code)
 	question = find_env_by_key(envl, "?");
 	free(question->value);
 	question->value = ft_itoa(exit_code);
+}
+
+t_environ	*get_environ(void)
+{
+	t_environ	*to_return;
+
+	to_return = malloc(sizeof(t_environ));
+	if (to_return == NULL)
+		exit_error(ERR_MALLOC);
+	return (to_return);
 }
