@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/06 00:16:55 by hyungseok         #+#    #+#              #
-#    Updated: 2023/02/06 13:45:53 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/06 14:21:11 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC_BUILTIN = \
 SRC_ENVL = \
 ./envl/envl.c \
 ./envl/envl_utils_1.c \
-./envl/envl_utils_2.c
+./envl/envl_utils_2.c \
+./envl/envl_utils_3.c
 
 SRC_ERROR = \
 ./error/error.c
