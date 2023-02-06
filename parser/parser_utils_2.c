@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:38:13 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 23:32:14 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 11:40:38 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_token_not_env_not_has_special(t_token *token)
 {
-	return (is_in_charset(token->string[0], "`~!#%^&*(){}\\|\'\";/:")
+	return (is_in_charset(token->string[0], "`~!#%^&*(){}\\|\'\";:")
 		&& (token->status != PAR_ENV));
 }
 
