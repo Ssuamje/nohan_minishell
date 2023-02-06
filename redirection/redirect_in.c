@@ -6,11 +6,29 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 18:19:22 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:06:35 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/redirection.h"
+#include "../builtin/cd/cd.h"
+
+int	find_last_slash_idx(char *cmd)
+{
+	int	idx;
+
+	idx = 0;
+	while (cmd[idx])
+		idx++;
+	idx--;
+	while (idx >= 0)
+	{
+		if (cmd[idx] == '/')
+			return (idx);
+		idx--;
+	}
+	return (-1);
+}
 
 static void	in_trunc(t_process *proc, t_redir *redir, t_info *info)
 {
@@ -47,6 +65,19 @@ static void	in_append(t_process *proc, t_redir *redir, t_info *info)
 	}
 }
 
+void	interpret_redir_file(t_redir *redir)
+{
+	char	*tmp;
+
+	if (ft_strncmp(redir->file, "~/", 2) == 0)
+	{
+		tmp = redir->file;
+		redir->file = ft_join_and_free(get_value_by_key(g_envl, "HOME"), \
+				ft_join_and_free(ft_strdup("/"), ft_strdup(&(redir->file[2]))));
+		free(tmp);
+	}
+}
+
 void	redirect_in(t_process *proc, t_info *info)
 {
 	t_list	*tmp;
@@ -56,6 +87,7 @@ void	redirect_in(t_process *proc, t_info *info)
 	while (tmp != NULL && tmp->content != NULL && info->err_flag == 0)
 	{
 		tmp_redir = tmp->content;
+		interpret_redir_file(tmp_redir);
 		if (tmp_redir->flag == IN_TRUNC)
 			in_trunc(proc, tmp_redir, info);
 		else if (tmp_redir->flag == IN_APPEND)
