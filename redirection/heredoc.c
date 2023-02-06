@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 18:44:12 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 18:45:26 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
 
 	(*idx)++;
 	idx_tmp = ft_itoa(*idx);
-	heredoc = ft_join_and_free(ft_strdup("heredoc"), idx_tmp);
+	heredoc = ft_join_and_free(ft_strdup("/tmp/heredoc"), idx_tmp);
 	proc->fd_infile = open(heredoc, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	create_heredoc_tmp(redir, proc);
 	free(redir->file);
