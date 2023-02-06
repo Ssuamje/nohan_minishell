@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:26:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 16:47:08 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:58:19 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	builtin_export(char **cmd, t_list *envl)
 	int	idx;
 
 	idx = 1;
-	if (cmd[1] == NULL || ft_strcmp(cmd[1], "_") == TRUE)
+	if (cmd[1] == NULL || cmd[2] == NULL || ft_strcmp(cmd[1], "_") == TRUE)
 		print_envl(envl);
 	else
 	{
