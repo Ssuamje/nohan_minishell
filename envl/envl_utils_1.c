@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 20:51:50 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 12:28:42 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 11:01:39 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	delete_env_by_key(t_list *envl, char *key)
 		tmp_env = tmp->content;
 		if (ft_strcmp(tmp_env->key, key) == TRUE)
 		{
+			free(tmp_env->key);
+			free(tmp_env->value);
 			ft_lstpop(envl, tmp, 0);
 			return ;
 		}
