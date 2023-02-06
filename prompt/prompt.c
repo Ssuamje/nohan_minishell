@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 22:44:11 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 22:54:56 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	parse_and_execute(char *input)
 	char	**tmp_envp;
 
 	processes = parse(g_global->g_envl, input);
+	print_processes_list(processes);
 	if (processes != NULL)
 	{
 		tmp_envp = envl_to_envp(g_global->g_envl);
