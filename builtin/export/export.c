@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:26:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 14:39:07 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 16:47:08 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int	builtin_export(char **cmd, t_list *envl)
 			add_set_env_to_list(envl, cmd[idx++]);
 		}
 	}
-	sort_envl(envl);
+	// sort_envl(envl);
 	return (1);
 }

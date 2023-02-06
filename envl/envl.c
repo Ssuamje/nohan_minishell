@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:56:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 14:20:51 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 16:47:14 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,6 @@ t_list	*map_envp_to_list(char **envp)
 	add_set_env_to_list(envl, "?=0");
 	delete_env_by_key(envl, "OLDPWD");
 	add_set_env_to_list(envl, "OLDPWD");
-	sort_envl(envl);
+	// sort_envl(envl);
 	return (envl);
 }

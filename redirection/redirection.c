@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 00:38:47 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/02/03 00:41:42 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/06 18:09:18 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/redirection.h"
 
-void	redirection(t_process *proc)
+void	redirection(t_process *proc, t_info *info)
 {
-	if (proc->redir_in != NULL)
-		redirect_in(proc);
-	if (proc->redir_out != NULL)
-		redirect_out(proc);
+	if (proc->redir_in != NULL && info->err_flag == 0)
+		redirect_in(proc, info);
+	if (proc->redir_out != NULL && info->err_flag == 0)
+		redirect_out(proc, info);
 }
