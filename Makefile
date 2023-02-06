@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/06 22:47:05 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/06 23:32:59 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRC_PARSER = \
 ./parser/tokenizer/tokenizer_utils_3.c \
 ./parser/tokenizer/tokenizer_utils_4.c \
 ./parser/tokenizer/tokenizer_utils_5.c \
+./parser/tokenizer/tokenizer_utils_6.c \
 ./parser/lexer/lexer.c \
 ./parser/lexer/lexer_utils_1.c \
 ./parser/lexer/lexer_utils_2.c \
