@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:54:28 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 14:20:41 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 19:56:45 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@ typedef struct s_environ{
 	char	*value;
 }	t_environ;
 
-t_list		*g_envl;
+typedef struct s_global{
+	t_list	*g_envl;
+	int		g_sigint_flag;
+}	t_global;
+
+t_global	*g_global;
 
 t_list		*map_envp_to_list(char **envp);
 void		add_set_env_to_list(t_list *envl, char *env);

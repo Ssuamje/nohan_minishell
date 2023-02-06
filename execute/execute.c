@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 18:43:15 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/06 19:55:39 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	execute_bin(t_process *cur, t_process *next, t_info *info, char **envp)
 	{
 		waitpid(pid, &status, 0);
 		if ((status & 0177) == 0)
-			set_exit_code(g_envl, (status >> 8) & 0xff);
+			set_exit_code(g_global->g_envl, (status >> 8) & 0xff);
 		else if (((status & 0177) != 0) && ((status & 0177) != 0177))
-			set_exit_code(g_envl, 128 + (status & 0177));
+			set_exit_code(g_global->g_envl, 128 + (status & 0177));
 		init_sighandler();
 	}
 }

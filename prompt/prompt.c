@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 18:15:43 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 20:02:15 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,24 @@ void	parse_and_execute(char *input)
 	t_list	*processes;
 	char	**tmp_envp;
 
-	processes = parse(g_envl, input);
+	processes = parse(g_global->g_envl, input);
 	if (processes != NULL)
 	{
-		tmp_envp = envl_to_envp(g_envl);
+		tmp_envp = envl_to_envp(g_global->g_envl);
 		exec_process(tmp_envp, processes);
 		free_process_list(processes);
 		free_split(tmp_envp);
 	}
+}
+
+t_global	*init_global(char **envp)
+{
+	t_global	*global;
+
+	global = malloc(sizeof(t_global));
+	global->g_envl = map_envp_to_list(envp);
+	global->g_sigint_flag = FALSE;
+	return (global);
 }
 
 int	main(int ac, __attribute__((unused))char **av, char **envp)
@@ -36,13 +46,14 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		exit_error(ERR_ARGC);
 	print_logo();
 	init_sighandler();
-	g_envl = map_envp_to_list(envp);
+	g_global = init_global(envp);
 	while (WAIT_FOR_SIG)
 	{
 		input = readline("🐤AengMuShell$ ");
 		if (input == NULL)
 		{
 			printf("exit\n");
+			free(g_global);
 			return (0);
 		}
 		add_history(input);

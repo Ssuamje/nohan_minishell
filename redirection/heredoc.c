@@ -6,25 +6,36 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 18:57:06 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 20:17:01 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/redirection.h"
 #include "readline/readline.h"
+#include "../include/prompt.h"
+
+void	heredoc_sighandler(int signo)
+{
+	printf("\n");
+	if (signo == SIGINT)
+	{
+		printf("🐦 : Press Enter To Exit\n");
+		g_global->g_sigint_flag = TRUE;
+	}
+}
 
 static void	create_heredoc_tmp(t_redir *redir, t_process *proc)
 {
 	char		*buffer;
 
+	signal(SIGINT, heredoc_sighandler);
 	while (1)
 	{
 		buffer = readline("🐦 > ");
+		if (g_global->g_sigint_flag == TRUE)
+			buffer = NULL;
 		if (buffer == NULL)
-		{
-			free(buffer);
 			break ;
-		}
 		if (ft_strcmp(buffer, redir->file))
 		{
 			free(buffer);
@@ -36,6 +47,8 @@ static void	create_heredoc_tmp(t_redir *redir, t_process *proc)
 		ft_putstr_fd("\n", proc->fd_infile);
 		free(buffer);
 	}
+	g_global->g_sigint_flag = FALSE;
+	set_sigint_to_default();
 }
 
 static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
