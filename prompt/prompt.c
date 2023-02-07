@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 20:02:15 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 23:25:31 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,23 @@ t_global	*init_global(char **envp)
 	return (global);
 }
 
+void	free_global(t_global **global)
+{
+	t_list		*tmp;
+	t_environ	*tmp_env;
+
+	tmp = (*global)->g_envl->next;
+	while (tmp != NULL)
+	{
+		tmp_env = tmp->content;
+		free(tmp_env->key);
+		free(tmp_env->value);
+		tmp = tmp->next;
+	}
+	ft_lstclear(&((*global)->g_envl), free);
+	free(*global);
+}
+
 int	main(int ac, __attribute__((unused))char **av, char **envp)
 {
 	char	*input;
@@ -53,7 +70,7 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		if (input == NULL)
 		{
 			printf("exit\n");
-			free(g_global);
+			free_global(&g_global);
 			return (0);
 		}
 		add_history(input);

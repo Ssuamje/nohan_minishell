@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 15:55:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 23:16:02 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/06 22:36:50 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ void	check_set_token_properties(t_token *token)
 		token->is_seperated = TRUE;
 }
 
-char	*lstrip_once(char *string)
+void	lstrip_once(char **string)
 {
-	char	*stripped;
+	char	*tmp;
 
-	if ((string[0] != ' ') && (string[0] != '\t'))
-		stripped = ft_strdup(string);
-	else
-		stripped = ft_strdup(&string[1]);
-	free(string);
-	return (stripped);
+	tmp = *string;
+	if ((*string[0] == ' ') || (*string[0] == '\t'))
+	{
+		*string = ft_strdup(*string + 1);
+		free(tmp);
+	}
 }
 
 void	check_string_condition(t_token *token)
@@ -71,12 +71,12 @@ void	check_string_condition(t_token *token)
 		token->string = remove_quote_apost(token->string, '\'', &flag_trim);
 	if (token->status == LEX_QUOTATION)
 		token->string = remove_quote_apost(token->string, '\"', &flag_trim);
-	if (token->is_seperated == TRUE)
-		token->string = lstrip_once(token->string);
-	if (token->status == LEX_STRING)
-		token->string = lstrip_once(token->string);
 	if (flag_trim == TRUE)
 		free(tmp);
+	if (token->is_seperated == TRUE)
+		lstrip_once(&(token->string));
+	if (token->status == LEX_STRING)
+		lstrip_once(&(token->string));
 }
 
 int	process_tokens_env(t_list *envl, t_list *tokens)

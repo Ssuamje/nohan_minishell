@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:55:16 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 22:57:24 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 14:06:57 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_env_string(char *input, int idx_env);
 void	divide_interpret_part(char **to_find, char **after);
 char	*remove_quote_apost(char *string, char c, int *flag);
 void	check_set_token_properties(t_token *token);
-char	*lstrip_once(char *string);
+void	lstrip_once(char **string);
 void	check_string_condition(t_token *token);
 int		process_tokens_env(t_list *envl, t_list *tokens);
 int		is_num(char c);
@@ -53,5 +53,8 @@ int		interpret_env(t_list *envl, char **to_find);
 char	*join_env(char *input, int idx_env, char *env_string);
 int		count_dollar_sign(char *string);
 void	free_double(void *p1, void *p2);
+int		is_dont_need_interpret(t_token *token);
+int		process_env_split_and_join(char **env_splitted, \
+								t_list *envl, char **processed_string);
 
 #endif

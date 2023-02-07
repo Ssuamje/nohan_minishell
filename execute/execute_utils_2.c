@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:04:26 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 15:30:06 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:14:16 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	exec_and_void(char *builtin, t_process *cur)
 		builtin_export(cur->cmd, g_global->g_envl);
 	if (ft_strcmp(builtin, "env"))
 		builtin_env(cur->cmd, g_global->g_envl);
+	if (ft_strcmp(builtin, "exit"))
+		builtin_exit(cur->cmd, g_global->g_envl);
 }
 
 int	exec_and_return(char *builtin, t_process *cur)
@@ -64,7 +66,7 @@ int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 		else if (ft_strcmp(cur->cmd[0], "export") && cur->cmd[1] != NULL)
 			return (1);
 		else if (ft_strcmp(cur->cmd[0], "exit"))
-			return (1);
+			return (0);
 		else if (ft_strcmp(cur->cmd[0], "unset"))
 			return (1);
 	}

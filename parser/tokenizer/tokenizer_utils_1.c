@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 18:03:15 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 14:06:41 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,23 @@
 int	process_env(t_list *envl, t_token *token)
 {
 	char	**env_splitted;
-	int		idx;
 	char	*processed_string;
-	char	*tmp;
 
-	if (count_dollar_sign(token->string) == 0
-		|| token->status == LEX_APOSTROPHE)
+	if (is_dont_need_interpret(token) == TRUE)
 		return (ENV_NONE);
-	idx = 0;
 	processed_string = NULL;
 	env_splitted = split_env_string(token->string, &processed_string);
-	if (env_splitted == NULL)
+	if (process_env_split_and_join(env_splitted, envl, &processed_string)
+		== ENV_SYNTAX_ERROR)
 		return (ENV_SYNTAX_ERROR);
-	while (env_splitted[idx] != NULL)
-	{
-		if (interpret_env(envl, &env_splitted[idx]) == FALSE)
-			return (ENV_SYNTAX_ERROR);
-		tmp = processed_string;
-		if (env_splitted[idx] != NULL)
-			processed_string = \
-			ft_strjoin(processed_string, env_splitted[idx++]);
-		free(tmp);
-	}
 	free(token->string);
 	free_split(env_splitted);
 	token->string = processed_string;
+	if (token->string[0] == '\0')
+	{
+		free(token->string);
+		token->string = NULL;
+	}
 	return (ENV_SUCCESS);
 }
 

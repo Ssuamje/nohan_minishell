@@ -6,11 +6,12 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 17:45:25 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 17:03:40 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:08:04 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exit.h"
+#include <unistd.h>
 
 int	is_arg_numeric(char *arg)
 {
@@ -85,5 +86,7 @@ void	builtin_exit(char **cmd, t_list *envl)
 	if (is_exit_syntax_error(cmd) == TRUE)
 		;
 	if (is_arg_numeric(cmd[1]) == TRUE)
+	{
 		exit(minus_char_max_absolute(ft_atoi(cmd[1])));
+	}
 }

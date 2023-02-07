@@ -6,7 +6,7 @@
 #    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/07 12:48:59 by hyungnoh         ###   ########.fr        #
+#    Updated: 2023/02/07 15:31:40 by hyungnoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRC_PARSER = \
 ./parser/tokenizer/tokenizer_utils_3.c \
 ./parser/tokenizer/tokenizer_utils_4.c \
 ./parser/tokenizer/tokenizer_utils_5.c \
+./parser/tokenizer/tokenizer_utils_6.c \
 ./parser/lexer/lexer.c \
 ./parser/lexer/lexer_utils_1.c \
 ./parser/lexer/lexer_utils_2.c \
@@ -89,7 +90,7 @@ $(SRC_PROMPT)
 
 OBJS = $(SRCS:.c=.o)
 
-CC = cc -g3 -fsanitize=address
+CC = cc
 
 WFLAGS = -Wall -Wextra -Werror
 
