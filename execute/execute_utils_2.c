@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:04:26 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 19:38:48 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 22:23:19 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ void	execute_path(t_process *cur, char **path, char **envp)
 	char	*full_path;
 	int		flag;
 
+	if (path == NULL)
+	{
+		ft_putstr_fd("AengMuShell: ", 2);
+		ft_putstr_fd(cur->cmd[0], 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		exit(127);
+	}
 	flag = RELATVIE;
 	full_path = find_full_path(cur, path, &flag);
 	if (flag == ABSOLUTE)

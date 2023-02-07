@@ -6,7 +6,7 @@
 /*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 21:56:45 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/07 22:18:14 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ void	execute_bin(t_process *cur, t_process *next, t_info *info, char **envp)
 	{
 		manage_pipe(cur, next, info->path, pid);
 		redirection(cur);
-		if (envp == NULL)
-			exit(0);
-		else
-			execute_cmd(cur, info, envp);
+		execute_cmd(cur, info, envp);
 	}
 	if (pid > 0)
 		manage_pipe(cur, next, info->path, pid);

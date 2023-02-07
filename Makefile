@@ -6,7 +6,7 @@
 #    By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/07 22:00:29 by hyungseok        ###   ########.fr        #
+#    Updated: 2023/02/07 22:24:03 by hyungseok        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,7 @@ $(SRC_PROMPT)
 
 OBJS = $(SRCS:.c=.o)
 
-CC = cc
+CC = cc -g3 -fsanitize=address
 
 WFLAGS = -Wall -Wextra -Werror
 

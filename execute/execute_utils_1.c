@@ -6,7 +6,7 @@
 /*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:38:33 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 21:52:39 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/07 22:21:21 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	check_cmd(t_process *cur, char **path, int i)
 	if (ft_strcmp("..", cur->cmd[0]) || ft_strcmp("''", cur->cmd[0]) || ft_strcmp("""", cur->cmd[0]))
 		return (0);
 	if (ft_strchr(cur->cmd[0], '/') && permission_check(cur->cmd[0], path))
+		return (1);
+	if (path == NULL)
 		return (1);
 	while (path[++i])
 	{
