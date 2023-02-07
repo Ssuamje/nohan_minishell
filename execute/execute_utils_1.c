@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:38:33 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 19:35:39 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:55:11 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	check_cmd(t_process *cur, char **path, int i)
 
 	if (cur->cmd[0] == NULL)
 		return (2);
+	if (ft_strcmp("..", cur->cmd[0]))
+		return (0);
 	if (ft_strchr(cur->cmd[0], '/') && permission_check(cur->cmd[0], path))
 		return (1);
 	while (path[++i])
