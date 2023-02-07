@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:04:26 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 19:55:39 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 15:30:06 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,33 @@ int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 			return (1);
 	}
 	return (0);
+}
+
+int	permission_check(char *cmd)
+{
+	int			mode;
+	char		*err_msg;
+	struct stat	sb;
+
+	mode = R_OK | W_OK | X_OK;
+	if (access(cmd, mode) == 0)
+		exit(0);
+	if (cmd[0] == '/' && stat(cmd, &sb) != 0)
+	{
+		err_msg = ft_strjoin("AengMuShell: ", cmd);
+		perror(err_msg);
+		free(err_msg);
+		exit(127);
+	}
+	else if (cmd[0] == '/' && stat(cmd, &sb) == 0)
+	{		
+		ft_putstr_fd("AengMuShell: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": is a directory\n", 2);
+		exit(126);
+	}
+	err_msg = ft_strjoin("AengMuShell: ", cmd);
+	perror(err_msg);
+	free(err_msg);
+	exit(126);
 }

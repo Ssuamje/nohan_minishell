@@ -6,60 +6,59 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 18:19:22 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 12:42:10 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/redirection.h"
 
-static void	in_trunc(t_process *proc, t_redir *redir, t_info *info)
+static void	in_trunc(t_process *proc, t_redir *redir)
 {
-	struct stat	sb;
+	char	*err_msg;
 
-	if (stat(redir->file, &sb) == 0)
+	proc->fd_infile = open(redir->file, O_RDONLY);
+	if (proc->fd_infile == OPEN_ERROR)
 	{
-		proc->fd_infile = open(redir->file, O_RDONLY);
-		dup2(proc->fd_infile, STDIN_FILENO);
-		close(proc->fd_infile);
+		err_msg = ft_strjoin("AengMuShell: ", redir->file);
+		perror(err_msg);
+		free(err_msg);
+		exit(1);
 	}
-	else
-	{
-		info->err_flag = 1;
-		printf("AengMuShell: %s: No such file or directory\n", redir->file);
-	}
+	dup2(proc->fd_infile, STDIN_FILENO);
+	close(proc->fd_infile);
 }
 
-static void	in_append(t_process *proc, t_redir *redir, t_info *info)
+static void	in_append(t_process *proc, t_redir *redir)
 {
-	struct stat	sb;
+	char	*err_msg;
 
-	if (stat(redir->file, &sb) == 0)
+	proc->fd_infile = open(redir->file, O_RDONLY);
+	if (proc->fd_infile == OPEN_ERROR)
 	{
-		proc->fd_infile = open(redir->file, O_RDONLY);
-		dup2(proc->fd_infile, STDIN_FILENO);
-		close(proc->fd_infile);
 		unlink(redir->file);
+		err_msg = ft_strjoin("AengMuShell: ", redir->file);
+		perror(err_msg);
+		free(err_msg);
+		exit(1);
 	}
-	else
-	{
-		info->err_flag = 1;
-		printf("AengMuShell: %s: No such file or directory\n", redir->file);
-	}
+	dup2(proc->fd_infile, STDIN_FILENO);
+	close(proc->fd_infile);
+	unlink(redir->file);
 }
 
-void	redirect_in(t_process *proc, t_info *info)
+void	redirect_in(t_process *proc)
 {
 	t_list	*tmp;
 	t_redir	*tmp_redir;
 
 	tmp = proc->redir_in->next;
-	while (tmp != NULL && tmp->content != NULL && info->err_flag == 0)
+	while (tmp != NULL && tmp->content != NULL)
 	{
 		tmp_redir = tmp->content;
 		if (tmp_redir->flag == IN_TRUNC)
-			in_trunc(proc, tmp_redir, info);
+			in_trunc(proc, tmp_redir);
 		else if (tmp_redir->flag == IN_APPEND)
-			in_append(proc, tmp_redir, info);
+			in_append(proc, tmp_redir);
 		tmp = tmp->next;
 	}
 }
