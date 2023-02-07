@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 00:38:47 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/02/06 22:47:26 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/07 17:40:23 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/redirection.h"
+
+void	interpret_redir_file(t_redir *redir)
+{
+	char	*tmp;
+
+	if (ft_strncmp(redir->file, "~/", 2) == 0)
+	{
+		tmp = redir->file;
+		redir->file = ft_join_and_free(get_value_by_key(g_global->g_envl, "HOME"), \
+				ft_join_and_free(ft_strdup("/"), ft_strdup(&(redir->file[2]))));
+		free(tmp);
+	}
+}
 
 void	redirection(t_process *proc)
 {

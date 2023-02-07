@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 22:45:59 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/07 17:51:06 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	process_dup_pipe(t_list *procs, t_info *info, char **envp)
 	while (tmp != NULL && tmp->content != NULL)
 	{
 		cur = tmp->content;
+		interpret_cur_file(cur);
 		pipe(cur->pfd);
 		if (tmp->next == NULL)
 			execute(cur, NULL, info, envp);

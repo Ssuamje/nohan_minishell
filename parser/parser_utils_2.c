@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:38:13 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 11:40:38 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 17:22:45 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_token_not_env_not_has_special(t_token *token)
 {
-	return (is_in_charset(token->string[0], "`~!#%^&*(){}\\|\'\";:")
+	return (is_in_charset(token->string[0], "`!#%^&*(){}\\|\'\";:")
 		&& (token->status != PAR_ENV));
 }
 
