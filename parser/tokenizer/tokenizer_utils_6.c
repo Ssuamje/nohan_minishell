@@ -6,12 +6,11 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 23:28:26 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 17:53:59 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 17:55:51 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/tokenizer.h"
-#include "../../include/utils.h" // delete
 
 #define ENV_NONE -1
 #define ENV_SYNTAX_ERROR 0
@@ -100,8 +99,6 @@ char	**split_env_with_dollar(char *str)
 	free(getter);
 	return (list_to_split(&str_list));
 }
-
-
 
 int	process_env_split_and_join(char **env_splitted, \
 								t_list *envl, char **processed_string)
