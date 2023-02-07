@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 01:36:30 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/02/06 19:55:39 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 19:51:29 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	builtin_echo(t_process *cur)
 	int	i;
 	int	j;
 
-	if (cur->cmd[1] == NULL)
+	if (cur->cmd[1] == NULL \
+	|| cur->cmd[1][0] == '\0')
 	{
 		ft_putstr("\n");
 		exit(0);
