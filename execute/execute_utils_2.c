@@ -6,7 +6,7 @@
 /*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:04:26 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 22:23:19 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/07 23:02:53 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 void	execute_path(t_process *cur, char **path, char **envp)
 {
-	char	*full_path;
-	int		flag;
+	char		*full_path;
+	int			flag;
+	struct stat	sb;
 
-	if (path == NULL)
+	flag = RELATVIE;
+	if (path != NULL)
+		full_path = find_full_path(cur, path, &flag);
+	else
+		full_path = ft_strdup(cur->cmd[0]);
+	if (flag == ABSOLUTE)
+		parse_cmd(cur);
+	if (path == NULL && stat(cur->cmd[0], &sb) != 0)
 	{
 		ft_putstr_fd("AengMuShell: ", 2);
 		ft_putstr_fd(cur->cmd[0], 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 		exit(127);
 	}
-	flag = RELATVIE;
-	full_path = find_full_path(cur, path, &flag);
-	if (flag == ABSOLUTE)
-		parse_cmd(cur);
 	execve(full_path, cur->cmd, envp);
 	exit(0);
 }
@@ -87,6 +91,8 @@ int	is_binary(char *cmd, char **path)
 	int		i;
 	char	*tmp_cmd;
 
+	if (path == NULL)
+		return (0);
 	i = 0;
 	while (cmd[i] != '\0')
 		i++;
@@ -109,38 +115,43 @@ int	is_binary(char *cmd, char **path)
 	return (0);
 }
 
-int	permission_check(char *cmd, char **path)
+int	permission_check(char **cmd, char **path)
 {
 	int			mode;
 	char		*err_msg;
 	struct stat	sb;
 
 	mode = R_OK | W_OK | X_OK;
-	if (access(cmd, mode) == 0 && stat(cmd, &sb) == 0)
+	if (access(cmd[0], mode) == 0 && stat(cmd[0], &sb) == 0)
 	{
 		if ((S_IFMT & sb.st_mode) == S_IFREG)
 			return (1);
 	}
-	if (stat(cmd, &sb) == 0 && is_binary(cmd, path))
+	if (stat(cmd[0], &sb) == 0 && is_binary(cmd[0], path))
 		return (1);
-	if (ft_strchr(cmd, '/') && stat(cmd, &sb) != 0)
+	if (ft_strchr(cmd[0], '/') && stat(cmd[0], &sb) != 0)
 	{
-		err_msg = ft_strjoin("AengMuShell: ", cmd);
+		err_msg = ft_strjoin("AengMuShell: ", cmd[0]);
 		perror(err_msg);
 		free(err_msg);
 		exit(127);
 	}
-	else if (ft_strchr(cmd, '/') && stat(cmd, &sb) == 0)
+	else if (ft_strchr(cmd[0], '/') && stat(cmd[0], &sb) == 0)
 	{
 		if ((S_IFMT & sb.st_mode) != S_IFREG)
 		{		
 			ft_putstr_fd("AengMuShell: ", 2);
-			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd(cmd[0], 2);
 			ft_putstr_fd(": is a directory\n", 2);
 			exit(126);
 		}
 	}
-	err_msg = ft_strjoin("AengMuShell: ", cmd);
+	if (stat(cmd[0], &sb) == 0)
+	{
+		if (cmd[0][0] == '/')
+			execve(cmd[0], cmd, NULL);
+	}
+	err_msg = ft_strjoin("AengMuShell: ", cmd[0]);
 	perror(err_msg);
 	free(err_msg);
 	exit(126);
