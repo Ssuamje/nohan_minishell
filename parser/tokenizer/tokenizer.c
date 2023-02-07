@@ -6,11 +6,12 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:36:30 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 22:48:36 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 15:00:33 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/tokenizer.h"
+#include "../../include/parser.h" // delete
 
 t_list	*tokenize(char *input, t_lexer *lexer)
 {
