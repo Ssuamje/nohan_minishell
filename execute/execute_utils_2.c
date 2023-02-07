@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:04:26 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 16:14:16 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:05:01 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,28 +73,63 @@ int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 	return (0);
 }
 
-int	permission_check(char *cmd)
+int	is_binary(char *cmd, char **path)
+{
+	int		i;
+	char	*tmp_cmd;
+
+	i = 0;
+	while (cmd[i] != '\0')
+		i++;
+	i--;
+	while (cmd[i] != '/')
+		i--;
+	i = i + 2;
+	tmp_cmd = malloc(sizeof(char) * i);
+	ft_strlcpy(tmp_cmd, cmd, (size_t)i);
+	i = -1;
+	while (path[++i])
+	{
+		if (ft_strcmp(path[i], tmp_cmd))
+		{
+			free(tmp_cmd);
+			return (1);
+		}
+	}
+	free(tmp_cmd);
+	return (0);
+}
+
+int	permission_check(char *cmd, char **path)
 {
 	int			mode;
 	char		*err_msg;
 	struct stat	sb;
 
 	mode = R_OK | W_OK | X_OK;
-	if (access(cmd, mode) == 0)
-		exit(0);
-	if (cmd[0] == '/' && stat(cmd, &sb) != 0)
+	if (access(cmd, mode) == 0 && stat(cmd, &sb) == 0)
+	{
+		if ((S_IFMT & sb.st_mode) == S_IFREG)
+			exit(0);
+	}
+	if (stat(cmd, &sb) == 0 && is_binary(cmd, path))
+		return (1);
+	if (ft_strchr(cmd, '/') && stat(cmd, &sb) != 0)
 	{
 		err_msg = ft_strjoin("AengMuShell: ", cmd);
 		perror(err_msg);
 		free(err_msg);
 		exit(127);
 	}
-	else if (cmd[0] == '/' && stat(cmd, &sb) == 0)
-	{		
-		ft_putstr_fd("AengMuShell: ", 2);
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": is a directory\n", 2);
-		exit(126);
+	else if (ft_strchr(cmd, '/') && stat(cmd, &sb) == 0)
+	{
+		if ((S_IFMT & sb.st_mode) != S_IFREG)
+		{		
+			ft_putstr_fd("AengMuShell: ", 2);
+			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd(": is a directory\n", 2);
+			exit(126);
+		}
 	}
 	err_msg = ft_strjoin("AengMuShell: ", cmd);
 	perror(err_msg);
