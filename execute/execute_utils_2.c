@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:04:26 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 17:05:01 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:49:32 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ int	exec_and_return(char *builtin, t_process *cur)
 int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 {
 	if (pid == CHILD)
+	{
 		exec_and_void(cur->cmd[0], cur);
+	}
 	if (pid == PARENTS)
 	{
 		if (info->process_cnt == 1)
