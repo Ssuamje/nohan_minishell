@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:38:33 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 00:35:57 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/07 13:47:22 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	check_cmd(t_process *cur, char **path, int i)
 
 	if (cur->cmd[0] == NULL)
 		return (2);
-	if (cur->cmd[0][0] == '/')
-		return (1);
 	while (path[++i])
 	{
 		tmp_path = ft_strjoin(path[i], cur->cmd[0]);
@@ -60,6 +58,8 @@ int	check_cmd(t_process *cur, char **path, int i)
 		return (1);
 	if (ft_strcmp(cur->cmd[0], "export") && cur->cmd[1] == NULL)
 		return (1);
+	if (ft_strchr(cur->cmd[0], '/') && permission_check(cur->cmd[0]))
+		return (0);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 00:36:29 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/07 13:18:48 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	execute_cmd(t_process *cur, t_info *info, char **envp)
 {
-	redirection(cur);
 	if (execute_builtin(cur, info, CHILD))
 		;
 	else if (!check_cmd(cur, info->path, 0))
 	{
-		printf("🐤AengMuShell: %s: command not found\n", cur->cmd[0]);
+		printf("AengMuShell: %s: command not found\n", cur->cmd[0]);
 		exit(127);
 	}
 	else
@@ -36,6 +35,7 @@ void	execute_bin(t_process *cur, t_process *next, t_info *info, char **envp)
 	if (pid == CHILD)
 	{
 		manage_pipe(cur, next, info->path, pid);
+		redirection(cur);
 		execute_cmd(cur, info, envp);
 	}
 	if (pid > 0)

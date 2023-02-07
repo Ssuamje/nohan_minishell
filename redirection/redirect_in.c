@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 00:29:47 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/07 12:42:10 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 static void	in_trunc(t_process *proc, t_redir *redir)
 {
+	char	*err_msg;
+
 	proc->fd_infile = open(redir->file, O_RDONLY);
 	if (proc->fd_infile == OPEN_ERROR)
 	{
-		perror(redir->file);
+		err_msg = ft_strjoin("AengMuShell: ", redir->file);
+		perror(err_msg);
+		free(err_msg);
 		exit(1);
 	}
 	dup2(proc->fd_infile, STDIN_FILENO);
@@ -26,11 +30,15 @@ static void	in_trunc(t_process *proc, t_redir *redir)
 
 static void	in_append(t_process *proc, t_redir *redir)
 {
+	char	*err_msg;
+
 	proc->fd_infile = open(redir->file, O_RDONLY);
 	if (proc->fd_infile == OPEN_ERROR)
 	{
 		unlink(redir->file);
-		perror(redir->file);
+		err_msg = ft_strjoin("AengMuShell: ", redir->file);
+		perror(err_msg);
+		free(err_msg);
 		exit(1);
 	}
 	dup2(proc->fd_infile, STDIN_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:04:26 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 19:55:39 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 13:49:17 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,18 @@ int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 			return (1);
 	}
 	return (0);
+}
+
+int	permission_check(char *cmd)
+{
+	int			mode;
+	char		*err_msg;
+
+	mode = R_OK | W_OK | X_OK;
+	if (access(cmd, mode) == 0)
+		return (1);
+	err_msg = ft_strjoin("AengMuShell: ", cmd);
+	perror(err_msg);
+	free(err_msg);
+	exit(126);
 }

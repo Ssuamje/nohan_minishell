@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+         #
+#    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/07 00:37:30 by hyungseok        ###   ########.fr        #
+#    Updated: 2023/02/07 12:48:59 by hyungnoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ $(SRC_PROMPT)
 
 OBJS = $(SRCS:.c=.o)
 
-CC = cc
+CC = cc -g3 -fsanitize=address
 
 WFLAGS = -Wall -Wextra -Werror
 

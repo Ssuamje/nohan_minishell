@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_out.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:57:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 00:28:32 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/07 12:44:08 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 static void	out_trunc(t_process *proc, t_redir *redir)
 {
+	char	*err_msg;
+
 	proc->fd_outfile = open(redir->file, \
 						O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (proc->fd_outfile == OPEN_ERROR)
 	{
-		perror(redir->file);
+		err_msg = ft_strjoin("AengMuShell: ", redir->file);
+		perror(err_msg);
+		free(err_msg);
 		exit(1);
 	}
 	dup2(proc->fd_outfile, STDOUT_FILENO);
@@ -27,11 +31,15 @@ static void	out_trunc(t_process *proc, t_redir *redir)
 
 static void	out_append(t_process *proc, t_redir *redir)
 {
+	char	*err_msg;
+
 	proc->fd_outfile = open(redir->file, \
 						O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (proc->fd_outfile == OPEN_ERROR)
 	{
-		perror(redir->file);
+		err_msg = ft_strjoin("AengMuShell: ", redir->file);
+		perror(err_msg);
+		free(err_msg);
 		exit(1);
 	}
 	dup2(proc->fd_outfile, STDOUT_FILENO);
