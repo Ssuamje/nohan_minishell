@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 18:32:11 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 19:55:39 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 18:58:14 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	interpret_buffer_env(char **buffer)
 	char	*tmp;
 
 	idx = 0;
-	env_splitted = split_env_string(*buffer, &processed_string);
+	processed_string = NULL;
+	env_splitted = split_env_with_dollar(*buffer);
 	while (env_splitted[idx] != NULL)
 	{
 		if (interpret_env(g_global->g_envl, &env_splitted[idx]) == FALSE)

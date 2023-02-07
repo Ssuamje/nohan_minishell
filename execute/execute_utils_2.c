@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:04:26 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 18:49:32 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 19:38:48 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	permission_check(char *cmd, char **path)
 	if (access(cmd, mode) == 0 && stat(cmd, &sb) == 0)
 	{
 		if ((S_IFMT & sb.st_mode) == S_IFREG)
-			exit(0);
+			return (1);
 	}
 	if (stat(cmd, &sb) == 0 && is_binary(cmd, path))
 		return (1);
