@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/07 17:27:40 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/07 17:56:40 by hyungnoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC_EXECUTE = \
 ./execute/execute.c \
 ./execute/execute_utils_1.c \
 ./execute/execute_utils_2.c \
+./execute/execute_utils_3.c \
 ./execute/exec_process.c \
 ./execute/env_path.c
 
@@ -90,7 +91,7 @@ $(SRC_PROMPT)
 
 OBJS = $(SRCS:.c=.o)
 
-CC = cc
+CC = cc -g3 -fsanitize=address
 
 WFLAGS = -Wall -Wextra -Werror
 

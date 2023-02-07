@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:57:03 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 12:44:08 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:30:15 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	redirect_out(t_process *proc)
 	while (tmp != NULL && tmp->content != NULL)
 	{
 		tmp_redir = tmp->content;
+		interpret_redir_file(tmp_redir);
 		if (tmp_redir->flag == OUT_TRUNC)
 			out_trunc(proc, tmp_redir);
 		else if (tmp_redir->flag == OUT_APPEND)

@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:52:41 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 13:22:25 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 17:37:42 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	execute_path(t_process *cur, char **path, char **envp);
 void	exec_and_void(char *builtin, t_process *cur);
 int		exec_and_return(char *builtin, t_process *cur);
 int		execute_builtin(t_process *cur, t_info *info, pid_t pid);
-int		permission_check(char *cmd);
+int		permission_check(char *cmd, char **path);
+void	interpret_cur_file(t_process *cur);
 
 #endif
