@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:28:26 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/04 23:18:17 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 17:46:03 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,16 @@ int	is_key_correct(char *key, char *to_find)
 int	interpret_env(t_list *envl, char **to_find)
 {
 	char		*after;
-	t_list		*tmp;
-	t_environ	*tmp_env;
+	char		*tmp;
 
-	tmp = envl->next;
 	after = NULL;
+	tmp = *to_find;
+	*to_find = ft_strdup(*to_find + 1);
+	free(tmp);
 	divide_interpret_part(to_find, &after);
-	while (tmp != NULL)
-	{
-		tmp_env = tmp->content;
-		if (is_key_correct(tmp_env->key, *to_find))
-		{
-			set_env_to_string(tmp->content, to_find);
-			*to_find = ft_join_and_free(*to_find, after);
-			return (TRUE);
-		}
-		tmp = tmp->next;
-	}
-	free(after);
-	free(*to_find);
-	*to_find = NULL;
+	tmp = *to_find;
+	*to_find = ft_join_and_free(get_value_by_key(envl, *to_find), after);
+	free(tmp);
 	return (TRUE);
 }
 
