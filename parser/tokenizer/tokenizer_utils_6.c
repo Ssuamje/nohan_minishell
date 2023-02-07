@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 23:28:26 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 23:31:21 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 14:07:09 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_dont_need_interpret(t_token *token)
 }
 
 int	process_env_split_and_join(char **env_splitted, \
-								t_list *envl, char *processed_string)
+								t_list *envl, char **processed_string)
 {
 	int		idx;
 	char	*tmp;
@@ -42,11 +42,11 @@ int	process_env_split_and_join(char **env_splitted, \
 	{
 		if (interpret_env(envl, &env_splitted[idx]) == FALSE)
 			return (ENV_SYNTAX_ERROR);
-		tmp = processed_string;
+		tmp = *processed_string;
 		if (env_splitted[idx] != NULL)
 		{
-			processed_string = \
-			ft_strjoin(processed_string, env_splitted[idx++]);
+			*processed_string = \
+			ft_strjoin(*processed_string, env_splitted[idx++]);
 			free(tmp);
 		}
 	}

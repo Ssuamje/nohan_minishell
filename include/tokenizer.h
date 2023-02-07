@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 15:55:16 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 23:31:48 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 14:06:57 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int		count_dollar_sign(char *string);
 void	free_double(void *p1, void *p2);
 int		is_dont_need_interpret(t_token *token);
 int		process_env_split_and_join(char **env_splitted, \
-								t_list *envl, char *processed_string);
+								t_list *envl, char **processed_string);
 
 #endif
