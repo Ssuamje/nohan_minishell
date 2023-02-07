@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:38:13 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 17:22:45 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 18:11:20 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	is_token_not_env_not_has_special(t_token *token)
 {
+	if (token->string == NULL)
+		return (FALSE);
 	return (is_in_charset(token->string[0], "`!#%^&*(){}\\|\'\";:")
 		&& (token->status != PAR_ENV));
 }

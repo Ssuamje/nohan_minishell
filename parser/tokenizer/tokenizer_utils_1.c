@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 20:23:59 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 14:06:41 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 17:47:06 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,17 @@ int	process_env(t_list *envl, t_token *token)
 	char	**env_splitted;
 	char	*processed_string;
 
-	if (is_dont_need_interpret(token) == TRUE)
+	if (token->status == LEX_APOSTROPHE \
+	|| count_dollar_sign(token->string) == 0)
 		return (ENV_NONE);
+
+
 	processed_string = NULL;
-	env_splitted = split_env_string(token->string, &processed_string);
+	env_splitted = split_env_with_dollar(token->string);
 	if (process_env_split_and_join(env_splitted, envl, &processed_string)
 		== ENV_SYNTAX_ERROR)
 		return (ENV_SYNTAX_ERROR);
+
 	free(token->string);
 	free_split(env_splitted);
 	token->string = processed_string;

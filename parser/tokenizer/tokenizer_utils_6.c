@@ -6,28 +6,102 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 23:28:26 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 14:07:09 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 17:53:59 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/tokenizer.h"
+#include "../../include/utils.h" // delete
 
 #define ENV_NONE -1
 #define ENV_SYNTAX_ERROR 0
 #define ENV_SUCCESS 1
 
-int	is_dont_need_interpret(t_token *token)
+int	is_dont_need_interpret(char	*string)
 {
-	if (token->status == LEX_APOSTROPHE
-		|| count_dollar_sign(token->string) == 0)
-		return (TRUE);
-	if ((token->string[0] == '$') && \
-			((token->string[1] == '\0') || \
-			(is_special(token->string[1]) == TRUE) || \
-			(ft_isdigit(token->string[1]) == TRUE)))
+	if ((string[0] == '$') && \
+			((string[1] == '\0') || \
+			(is_special(string[1]) == TRUE) || \
+			(ft_isdigit(string[1]) == TRUE)))
 		return (TRUE);
 	return (FALSE);
 }
+
+char	*chunk_string(t_list **getter)
+{
+	t_list	*tmp;
+	char	*cur;
+	char	*chunk;
+	int		size;
+	int		idx;
+
+	tmp = (*getter)->next;
+	size = ft_lstsize(*getter) - 1;
+	chunk = malloc(sizeof(char) * (size + 1));
+	chunk[size] = '\0';
+	idx = 0;
+	while (tmp != NULL)
+	{
+		cur = tmp->content;
+		chunk[idx++] = *cur;
+		tmp = tmp->next;
+	}
+	ft_lstclear(getter, free);
+	*getter = ft_lstnew(NULL);
+	return (chunk);
+}
+
+char	**list_to_split(t_list **str_list)
+{
+	int		size;
+	t_list	*tmp;
+	char	*tmp_str;
+	char	**to_return;
+	int		idx;
+
+	tmp = (*str_list)->next;
+	size = ft_lstsize(*str_list) - 1;
+	to_return = malloc(sizeof(char *) * (size + 1));
+	to_return[size] = NULL;
+	idx = 0;
+	while (idx < size)
+	{
+		tmp_str = tmp->content;
+		to_return[idx++] = ft_strdup(tmp_str);
+		tmp = tmp->next;
+	}
+	ft_lstclear(str_list, free);
+	free(*str_list);
+	return (to_return);
+}
+
+char	**split_env_with_dollar(char *str)
+{
+	int		idx;
+	t_list	*getter;
+	t_list	*str_list;
+
+	getter = ft_lstnew(NULL);
+	str_list = ft_lstnew(NULL);
+	idx = 0;
+	while (str[idx])
+	{
+		if (str[idx] == '$' && ft_lstsize(getter) > 1)
+		{
+			ft_lstadd_back(&str_list, ft_lstnew(chunk_string(&getter)));
+			ft_lstadd_back(&getter, ft_lstnew(ft_strdup(&str[idx])));
+		}
+		else
+			ft_lstadd_back(&getter, ft_lstnew(ft_strdup(&str[idx])));
+		idx++;
+	}
+	ft_lstadd_back(&str_list, ft_lstnew(chunk_string(&getter)));
+	ft_lstclear(&getter, free);
+	free(getter);
+	return (list_to_split(&str_list));
+}
+
+
 
 int	process_env_split_and_join(char **env_splitted, \
 								t_list *envl, char **processed_string)
@@ -40,8 +114,10 @@ int	process_env_split_and_join(char **env_splitted, \
 		return (ENV_SYNTAX_ERROR);
 	while (env_splitted[idx] != NULL)
 	{
-		if (interpret_env(envl, &env_splitted[idx]) == FALSE)
-			return (ENV_SYNTAX_ERROR);
+		if (env_splitted[idx][0] == '$' \
+		&& ((env_splitted[idx][1] != '\0' && \
+			is_special(env_splitted[idx][1]) == FALSE)))
+			interpret_env(envl, &env_splitted[idx]);
 		tmp = *processed_string;
 		if (env_splitted[idx] != NULL)
 		{
