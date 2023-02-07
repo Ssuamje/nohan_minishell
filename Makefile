@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/07 15:32:02 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/07 15:34:41 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,7 @@ $(SRC_PROMPT)
 
 OBJS = $(SRCS:.c=.o)
 
-CC = cc -g3
+CC = cc -g3 -fsanitize=address
 
 WFLAGS = -Wall -Wextra -Werror
 
