@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:26:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 21:07:08 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 22:41:41 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	builtin_export(char **cmd, t_list *envl)
 
 	idx = 1;
 	if (cmd[1] == NULL || ft_strcmp(cmd[1], "_") == TRUE)
+	{
 		print_envl(envl);
+		exit(0);
+	}
 	else
 	{
 		while (cmd[idx] != NULL)

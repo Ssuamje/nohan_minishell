@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:59 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/06 18:17:21 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/07 22:08:59 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,22 @@ void	env_path(t_info *info, char **envp)
 {
 	int		i;
 	char	*tmp_path;
+	int		flag;
 
+	flag = 1;
 	i = -1;
 	while (envp[++i])
 	{
 		if (!ft_strncmp("PATH=", envp[i], 5))
+		{
 			tmp_path = ft_strdup(envp[i] + 5);
+			flag--;
+		}
+	}
+	if (flag)
+	{
+		info->path = NULL;
+		return ;
 	}
 	info->path = ft_split(tmp_path, ':');
 	free(tmp_path);
