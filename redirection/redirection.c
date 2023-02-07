@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 00:38:47 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/02/07 17:40:23 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:08:09 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	interpret_redir_file(t_redir *redir)
 	if (ft_strncmp(redir->file, "~/", 2) == 0)
 	{
 		tmp = redir->file;
-		redir->file = ft_join_and_free(get_value_by_key(g_global->g_envl, "HOME"), \
+		redir->file = ft_join_and_free(\
+				get_value_by_key(g_global->g_envl, "HOME"), \
 				ft_join_and_free(ft_strdup("/"), ft_strdup(&(redir->file[2]))));
 		free(tmp);
 	}
