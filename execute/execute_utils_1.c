@@ -6,7 +6,7 @@
 /*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:38:33 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 18:00:03 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/07 15:11:33 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,14 @@ char	*find_full_path(t_process *cur, char **path, int *flag)
 	return (NULL);
 }
 
-int	check_cmd(t_process *cur, char **path)
+int	check_cmd(t_process *cur, char **path, int i)
 {
 	char		*tmp_path;
 	struct stat	sb;
-	int			i;
 
-	i = 0;
 	if (cur->cmd[0] == NULL)
 		return (2);
-	if (cur->cmd[0][0] == '/')
+	if (ft_strchr(cur->cmd[0], '/') && permission_check(cur->cmd[0]))
 		return (1);
 	while (path[++i])
 	{
@@ -70,7 +68,7 @@ void	manage_pipe(t_process *cur, t_process *next, char **path, pid_t pid)
 	if (pid == CHILD)
 	{
 		close(cur->pfd[0]);
-		if (next != NULL && check_cmd(cur, path) == 1)
+		if (next != NULL && check_cmd(cur, path, 0) == 1)
 			dup2(cur->pfd[1], STDOUT_FILENO);
 		close(cur->pfd[1]);
 	}
