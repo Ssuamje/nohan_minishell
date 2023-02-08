@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 00:38:47 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/02/07 20:08:09 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/08 22:46:21 by hyungseok        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	interpret_redir_file(t_redir *redir)
 {
 	char	*tmp;
 
-	if (ft_strncmp(redir->file, "~/", 2) == 0)
+	if (ft_strncmp(redir->file, "~/", 2) == 0 || ft_strcmp(redir->file, "~"))
 	{
 		tmp = redir->file;
 		redir->file = ft_join_and_free(\
