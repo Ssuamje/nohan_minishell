@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 19:01:05 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/08 10:17:49 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	heredoc_sighandler(int signo)
 	{
 		printf("🐦 : Press Enter To Exit\n");
 		g_global->g_sigint_flag = TRUE;
+		set_exit_code(g_global->g_envl, 1);
 	}
 }
 
