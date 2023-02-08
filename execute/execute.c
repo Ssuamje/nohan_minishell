@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:50:32 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 22:18:14 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/08 14:08:50 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,3 @@ void	execute(t_process *cur, t_process *next, t_info *info, char **envp)
 	else
 		execute_bin(cur, next, info, envp);
 }
-
-///Users/hyungnoh/desktop/minishell

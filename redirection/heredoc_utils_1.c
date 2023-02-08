@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 18:32:11 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/08 12:39:53 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/08 14:30:29 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	divide_interpret_part_heredoc(char **to_find, char **after)
 
 	idx = 0;
 	env_key = *to_find;
-	while (is_special(env_key[idx]) == FALSE)
+	while (is_in_charset(env_key[idx], "!@#%^&*()-+={[}]\\|:;/.,<>~`\'\"?") == FALSE)
 		idx++;
 	*after = ft_strldup(&(env_key[idx]), ft_strlen(env_key) - idx);
 	tmp = ft_strldup(env_key, idx);
@@ -37,12 +37,14 @@ int	interpret_env_heredoc(t_list *envl, char **to_find)
 	char		*after;
 	char		*tmp;
 
+	if (count_dollar_sign(*to_find) < 1)
+		return (TRUE);
 	after = NULL;
 	tmp = *to_find;
 	*to_find = ft_strdup(*to_find + 1);
 	free(tmp);
 	divide_interpret_part(to_find, &after);
-	printf("_%s_   _%s_\n", *to_find, after);
+	printf("_%s_       _%s_\n", *to_find, after);
 	tmp = *to_find;
 	if (find_env_by_key(g_global->g_envl, *to_find))
 		*to_find = ft_join_and_free(get_value_by_key(envl, *to_find), after);
@@ -67,7 +69,6 @@ int	interpret_buffer_env(char **buffer)
 		if (interpret_env_heredoc(\
 		g_global->g_envl, &env_splitted[idx]) == FALSE)
 			return (FALSE);
-		printf("_%s_\n", env_splitted[idx]);
 		tmp = processed_string;
 		processed_string = ft_strjoin(processed_string, env_splitted[idx++]);
 		free(tmp);
