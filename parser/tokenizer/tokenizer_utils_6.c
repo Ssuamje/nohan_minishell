@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 23:28:26 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/08 14:39:32 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/08 15:36:10 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ char	**split_env_with_dollar(char *str)
 	idx = 0;
 	while (str[idx])
 	{
-		if ((str[idx] == '$' || str[idx] == '?') \
-		&& ft_lstsize(getter) > 1)
+		if ((str[idx] == '$' \
+		&& ft_lstsize(getter) > 1) \
+		|| ((str[idx] == '?') && ft_lstsize(getter) > 2))
 		{
 			ft_lstadd_back(&str_list, ft_lstnew(chunk_string(&getter)));
 			ft_lstadd_back(&getter, ft_lstnew(ft_strdup(&str[idx])));
