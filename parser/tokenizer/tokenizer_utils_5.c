@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:28:26 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 17:46:03 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/08 11:56:02 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	interpret_env(t_list *envl, char **to_find)
 	*to_find = ft_strdup(*to_find + 1);
 	free(tmp);
 	divide_interpret_part(to_find, &after);
+	printf("_%s_   _%s_\n", *to_find, after);
 	tmp = *to_find;
 	*to_find = ft_join_and_free(get_value_by_key(envl, *to_find), after);
 	free(tmp);
