@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/09 12:55:14 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/09 12:56:51 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ $(SRC_PROMPT)
 
 OBJS = $(SRCS:.c=.o)
 
-CC = cc -g3
+CC = cc
 
 WFLAGS = -Wall -Wextra -Werror
 
