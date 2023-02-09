@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 11:25:16 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 22:09:23 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/09 13:54:45 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	exec_process(char **envp, t_list *procs)
 	process_dup_pipe(procs, &info, envp);
 	dup2(info.stdfd[0], STDIN_FILENO);
 	dup2(info.stdfd[1], STDOUT_FILENO);
+	close(info.stdfd[0]);
+	close(info.stdfd[1]);
 	if (info.path != NULL)
 		free_split(info.path);
 }

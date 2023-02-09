@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 17:45:25 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/09 10:37:12 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 13:57:51 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	is_exit_syntax_error(char **args)
 	if (args[2] != NULL)
 	{
 		printf("AengMuShell: exit: too many arguments\n");
-		exit(1);
+		set_exit_code(g_global->g_envl, 1);
+		return (TRUE);
 	}
 	return (FALSE);
 }
@@ -77,6 +78,7 @@ int	minus_char_max_absolute(int n)
 void	builtin_exit(char **cmd, t_list *envl)
 {
 	int	former_exit_code;
+	int	is_error;
 
 	if (cmd[1] == NULL)
 	{
@@ -84,9 +86,8 @@ void	builtin_exit(char **cmd, t_list *envl)
 							get_value_by_key(envl, "?"));
 		exit(former_exit_code);
 	}
-	if (is_exit_syntax_error(cmd) == TRUE)
-		;
-	if (is_arg_numeric(cmd[1]) == TRUE)
+	is_error = is_exit_syntax_error(cmd);
+	if (is_arg_numeric(cmd[1]) == TRUE && is_error == FALSE)
 	{
 		exit(minus_char_max_absolute(ft_atoi(cmd[1])));
 	}

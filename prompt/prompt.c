@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/09 12:53:16 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:03:19 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	free_global(t_global **global)
 int	main(int ac, __attribute__((unused))char **av, char **envp)
 {
 	char	*input;
+	int		exit_code;
 
 	if (ac != 1)
 		exit_error(ERR_ARGC);
@@ -72,8 +73,10 @@ int	main(int ac, __attribute__((unused))char **av, char **envp)
 		if (input == NULL)
 		{
 			printf("exit\n");
+			exit_code = convert_question_value_and_free(\
+					get_value_by_key(g_global->g_envl, "?"));
 			free_global(&g_global);
-			return (0);
+			return (exit_code);
 		}
 		add_history(input);
 		if (is_input_empty(input) == TRUE)

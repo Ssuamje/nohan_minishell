@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:41:54 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/08 14:07:35 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:09:44 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	check_available_type(t_list *tokens)
 		if (((tmp_token->status == PAR_REDIRECT) && \
 			(next_token->status == PAR_REDIRECT)) \
 		|| ((tmp_token->status == PAR_PIPE) && \
+			(next_token->status == PAR_PIPE)) \
+		|| ((tmp_token->status == PAR_REDIRECT) && \
 			(next_token->status == PAR_PIPE)))
 			return (FALSE);
 		tmp = tmp->next;
