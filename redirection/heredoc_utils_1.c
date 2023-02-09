@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 18:32:11 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/09 10:24:24 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 10:52:29 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ int	interpret_env_heredoc(t_list *envl, char **to_find)
 	char		*after;
 	char		*tmp;
 
-	if (count_dollar_sign(*to_find) < 1 \
-	|| ft_strcmp(*to_find, "$") == TRUE)
+	if ((count_dollar_sign(*to_find) < 1 \
+	|| ft_strcmp(*to_find, "$") == TRUE) \
+	|| is_special((*to_find)[1]) == TRUE)
 		return (TRUE);
 	after = NULL;
 	tmp = *to_find;
