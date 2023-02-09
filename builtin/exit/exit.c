@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 17:45:25 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 18:27:39 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/09 10:36:34 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	is_arg_numeric(char *arg)
 
 int	is_exit_syntax_error(char **args)
 {
-	if (is_arg_numeric(args[1]) == FALSE)
+	if (is_arg_numeric(args[1]) == FALSE
+	|| args[1][0] == '\0')
 	{
 		printf("AengMuShell: exit: %s: numeric argument required\n", args[1]);
 		exit(255);
