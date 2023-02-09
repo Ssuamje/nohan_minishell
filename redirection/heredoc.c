@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/08 10:17:49 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 10:14:13 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ static void	create_heredoc_tmp(t_redir *redir, t_process *proc)
 	{
 		buffer = readline("🐦 > ");
 		if (g_global->g_sigint_flag == TRUE)
+		{
+			free(buffer);
 			buffer = NULL;
+		}
 		if (buffer == NULL)
 			break ;
 		if (ft_strcmp(buffer, redir->file))
@@ -49,7 +52,6 @@ static void	create_heredoc_tmp(t_redir *redir, t_process *proc)
 		free(buffer);
 	}
 	g_global->g_sigint_flag = FALSE;
-	set_sigint_to_default();
 }
 
 static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
@@ -62,6 +64,7 @@ static void	exec_heredoc(t_redir *redir, t_process *proc, int *idx)
 	heredoc = ft_join_and_free(ft_strdup("/tmp/heredoc"), idx_tmp);
 	proc->fd_infile = open(heredoc, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	create_heredoc_tmp(redir, proc);
+	set_sigint_to_default();
 	free(redir->file);
 	redir->file = ft_strdup(heredoc);
 	free(heredoc);
