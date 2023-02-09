@@ -1,7 +1,0 @@
-*.dSYM*
-.vscode
-minishell
-.DS*
-*.o
-a.out*
-libft/libft.a

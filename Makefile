@@ -6,7 +6,7 @@
 #    By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/04 12:22:10 by sanan             #+#    #+#              #
-#    Updated: 2023/02/08 13:58:50 by sanan            ###   ########.fr        #
+#    Updated: 2023/02/09 12:55:14 by sanan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,11 +67,7 @@ SRC_REDIRECTION = \
 
 SRC_UTILS = \
 ./utils/is_cmd_has_special_after.c \
-./utils/is_in_str.c \
-./utils/print_process.c \
-./utils/print_redir.c \
-./utils/print_split.c \
-./utils/print_token.c
+./utils/is_in_str.c
 
 SRC_PROMPT = \
 ./prompt/prompt.c \
