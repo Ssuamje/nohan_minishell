@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:28:26 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/08 14:22:24 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:31:36 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	count_dollar_sign(char *string)
 	int	idx;
 	int	count;
 
+	if (string == NULL)
+		return (0);
 	idx = 0;
 	count = 0;
 	while (string[idx])

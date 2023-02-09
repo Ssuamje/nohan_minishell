@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:38:36 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/02 20:15:25 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:29:07 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,42 @@ int	check_join_condition(t_token *next_token)
 			next_token->status == PAR_ENV));
 }
 
+char	*join_env_token(char *cur, char *after)
+{
+	char	*to_return;
+
+	if (ft_strlen(cur) > 1)
+		to_return = ft_join_and_free(cur, after);
+	else
+	{
+		free(cur);
+		to_return = ft_join_and_free(NULL, after);
+	}
+	return (to_return);
+}
+
 void	join_tokens(t_list *tokens)
 {
 	t_list	*tmp;
-	t_token	*tmp_token;
-	t_token	*next_token;
+	t_token	*token;
+	t_token	*next;
 
 	tmp = tokens->next;
-	while (tmp->next != NULL \
-	&& tmp->next->content != NULL)
+	while (tmp->next != NULL && tmp->next->content != NULL)
 	{
-		tmp_token = tmp->content;
-		if (tmp_token->status == PAR_REDIRECT \
-		|| tmp_token->status == PAR_PIPE)
+		token = tmp->content;
+		if (token->status == PAR_REDIRECT || token->status == PAR_PIPE)
 		{
 			tmp = tmp->next;
 			continue ;
 		}
-		next_token = tmp->next->content;
-		if (check_join_condition(next_token) != FALSE)
+		next = tmp->next->content;
+		if (check_join_condition(next) == TRUE)
 		{
-			tmp_token->string = ft_join_and_free(tmp_token->string, \
-												next_token->string);
+			if (token->status == PAR_ENV)
+				token->string = join_env_token(token->string, next->string);
+			else
+				token->string = ft_join_and_free(token->string, next->string);
 			tmp = ft_lstpop(tokens, tmp->next, LST_LEFT);
 			continue ;
 		}

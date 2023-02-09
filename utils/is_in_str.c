@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 12:25:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/03 12:25:12 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:30:43 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	is_in_str(char c, char *str)
 {
 	int	idx;
 
+	if (str == NULL)
+		return (FALSE);
 	idx = 0;
 	while (str[idx] != '\0')
 	{

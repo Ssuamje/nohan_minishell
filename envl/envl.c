@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:56:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 19:49:51 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:33:05 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	get_idx_equal(char *env)
 {
 	int	idx;
 
+	if (env == NULL)
+		return (-1);
 	idx = 0;
 	while (env[idx] != '\0')
 	{

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:38:33 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/09 12:30:49 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:32:52 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	find_last_slash_index(char *cmd)
 	int	idx;
 
 	idx = 0;
+	if (cmd == NULL)
+		return (-1);
 	while (cmd[idx])
 		idx++;
 	idx--;

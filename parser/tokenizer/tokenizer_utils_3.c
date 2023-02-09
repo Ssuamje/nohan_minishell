@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 21:11:23 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/08 14:24:27 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:32:22 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	is_in_charset(char c, char *charset)
 {
 	int	idx;
 
+	if (charset == NULL)
+		return (FALSE);
 	idx = 0;
 	while (charset[idx])
 	{
@@ -48,6 +50,8 @@ int	count_char(char *string, char c)
 	int	idx;
 	int	count;
 
+	if (string == NULL)
+		return (0);
 	idx = 0;
 	count = 0;
 	while (string[idx] != '\0')
