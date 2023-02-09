@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 20:24:16 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 14:38:34 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 15:26:40 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ void	builtin_env(__attribute__((unused))char **cmd, t_list *envl)
 		}
 	}
 	else
+	{
 		printf("AengMuShell: env: no args!!\n");
+		exit(1);
+	}
 	exit(0);
 }
