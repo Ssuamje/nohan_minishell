@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:04:26 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 23:02:53 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/09 12:48:44 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,75 +84,4 @@ int	execute_builtin(t_process *cur, t_info *info, pid_t pid)
 			return (1);
 	}
 	return (0);
-}
-
-int	is_binary(char *cmd, char **path)
-{
-	int		i;
-	char	*tmp_cmd;
-
-	if (path == NULL)
-		return (0);
-	i = 0;
-	while (cmd[i] != '\0')
-		i++;
-	i--;
-	while (cmd[i] != '/')
-		i--;
-	i = i + 2;
-	tmp_cmd = malloc(sizeof(char) * i);
-	ft_strlcpy(tmp_cmd, cmd, (size_t)i);
-	i = -1;
-	while (path[++i])
-	{
-		if (ft_strcmp(path[i], tmp_cmd))
-		{
-			free(tmp_cmd);
-			return (1);
-		}
-	}
-	free(tmp_cmd);
-	return (0);
-}
-
-int	permission_check(char **cmd, char **path)
-{
-	int			mode;
-	char		*err_msg;
-	struct stat	sb;
-
-	mode = R_OK | W_OK | X_OK;
-	if (access(cmd[0], mode) == 0 && stat(cmd[0], &sb) == 0)
-	{
-		if ((S_IFMT & sb.st_mode) == S_IFREG)
-			return (1);
-	}
-	if (stat(cmd[0], &sb) == 0 && is_binary(cmd[0], path))
-		return (1);
-	if (ft_strchr(cmd[0], '/') && stat(cmd[0], &sb) != 0)
-	{
-		err_msg = ft_strjoin("AengMuShell: ", cmd[0]);
-		perror(err_msg);
-		free(err_msg);
-		exit(127);
-	}
-	else if (ft_strchr(cmd[0], '/') && stat(cmd[0], &sb) == 0)
-	{
-		if ((S_IFMT & sb.st_mode) != S_IFREG)
-		{		
-			ft_putstr_fd("AengMuShell: ", 2);
-			ft_putstr_fd(cmd[0], 2);
-			ft_putstr_fd(": is a directory\n", 2);
-			exit(126);
-		}
-	}
-	if (stat(cmd[0], &sb) == 0)
-	{
-		if (cmd[0][0] == '/')
-			execve(cmd[0], cmd, NULL);
-	}
-	err_msg = ft_strjoin("AengMuShell: ", cmd[0]);
-	perror(err_msg);
-	free(err_msg);
-	exit(126);
 }

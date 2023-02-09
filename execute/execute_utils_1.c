@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungseok <hyungseok@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 13:38:33 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 22:50:29 by hyungseok        ###   ########.fr       */
+/*   Updated: 2023/02/09 12:30:49 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ int	check_cmd(t_process *cur, char **path, int i)
 
 	if (cur->cmd[0] == NULL)
 		return (2);
-	if (ft_strcmp("..", cur->cmd[0]) || ft_strcmp("''", cur->cmd[0]) || ft_strcmp("""", cur->cmd[0]))
+	if (ft_strcmp("..", cur->cmd[0]) || ft_strcmp("''", cur->cmd[0]) \
+	|| ft_strcmp("""", cur->cmd[0]))
 		return (0);
-	if (ft_strchr(cur->cmd[0], '/') && permission_check(cur->cmd, path))
-		return (1);
-	if (path == NULL)
+	if ((ft_strchr(cur->cmd[0], '/') && permission_check(cur->cmd, path)) \
+	|| path == NULL)
 		return (1);
 	while (path[++i])
 	{
@@ -58,11 +58,8 @@ int	check_cmd(t_process *cur, char **path, int i)
 		}
 		free(tmp_path);
 	}
-	if (ft_strcmp(cur->cmd[0], "echo"))
-		return (1);
-	if (ft_strcmp(cur->cmd[0], "pwd"))
-		return (1);
-	if (ft_strcmp(cur->cmd[0], "export") && cur->cmd[1] == NULL)
+	if (ft_strcmp(cur->cmd[0], "echo") || ft_strcmp(cur->cmd[0], "pwd") \
+	|| (ft_strcmp(cur->cmd[0], "export") && cur->cmd[1] == NULL))
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:35:04 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/07 20:09:25 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 12:49:43 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,80 @@ void	interpret_cur_file(t_process *cur)
 			free(tmp);
 		}
 	}
+}
+
+int	is_binary(char *cmd, char **path)
+{
+	int		i;
+	char	*tmp_cmd;
+
+	if (path == NULL)
+		return (0);
+	i = 0;
+	while (cmd[i] != '\0')
+		i++;
+	i--;
+	while (cmd[i] != '/')
+		i--;
+	i = i + 2;
+	tmp_cmd = malloc(sizeof(char) * i);
+	ft_strlcpy(tmp_cmd, cmd, (size_t)i);
+	i = -1;
+	while (path[++i])
+	{
+		if (ft_strcmp(path[i], tmp_cmd))
+		{
+			free(tmp_cmd);
+			return (1);
+		}
+	}
+	free(tmp_cmd);
+	return (0);
+}
+
+int	print_message_and_exit(char *cmd, struct stat *sb, int *exit_code)
+{
+	char	*err_msg;
+
+	if (ft_strchr(cmd, '/') && stat(cmd, sb) != 0)
+	{
+		err_msg = ft_strjoin("AengMuShell: ", cmd);
+		perror(err_msg);
+		free(err_msg);
+		*exit_code = 127;
+		return (TRUE);
+	}
+	else if ((ft_strchr(cmd, '/') && stat(cmd, sb) == 0) && \
+			(S_IFMT & sb->st_mode) != S_IFREG)
+	{
+		ft_putstr_fd("AengMuShell: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": is a directory\n", 2);
+		*exit_code = 126;
+		return (TRUE);
+	}
+	err_msg = ft_strjoin("AengMuShell: ", cmd);
+	perror(err_msg);
+	free(err_msg);
+	*exit_code = 126;
+	return (TRUE);
+}
+
+int	permission_check(char **cmd, char **path)
+{
+	int			mode;
+	int			exit_code;
+	struct stat	sb;
+
+	mode = R_OK | W_OK | X_OK;
+	if (((access(cmd[0], mode) == 0 && stat(cmd[0], &sb) == 0) && \
+		((S_IFMT & sb.st_mode) == S_IFREG)) \
+	|| (stat(cmd[0], &sb) == 0 && is_binary(cmd[0], path)))
+		return (1);
+	if (print_message_and_exit(cmd[0], &sb, &exit_code) == TRUE)
+		exit(exit_code);
+	if (stat(cmd[0], &sb) == 0 && cmd[0][0] == '/')
+		execve(cmd[0], cmd, NULL);
+	print_message_and_exit(cmd[0], &sb, &exit_code);
+	exit(exit_code);
 }
