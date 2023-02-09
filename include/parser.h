@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 22:20:29 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 18:47:31 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:36:55 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void		parse_by_type(t_token *token, t_parser *parser, \
 					t_process *proc, int *err);
 int			parse_tokens(t_list *tokens, t_list *processes, t_parser *parser);
 void		free_redir_list(t_list	**redir);
+int			parse_init(t_token *token, t_parser *parser);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 12:46:30 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/09 10:14:13 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 15:18:24 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	heredoc_sighandler(int signo)
 	printf("\n");
 	if (signo == SIGINT)
 	{
-		printf("🐦 : Press Enter To Exit\n");
+		write(1, "> Press Enter To Exit", 21);
 		g_global->g_sigint_flag = TRUE;
 		set_exit_code(g_global->g_envl, 1);
 	}

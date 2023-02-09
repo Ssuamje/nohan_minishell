@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 01:36:30 by hyungseok         #+#    #+#             */
-/*   Updated: 2023/02/07 19:51:29 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 15:22:13 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,5 @@ void	builtin_echo(t_process *cur)
 	}
 	if (j == 0)
 		ft_putstr("\n");
-	set_exit_code(g_global->g_envl, 0);
 	exit(0);
 }
