@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 14:13:31 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/03 14:18:04 by hyungnoh         ###   ########.fr       */
+/*   Updated: 2023/02/09 11:10:40 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PWD_H
 
 # include "../../include/execute.h"
+# include "../../include/envl.h"
+# include <stdio.h>
 
 void	builtin_pwd(void);
 
