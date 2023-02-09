@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyungnoh <hyungnoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:35:04 by hyungnoh          #+#    #+#             */
-/*   Updated: 2023/02/09 12:52:19 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 15:40:38 by hyungnoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,14 @@ int	permission_check(char **cmd, char **path)
 	struct stat	sb;
 
 	mode = R_OK | W_OK | X_OK;
+	if (stat(cmd[0], &sb) == 0 && cmd[0][0] == '/' && path == NULL)
+		execve(cmd[0], cmd, NULL);
 	if (((access(cmd[0], mode) == 0 && stat(cmd[0], &sb) == 0) && \
 		((S_IFMT & sb.st_mode) == S_IFREG)) \
 	|| (stat(cmd[0], &sb) == 0 && is_binary(cmd[0], path)))
 		return (1);
 	if (print_message_and_exit(cmd[0], &sb, &exit_code) == TRUE)
 		exit(exit_code);
-	if (stat(cmd[0], &sb) == 0 && cmd[0][0] == '/')
-		execve(cmd[0], cmd, NULL);
 	print_message_and_exit(cmd[0], &sb, &exit_code);
 	exit(exit_code);
 }
