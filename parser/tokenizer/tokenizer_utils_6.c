@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 23:28:26 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/08 15:36:10 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 12:53:01 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char	*chunk_string(t_list **getter)
 	tmp = (*getter)->next;
 	size = ft_lstsize(*getter) - 1;
 	chunk = malloc(sizeof(char) * (size + 1));
+	if (chunk == NULL)
+		exit_error(ERR_MALLOC);
 	chunk[size] = '\0';
 	idx = 0;
 	while (tmp != NULL)
@@ -61,6 +63,8 @@ char	**list_to_split(t_list **str_list)
 	tmp = (*str_list)->next;
 	size = ft_lstsize(*str_list) - 1;
 	to_return = malloc(sizeof(char *) * (size + 1));
+	if (to_return == NULL)
+		exit_error(ERR_MALLOC);
 	to_return[size] = NULL;
 	idx = 0;
 	while (idx < size)

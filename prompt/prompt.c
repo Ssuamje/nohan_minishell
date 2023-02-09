@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:08 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/07 22:31:09 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 12:53:16 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_global	*init_global(char **envp)
 	t_global	*global;
 
 	global = malloc(sizeof(t_global));
+	if (global == NULL)
+		exit_error(ERR_MALLOC);
 	global->g_envl = map_envp_to_list(envp);
 	global->g_sigint_flag = FALSE;
 	return (global);
