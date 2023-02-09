@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 18:12:27 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/06 18:21:40 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:43:24 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,5 @@ void	sigint_default(int signo)
 void	set_sigint_to_default(void)
 {
 	signal(SIGINT, sigint_default);
+	signal(SIGQUIT, SIG_DFL);
 }
