@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:38:36 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/09 14:29:07 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:37:37 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,4 @@ void	join_tokens(t_list *tokens)
 		}
 		tmp = tmp->next;
 	}
-}
-
-int	parse_init(t_token *token, t_parser *parser)
-{
-	parser->status = token->status;
-	if (token->status == PAR_PIPE)
-		return (ERR_TRUE);
-	if (token->status == PAR_REDIRECT)
-	{
-		parser->flag_redir = get_redir_flag(token->string);
-		return (ERR_FALSE);
-	}
-	ft_lstadd_back(&(parser->argv), ft_lstnew(ft_strdup(token->string)));
-	return (ERR_FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: sanan <sanan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:26:02 by sanan             #+#    #+#             */
-/*   Updated: 2023/02/09 14:06:23 by sanan            ###   ########.fr       */
+/*   Updated: 2023/02/09 14:36:42 by sanan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	is_cmd_has_special_after_builtin(char *cmd)
 	}
 	return (FALSE);
 }
-
 
 int	is_export_syntax_error(char *cmd)
 {
